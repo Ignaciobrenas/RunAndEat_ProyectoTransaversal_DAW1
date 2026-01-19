@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run and Eat - Iniciar Sesión</title>
+    <link rel="stylesheet" href="style/styles.css">
+</head>
+
+<body class="login-body">
+    <div class="login-top">
+        <div class="login-buttons-group">
+            <a href="index.html" class="login-top-btn">INICIO</a>
+            <a href="eventos.html" class="login-top-btn">EVENTOS</a>
+            <div class="login-register-container">
+                <a href="registrer.html" class="login-top-btn">REGÍSTRATE</a>
+                <span class="login-no-account"> ¿Aún no tienes cuenta?</span>
+
+            </div>
+        </div>
+
+        <div class="user-header-right">
+            <a href="user.html"><img src="img/user.png" alt="User" class="user-header-icon"> </a>
+            <a href="index.html" class="user-logout-btn">SALIR</a>
+        </div>
+    </div>
+
+    <div class="login-content">
+        <div class="login-logo-section">
+            <img src="img/logo.png" alt="Run and Eat Logo" class="login-logo">
+        </div>
+
+        <div class="login-form-section">
+            <h2 class="login-title">INICIAR SESIÓN</h2>
+
+            <form class="login-form" method="post" action="">
+
+                <div class="login-field">
+                    <label for="email" class="login-label">Correo electrónico</label>
+                    <input type="email" id="email" name="email" class="login-input" placeholder="Correo electrónico"
+                        required>
+                </div>
+
+                <div class="login-field">
+                    <label for="password" class="login-label">Contraseña</label>
+                    <input type="password" id="password" name="password" class="login-input" placeholder="Contraseña"
+                        required>
+                </div>
+
+                <button type="submit" class="login-submit">
+                    Iniciar sesión
+                </button>
+
+                <a href="#" class="login-forgot">
+                    ¿Has olvidado la contraseña?
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

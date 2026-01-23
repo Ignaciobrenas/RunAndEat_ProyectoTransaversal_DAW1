@@ -1,9 +1,33 @@
+/*
+ * Hola, buenas.
+ *
+ * Este código ha sido desarrollado para nuestra web de gestión de eventos gastronómicos
+ * “Run and Eat”. 
+ * El objetivo principal del proyecto es ofrecer una plataforma clara,
+ * funcional y visualmente coherente basada en el Figma que anteriormente realizamos
+ *
+ * Durante el desarrollo del frontend, se ha optado por duplicar y adaptar los estilos
+ * de páginas con estructuras similares, maquetándolas de forma individual. Esta decisión
+ * se ha tomado con el fin de facilitar el control del diseño, mejorar la legibilidad del
+ * código y evitar posibles errores derivados del uso excesivo de estilos compartidos
+ * o genéricos.
+ *
+ * Como consecuencia de esta elección, el archivo CSS resultante es extenso, ya que
+ * contiene estilos específicos para cada sección y página de la aplicación. No obstante,
+ * esta estructura permite una mayor claridad, mantenimiento y personalización del diseño
+ * en futuras ampliaciones del proyecto.
+ *
+ * Autores:
+ * Ignacio Breñas
+ * Gorka Ramírez
+ */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 
 @font-face {
   font-family: 'Futura';
@@ -669,7 +693,7 @@ header {
     background: #ff8800;
 }
 
-/* FORM SECTION */
+/* FORMULARIOS  SECTION */
 .crear-form-section {
     display: flex;
     flex-direction: column;
@@ -783,7 +807,7 @@ header {
 }
 
 
-/* ========== PÁGINA DE EVENTOS (BÚSQUEDA) ========== */
+/* ========== PÁGINA DE EVENTOOOOOOOOOOS========== */
 
 .eventos-body {
     background-color: #0A192F;
@@ -792,7 +816,7 @@ header {
     margin: 0;
 }
 
-/* HEADER DE EVENTOS */
+/* HEADER DE EVENTOOOOOOOOOOOS */
 .eventos-header {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
@@ -1190,7 +1214,7 @@ header {
     align-items: center;
 }
 
-/* FORM SECTION */
+/* FORMULARIO */
 .contacto-form-section {
     display: flex;
     flex-direction: column;
@@ -1266,7 +1290,7 @@ header {
     transform: translateY(-2px);
 }
 
-/* INFO SECTION */
+/* INFOOOOO */
 .contacto-info-section {
     display: flex;
     flex-direction: column;
@@ -1329,7 +1353,7 @@ header {
     stroke-width: 1.5;
 }
 
-/* ========== PERFIL DE USUARIO (user.html) ========== */
+/* ========== PERFIL DE USUARIO ========== */
 
 .user-body {
     background-color: #0A192F;
@@ -1519,17 +1543,6 @@ header {
     display: block;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 .user-section-title {
     margin-bottom: 2rem;
 }
@@ -1621,6 +1634,9 @@ header {
     background: #ff8800;
     transform: translateY(-2px);
 }
+
+
+
 
 /* EVENTOS */
 .user-events-container {
@@ -2042,7 +2058,9 @@ header {
     transform: translateY(-2px);
 }
 
-/* TOP RIGHT HEADER */
+
+
+/* CABECERAAAAA IZQUIERDA */
 .dashboard-top-right {
     position: fixed;
     top: 1.5rem;
@@ -2075,7 +2093,7 @@ header {
     transform: translateY(-3px);
 }
 
-/* ========== DASHBOARD ========== */
+/* ========== DASHBOAAAAAAAAAAAAAAARD ========== */
 
 .dashboard-body {
     background-color: #0A192F;
@@ -2096,7 +2114,7 @@ header {
     position: relative;
 }
 
-/* SIDEBAR */
+/* BARRA LATERAL */
 .dashboard-sidebar {
     grid-column: 1;
     grid-row: 1 / 3;
@@ -2136,7 +2154,7 @@ header {
     cursor: pointer;
 }
 
-/* CATEGORY FILTERS */
+/* FILTROS EN LA CATEGORIAAAA DEL EVENTO */
 .dashboard-category-filters {
     display: flex;
     flex-direction: column;
@@ -2162,7 +2180,7 @@ header {
     border-color: #FFA208;
 }
 
-/* PRICE SECTION */
+/* PRECIOS*/
 .dashboard-price-section {
     display: flex;
     flex-direction: column;
@@ -2268,7 +2286,7 @@ header {
     background: rgba(255, 162, 8, 0.1);
 }
 
-/* EVENTS GRID */
+/* EVENTOOOOOOS GRID */
 .dashboard-events {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -2367,7 +2385,7 @@ header {
     background: #ff8800;
     transform: translateY(-3px);
     
-}/* ========== PAGINACIÓN DASHBOARD (SIN JS) ========== */
+}/* ========== PAGINACIÓN ========== */
 
 .dashboard-pagination {
     display: flex;

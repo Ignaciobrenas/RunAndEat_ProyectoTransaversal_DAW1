@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run and Eat - Evento</title>
+    <link rel="stylesheet" href="style/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+</head>
+
+<body class="evento-body">
+
+    <header class="evento-header">
+        <div class="evento-header-left">
+            <a href="index.html">
+                <img src="img/logo.png" alt="Run and Eat Logo" class="evento-logo">
+            </a>
+        </div>
+
+        <div class="evento-header-center">
+            <h1 class="evento-title">EVENTO</h1>
+        </div>
+
+        <div class="evento-header-right">
+            <img src="img/user.png" alt="User" class="user-header-icon">
+            <a href="index.html" class="user-logout-btn">SALIR</a>
+        </div>
+    </header>
+
+    <main class="evento-main-content">
+
+        <!-- SECCIÓN PRINCIPAL DEL EVENTO -->
+        <section class="evento-hero-section">
+            <div class="evento-hero-image">
+                <img src="img/user.png" alt="Foto del evento" class="evento-featured-image">
+            </div>
+
+            <div class="evento-hero-info">
+                <div class="evento-header-info">
+                    <h2 class="evento-nombre">Festival de Comida Rápida Saludable</h2>
+                    <div class="evento-rating-section">
+                        <span class="evento-stars">★★★★☆</span>
+                        <span class="evento-rating-count">(234 reseñas)</span>
+                    </div>
+                </div>
+
+                <div class="evento-details-grid">
+                    <div class="evento-detail-item">
+                        <span class="evento-detail-icon"></span>
+                        <div class="evento-detail-text">
+                            <p class="evento-detail-label">Ubicación</p>
+                            <p class="evento-detail-value">Barcelona, Parque Güell</p>
+                        </div>
+                    </div>
+
+                    <div class="evento-detail-item">
+                        <span class="evento-detail-icon"></span>
+                        <div class="evento-detail-text">
+                            <p class="evento-detail-label">Fecha</p>
+                            <p class="evento-detail-value">15 de Febrero, 2025</p>
+                        </div>
+                    </div>
+
+                    <div class="evento-detail-item">
+                        <span class="evento-detail-icon"></span>
+                        <div class="evento-detail-text">
+                            <p class="evento-detail-label">Hora</p>
+                            <p class="evento-detail-value">10:00 AM - 6:00 PM</p>
+                        </div>
+                    </div>
+
+                    <div class="evento-detail-item">
+                        <span class="evento-detail-icon"></span>
+                        <div class="evento-detail-text">
+                            <p class="evento-detail-label">Precio</p>
+                            <p class="evento-detail-value">$25 - $50</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="evento-actions">
+                    <button class="evento-btn-primary">Apuntarse al Evento</button>
+                    <button class="evento-btn-secondary">Compartir</button>
+                </div>
+
+                <div class="evento-tags">
+                    <span class="evento-tag">Comida Rápida Saludable</span>
+                    <span class="evento-tag">Vegana</span>
+                    <span class="evento-tag">Proteína</span>
+                </div>
+
+            </div>
+        </section>
+
+        
+        <section class="evento-description-section">
+            <div class="evento-section-container">
+                <div class="evento-description-content">
+                    <h3 class="evento-section-title">Descripción del Evento</h3>
+                    <p class="evento-description-text">
+                        Únete al Festival de Comida Rápida Saludable, el evento más esperado del año donde convergen profesionales de la gastronomía saludable y amantes del deporte. 
+                        Descubre las mejores opciones de comida rápida con ingredientes de calidad, proteínas naturales y opciones veganas.
+                    </p>
+                    <p class="evento-description-text">
+                        Durante el evento podrás disfrutar de degustaciones de diferentes platos, participar en talleres de nutrición con expertos, y conocer los mejores restaurantes 
+                        y food trucks especializados en comida saludable. Es el lugar perfecto para corredores, deportistas y cualquier persona interesada en mantener un estilo de vida saludable.
+                    </p>
+
+                    <h3 class="evento-section-title">¿Qué Incluye?</h3>
+                    <ul class="evento-includes-list">
+                        <li>✓ Acceso a 15+ puestos de comida saludable</li>
+                        <li>✓ Degustaciones gratuitas de diferentes platos</li>
+                        <li>✓ Taller de nutrición con expertos (1 hora)</li>
+                        <li>✓ Zona de descanso y recreación</li>
+                        <li>✓ Estacionamiento gratuito</li>
+                        <li>✓ Ambiente seguro y familiarizado</li>
+                    </ul>
+
+                    <h3 class="evento-section-title">Información del Organizador</h3>
+                    <div class="evento-organizer">
+                        <img src="img/user.png" alt="Organizador" class="evento-organizer-photo">
+                        <div class="evento-organizer-info">
+                            <p class="evento-organizer-name">Run & Eat Events</p>
+                            <p class="evento-organizer-description">Organización especializada en eventos gastronómicos y deportivos desde hace 5 años.</p>
+                            <a href="contacto.html" class="evento-organizer-contact">Contactar Organizador</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN DEL MAPA -->
+                <div class="evento-map-section">
+                    <h3 class="evento-section-title">Ubicación</h3>
+                    <div id="evento-map" class="evento-map-container"></div>
+                    <div class="evento-map-info">
+                        <p class="evento-map-address"> Parque Güell, Barcelona, Catalunya, 08024</p>
+                        <a href="#" class="evento-map-directions">Ver direcciones completas</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="evento-similar-section">
+            <div class="evento-section-container">
+                <h3 class="evento-section-title evento-similar-title">Eventos Similares</h3>
+
+                <div class="evento-similar-card">
+                        <div class="evento-similar-image"></div>
+                        <div class="evento-similar-content">
+                            <h4 class="evento-similar-name">Cata de Vinos y  Quesos</h4>
+                            <p class="evento-similar-date">28 de Febrero, 2026</p>
+                            <p class="evento-similar-location">Barrio Gótico</p>
+                            <div class="evento-similar-rating">★★★★★</div>
+                            <button class="evento-similar-btn" onclick="window.location.href='evento.html'">Ver Evento</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE RESEÑAS -->
+        <section class="evento-reviews-section">
+            <div class="evento-section-container">
+                <h3 class="evento-section-title">Reseñas (234)</h3>
+
+                <div class="evento-reviews-stats">
+                    <div class="evento-review-stat">
+                        <p class="evento-review-stat-value">4.5</p>
+                        <p class="evento-review-stat-label">de 5 estrellas</p>
+                        <div class="evento-review-stat-stars">★★★★☆</div>
+                    </div>
+
+                    <div class="evento-review-bars">
+                        <div class="evento-review-bar-item">
+                            <span class="evento-review-bar-label">5 ★</span>
+                            <div class="evento-review-bar">
+                                <div class="evento-review-bar-fill" style="width: 60%;"></div>
+                            </div>
+                            <span class="evento-review-bar-count">142</span>
+                        </div>
+
+                        <div class="evento-review-bar-item">
+                            <span class="evento-review-bar-label">4 ★</span>
+                            <div class="evento-review-bar">
+                                <div class="evento-review-bar-fill" style="width: 25%;"></div>
+                            </div>
+                            <span class="evento-review-bar-count">59</span>
+                        </div>
+
+                        <div class="evento-review-bar-item">
+                            <span class="evento-review-bar-label">3 ★</span>
+                            <div class="evento-review-bar">
+                                <div class="evento-review-bar-fill" style="width: 10%;"></div>
+                            </div>
+                            <span class="evento-review-bar-count">24</span>
+                        </div>
+
+                        <div class="evento-review-bar-item">
+                            <span class="evento-review-bar-label">2 ★</span>
+                            <div class="evento-review-bar">
+                                <div class="evento-review-bar-fill" style="width: 3%;"></div>
+                            </div>
+                            <span class="evento-review-bar-count">7</span>
+                        </div>
+
+                        <div class="evento-review-bar-item">
+                            <span class="evento-review-bar-label">1 ★</span>
+                            <div class="evento-review-bar">
+                                <div class="evento-review-bar-fill" style="width: 2%;"></div>
+                            </div>
+                            <span class="evento-review-bar-count">2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="evento-reviews-list">
+                    <div class="evento-review-card">
+                        <div class="evento-review-header">
+                            <img src="img/user.png" alt="Usuario" class="evento-review-avatar">
+                            <div class="evento-review-user-info">
+                                <p class="evento-review-name">Carlos Rodríguez</p>
+                                <p class="evento-review-date">Hace 3 días</p>
+                            </div>
+                            <div class="evento-review-rating">★★★★★</div>
+                        </div>
+                        <p class="evento-review-text">Excelente evento, muy bien organizado. La variedad de comida saludable fue increíble y los vendedores muy atentos. Definitivamente vuelvo a los próximos eventos.</p>
+                    </div>
+
+                    
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Inicializar mapa con Leaflet CODIGO COPIADO DE INTERNET 
+        const map = L.map('evento-map').setView([41.3851, 2.1734], 15);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Marcador del evento
+        const marker = L.marker([41.3851, 2.1734]).addTo(map);
+        marker.bindPopup('<b>Festival de Comida Rápida Saludable</b><br>Parque Güell, Barcelona');
+    </script>
+
+</body>
+
+</html>

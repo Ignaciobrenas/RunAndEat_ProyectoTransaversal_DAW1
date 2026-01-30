@@ -1,4 +1,5 @@
 # 🏃 Run & Eat - Plataforma de Eventos Gastronómicos
+runandeat.vercel.app
 
 Una plataforma moderna y responsiva para descubrir y crear eventos gastronómicos únicos. Perfecta para corredores y amantes de la buena comida que buscan experiencias culinarias cercanas a su ubicación.
 

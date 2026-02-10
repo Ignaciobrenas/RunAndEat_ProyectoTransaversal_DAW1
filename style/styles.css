@@ -3402,3 +3402,347 @@ header {
         font-size: 0.75rem;
     }
 }
+
+
+@media (max-width: 768px) {
+ 
+    /* BASE */
+
+    body {
+
+        padding: 12px;
+
+        font-size: 16px;
+
+    }
+ 
+    main,
+
+    .container {
+
+        width: 100%;
+
+        padding: 0;
+
+    }
+ 
+    /* ================= HEADER ================= */
+ 
+    header {
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 12px;
+
+        text-align: center;
+
+    }
+ 
+    .logo-text {
+
+        height: 38px;
+
+    }
+ 
+    /* NAV TIPO APP */
+
+    .nav-buttons {
+
+        width: 100%;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 10px;
+
+    }
+ 
+    .btn-nav {
+
+        width: 100%;
+
+        padding: 14px;
+
+        font-size: 16px;
+
+        border-radius: 12px;
+
+    }
+ 
+    /* ================= SECCIONES ================= */
+ 
+    section {
+
+        margin-bottom: 25px;
+
+    }
+ 
+    h1 {
+
+        font-size: 1.6rem;
+
+        text-align: center;
+
+    }
+ 
+    h2 {
+
+        font-size: 1.3rem;
+
+    }
+ 
+    /* ================= FORMULARIOS ================= */
+ 
+    form {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 12px;
+
+    }
+ 
+    label {
+
+        font-size: 14px;
+
+        margin-bottom: 4px;
+
+    }
+ 
+    input,
+
+    select,
+
+    textarea {
+
+        width: 100%;
+
+        padding: 14px;
+
+        font-size: 16px;
+
+        border-radius: 10px;
+
+    }
+ 
+    button {
+
+        width: 100%;
+
+        padding: 14px;
+
+        font-size: 16px;
+
+        border-radius: 12px;
+
+    }
+ 
+    /* ================= DASHBOARD ================= */
+ 
+    .dashboard-container {
+
+        display: flex;
+
+        flex-direction: column;
+
+    }
+ 
+    .dashboard-sidebar {
+
+        grid-column: 1;
+
+        grid-row: 1;
+
+        border-right: none;
+
+        border-bottom: 1px solid rgba(255, 162, 8, 0.2);
+
+        padding: 1.5rem;
+
+    }
+ 
+    .dashboard-main {
+
+        grid-column: 1;
+
+        grid-row: 2;
+
+        padding: 1.5rem;
+
+    }
+ 
+    .dashboard-events {
+
+        grid-template-columns: repeat(1, 1fr);
+
+    }
+ 
+    /* CABECERAAAAA IZQUIERDA */
+
+    .dashboard-top-right {
+
+        position: static;
+
+        flex-direction: row-reverse;
+
+        justify-content: center;
+
+    }
+ 
+    /* ================= CONTACTO ================= */
+
+    .contacto-body {
+
+        padding: 0;
+
+    }
+ 
+    .contacto-header {
+
+        grid-template-columns: 1fr;
+
+        padding: 1.5rem;
+
+        gap: 1rem;
+
+    }
+ 
+    .contacto-header-left {
+
+        justify-content: left;
+
+    }
+ 
+    .contacto-header-center,
+
+    .contacto-header-right,
+
+    .contacto-header-left {
+
+        justify-content: center;
+
+    }
+ 
+ 
+    .contacto-logo {
+
+        width: 80px;
+
+    }
+ 
+    .contacto-title {
+
+        font-size: 2rem;
+
+        letter-spacing: 1px;
+
+    }
+ 
+    .contacto-main-content {
+
+        padding: 1.5rem;
+
+    }
+ 
+    .contacto-content-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 2rem;
+
+    }
+ 
+    .contacto-form-section {
+
+        gap: 1rem;
+
+    }
+ 
+    .contacto-form-title {
+
+        font-size: 1.5rem;
+
+    }
+ 
+    .contacto-form {
+
+        gap: 1rem;
+
+    }
+ 
+    .contacto-form-input,
+
+    .contacto-form-textarea {
+
+        width: 100%;
+
+        padding: 12px;
+
+        font-size: 16px;
+
+        border-radius: 8px;
+
+    }
+ 
+    .contacto-btn-submit {
+
+        width: 100%;
+
+        padding: 12px;
+
+        font-size: 14px;
+
+    }
+ 
+    .contacto-info-section {
+
+        gap: 2rem;
+
+    }
+ 
+    .contacto-info-title {
+
+        font-size: 1.8rem;
+
+    }
+ 
+    .contacto-info-slogan {
+
+        font-size: 1.3rem;
+
+    }
+ 
+    .contacto-social-icons {
+
+        gap: 1rem;
+
+        flex-wrap: wrap;
+
+    }
+ 
+    .contacto-social-link {
+
+        width: 60px;
+
+        height: 60px;
+
+    }
+ 
+    .contacto-social-icon {
+
+        width: 30px;
+
+        height: 30px;
+
+    }
+
+}
+
+ 

@@ -2,69 +2,167 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Run and Eat - Eventos Gastronómicos</title>
-    <link rel="stylesheet" href="style/styles.css" />
-    <link rel="icon" href="img/logo.png" type="image/png">
-    <link rel="apple-touch-icon" href="img/logo.png">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run & Eat - Eventos Gastronómicos</title>
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="stylesheet" href="style/styles.css">
 </head>
 
 <body>
     <header>
-        <div class="header-left">
-            <a href="index.html">
-                <img src="img/run.png" alt="RUN & EAT" class="logo-text" />
-            </a>
-
-            <nav class="nav-buttons">
-                <a href="dashboard.html" class="btn-nav">EVENTOS</a>
-                <a href="contacto.html " class="btn-nav">CONTACTO</a>
-            </nav>
-        </div>
-
-        <div class="header-center">
-            <a href="index.html">
-                <img src="img/logo.png" alt="Run and Eat Logo" class="logo-burger" />
-            </a>
-        </div>
-
-        <div class="header-right">
-            <a href="registrer.html " class="btn-registro">REGISTRO</a>
-            <a href="login.html" class="btn-iniciar">INICIAR SESIÓN</a>
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="img/logo.png" alt="Run & Eat" onclick="location.href='index.html'">
+                <div class="nav-left">
+                    <button onclick="location.href='index.html'">Eventos</button>
+                    <button onclick="location.href='contacto.html'">Contacto</button>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="crear-evento.html" class="organizer-link">¿Eres organizador?</a>
+                <button class="btn-registro" onclick="location.href='registro.html'">REGISTRO</button>
+                <button class="btn-login" onclick="location.href='login.html'">INICIAR SESIÓN</button>
+            </div>
         </div>
     </header>
 
-    <div class="organizer-section">
-        <a href="crear.html" class="organizer-link">Eres organizador?</a>
-        <a href="crear.html" class="btn-crear">Crear evento</a>
-    </div>
-
-    <div class="search-section">
-        <div class="search-container">
-            <span class="icon-location"> </span>
-            <input type="text" class="search-input" placeholder="Barcelona" />
-            <span class="icon-filter"> </span>
-        </div>
-    </div>
-
-    <main class="events-container">
-        <div class="event-card">
-            <div class="event-image"></div>
-            <div class="event-content">
-                <h3 class="titulo-evento">Evento 1</h3>
-                <p class="descripcion-evento">
-                    Local con hamburguesas artesanas y opciones veganas.
-                    Buena música y precios razonables.
-                    Usar Run and Eat me ayudó a decidirme y reservar
-                    sin complicaciones.
-                </p>
-                <div class="VALORACION">⭐⭐⭐⭐☆</div>
-                <a href="evento.html" class="btn-event">Ver evento</a>
+    <main>
+        <section class="search-section">
+            <div class="search-container search-dropdown">
+                <div class="location-icon">Buscar</div>
+                <input type="text" class="search-input" placeholder="Barcelona" autocomplete="off">
+                <button class="filter-icon">⚙</button>
+                <!-- El dropdown se genera dinámicamente con JavaScript -->
             </div>
-        </div>
+        </section>
+
+        <section class="eventos-container">
+            <div class="eventos-grid">
+
+                <div class="evento-card">
+                    <div class="evento-image">
+                        <img src="img/user.png" alt="Evento 1">
+                    </div>
+                    <div class="evento-content">
+                        <h3 class="evento-title">Burger Run Barcelona</h3>
+                        <p class="evento-description">Local con hamburguesas artesanas y opciones veganas. Buena música
+                            y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.
+                        </p>
+                        <div class="evento-stars">★★★★★</div>
+                        <button class="evento-button" onclick="location.href='evento.html'">Ver Detalles</button>
+                    </div>
+                </div>
+
+                <div class="evento-card">
+                    <div class="evento-image">
+                        <img src="img/user.png" alt="Evento 1">
+                    </div>
+                    <div class="evento-content">
+                        <h3 class="evento-title">Burger Run Barcelona</h3>
+                        <p class="evento-description">Local con hamburguesas artesanas y opciones veganas. Buena música
+                            y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.
+                        </p>
+                        <div class="evento-stars">★★★★★</div>
+                        <button class="evento-button" onclick="location.href='evento.html'">Ver Detalles</button>
+                    </div>
+                </div>
+                <div class="evento-card">
+                    <div class="evento-image">
+                        <img src="img/user.png" alt="Evento 1">
+                    </div>
+                    <div class="evento-content">
+                        <h3 class="evento-title">Burger Run Barcelona</h3>
+                        <p class="evento-description">Local con hamburguesas artesanas y opciones veganas. Buena música
+                            y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.
+                        </p>
+                        <div class="evento-stars">★★★★★</div>
+                        <button class="evento-button" onclick="location.href='evento.html'">Ver Detalles</button>
+                    </div>
+                </div>
+                <div class="evento-card">
+                    <div class="evento-image">
+                        <img src="img/user.png" alt="Evento 1">
+                    </div>
+                    <div class="evento-content">
+                        <h3 class="evento-title">Burger Run Barcelona</h3>
+                        <p class="evento-description">Local con hamburguesas artesanas y opciones veganas. Buena música
+                            y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.
+                        </p>
+                        <div class="evento-stars">★★★★★</div>
+                        <button class="evento-button" onclick="location.href='evento.html'">Ver Detalles</button>
+                    </div>
+                </div>
+
+                <div class="evento-card">
+                    <div class="evento-image">
+                        <img src="img/user.png" alt="Evento 1">
+                    </div>
+                    <div class="evento-content">
+                        <h3 class="evento-title">Burger Run Barcelona</h3>
+                        <p class="evento-description">Local con hamburguesas artesanas y opciones veganas. Buena música
+                            y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.
+                        </p>
+                        <div class="evento-stars">★★★★★</div>
+                        <button class="evento-button" onclick="location.href='evento.html'">Ver Detalles</button>
+                    </div>
+                </div>
+                <div class="evento-card">
+                    <div class="evento-image">
+                        <img src="img/user.png" alt="Evento 1">
+                    </div>
+                    <div class="evento-content">
+                        <h3 class="evento-title">Burger Run Barcelona</h3>
+                        <p class="evento-description">Local con hamburguesas artesanas y opciones veganas. Buena música
+                            y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.
+                        </p>
+                        <div class="evento-stars">★★★★★</div>
+                        <button class="evento-button" onclick="location.href='evento.html'">Ver Detalles</button>
+                    </div>
+                </div>
+                <div class="evento-card">
+                    <div class="evento-image">
+                        <img src="img/user.png" alt="Evento 1">
+                    </div>
+                    <div class="evento-content">
+                        <h3 class="evento-title">Burger Run Barcelona</h3>
+                        <p class="evento-description">Local con hamburguesas artesanas y opciones veganas. Buena música
+                            y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.
+                        </p>
+                        <div class="evento-stars">★★★★★</div>
+                        <button class="evento-button" onclick="location.href='evento.html'">Ver Detalles</button>
+                    </div>
+                </div>
+                <div class="evento-card">
+                    <div class="evento-image">
+                        <img src="img/user.png" alt="Evento 1">
+                    </div>
+                    <div class="evento-content">
+                        <h3 class="evento-title">Burger Run Barcelona</h3>
+                        <p class="evento-description">Local con hamburguesas artesanas y opciones veganas. Buena música
+                            y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.
+                        </p>
+                        <div class="evento-stars">★★★★★</div>
+                        <button class="evento-button" onclick="location.href='evento.html'">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paginación -->
+            <div class="pagination">
+                <button disabled>&lt;</button>
+                <span class="page-number">1</span>
+                <span class="page-info">de 5</span>
+                <button>&gt;</button>
+            </div>
+        </section>
     </main>
+
+    <footer>
+        <p>&copy; 2026 Run & Eat. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 
 </html>

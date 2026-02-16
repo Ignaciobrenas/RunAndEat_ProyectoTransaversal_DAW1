@@ -1,69 +1,60 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Run and Eat - Iniciar Sesión</title>
-   <link rel="stylesheet" href="style/styles.css">
-    <link rel="icon" href="img/logo.png" type="image/png">
-    <link rel="apple-touch-icon" href="img/logo.png">
-
+    <title>Iniciar Sesión - Run & Eat</title>
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="stylesheet" href="style/styles.css">
 </head>
-
-<body class="login-body">
-    <div class="login-top">
-        <div class="login-buttons-group">
-            <a href="index.html" class="login-top-btn">INICIO</a>
-            <a href="dashboard.html" class="login-top-btn">EVENTOS</a>
-            <div class="login-register-container">
-                <a href="registrer.html" class="login-top-btn">REGÍSTRATE</a>
-                <span class="login-no-account"> ¿Aún no tienes cuenta?</span>
-
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="img/logo.png" alt="Run & Eat" onclick="location.href='index.html'">
+                <div class="nav-left">
+                    <button onclick="location.href='index.html'">Eventos</button>
+                    <button onclick="location.href='contacto.html'">Contacto</button>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="crear-evento.html" class="organizer-link">¿Eres organizador?</a>
+                <button class="btn-registro" onclick="location.href='registro.html'">REGISTRO</button>
             </div>
         </div>
+    </header>
 
-        <div class="user-header-right">
-            <a href="user.html"><img src="img/user.png" alt="User" class="user-header-icon"> </a>
-          
-        </div>
-    </div>
+    <main>
+        <div class="auth-container">
+            <div class="auth-form">
+                <h2>Iniciar Sesión</h2>
+                <p>Accede a tu cuenta de Run & Eat</p>
+                
+                <form method="POST" action="">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Correo Electronico" required>
+                    </div>
 
-    <div class="login-content">
-        <div class="login-logo-section">
-            <img src="img/logo.png" alt="Run and Eat Logo" class="login-logo">
-        </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    </div>
 
-        <div class="login-form-section">
-            <h2 class="login-title">INICIAR SESIÓN</h2>
+                    <button type="submit" class="btn-submit">Iniciar Sesión</button>
+                </form>
 
-            <form class="login-form" method="post" action="">
-
-                <div class="login-field">
-                    <label for="email" class="login-label">Correo electrónico</label>
-                    <input type="email" id="email" name="email" class="login-input" placeholder="Correo electrónico"
-                        required>
+                <div class="auth-footer">
+                    ¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a>
                 </div>
-
-                <div class="login-field">
-                    <label for="password" class="login-label">Contraseña</label>
-                    <input type="password" id="password" name="password" class="login-input" placeholder="Contraseña"
-                        required>
-                </div>
-
-                <button type="submit" class="login-submit">
-                    Iniciar sesión
-                </button>
-
-                <a href="#" class="login-forgot">
-                    ¿Has olvidado la contraseña?
-                </a>
-
-            </form>
-
+            </div>
         </div>
-    </div>
+    </main>
 
+    <footer>
+        <p>&copy; 2026 Run & Eat. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
-
 </html>

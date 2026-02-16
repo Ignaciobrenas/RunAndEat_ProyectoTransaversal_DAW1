@@ -1,110 +1,77 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Run and Eat - Contacto</title>
-   <link rel="stylesheet" href="style/styles.css">
-    <link rel="icon" href="img/logo.png" type="image/png">
-    <link rel="apple-touch-icon" href="img/logo.png">
-
+    <title>Run & Eat - Contacto</title>
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="stylesheet" href="style/styles.css">
 </head>
-
-<body class="contacto-body">
-
-    <header class="contacto-header">
-        <div class="contacto-header-left">
-            <a href="index.html">
-                <img src="img/logo.png" alt="Run and Eat Logo" class="contacto-logo">
-            </a>
-        </div>
-
-        <div class="contacto-header-center">
-            <h1 class="contacto-title">CONTACTO</h1>
-        </div>
-
-        <div class="contacto-header-right">
-            <img src="img/user.png" alt="User" class="user-header-icon">
-           
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="img/logo.png" alt="Run & Eat" onclick="location.href='index.html'">
+                <div class="nav-left">
+                    <button onclick="location.href='index.html'">Eventos</button>
+                    <button onclick="location.href='contacto.html'">Contacto</button>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="crear-evento.html" class="organizer-link">¿Eres organizador?</a>
+                <button class="btn-registro" onclick="location.href='registro.html'">REGISTRO</button>
+                <button class="btn-login" onclick="location.href='login.html'">INICIAR SESIÓN</button>
+            </div>
         </div>
     </header>
 
-    <main class="contacto-main-content">
-        <div class="contacto-content-grid">
+    <main>
+        <div class="contact-container">
+            <div class="contact-form">
+                <h2>Contáctanos</h2>
+                <p>¿Tienes alguna pregunta o sugerencia? Estamos aquí para ayudarte</p>
+                
+                <form method="POST" action="">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Nombre Completo" required>
+                        </div>
 
-            <div class="contacto-form-section">
-                <h2 class="contacto-form-title">Contáctanos</h2>
-
-                <form class="contacto-form" method="post" action="">
-
-                    <div class="contacto-form-field">
-                        <label for="nombre" class="contacto-form-label">Nombre</label>
-                        <input type="text" id="nombre" name="nombre" class="contacto-form-input" placeholder="Nombre"
-                            required>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Correo Electronico" required>
+                        </div>
                     </div>
 
-                    <div class="contacto-form-field">
-                        <label for="email" class="contacto-form-label">Correo electrónico</label>
-                        <input type="email" id="email" name="email" class="contacto-form-input"
-                            placeholder="Correo electrónico" required>
+                    <div class="form-group">
+                        <label for="asunto">Asunto</label>
+                        <select id="asunto" name="asunto" required>
+                            <option value="">Selecciona un asunto</option>
+                            <option value="consulta-general">Consulta General</option>
+                            <option value="soporte-tecnico">Soporte Técnico</option>
+                            <option value="evento">Consulta sobre evento</option>
+                            <option value="organizador">Quiero ser Organizador</option>
+                            <option value="sugerencia">Sugerencia</option>
+                            <option value="otro">Otro</option>
+                        </select>
                     </div>
 
-                    <div class="contacto-form-field">
-                        <label for="asunto" class="contacto-form-label">Asunto</label>
-                        <input type="text" id="asunto" name="asunto" class="contacto-form-input" placeholder="Asunto"
-                            required>
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje</label>
+                        <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje aquí..." required></textarea>
                     </div>
 
-                    <div class="contacto-form-field">
-                        <label for="mensaje" class="contacto-form-label">Mensaje</label>
-                        <textarea id="mensaje" name="mensaje" class="contacto-form-input contacto-form-textarea"
-                            placeholder="Mensaje" required></textarea>
-                    </div>
-
-                    <button type="submit" class="contacto-btn-submit">
-                        Enviar
-                    </button>
-
+                    <button type="submit" class="btn-submit">Enviar Mensaje</button>
                 </form>
-
             </div>
-
-            <div class="contacto-info-section">
-                <div class="contacto-info-text">
-                    <img src="img/run.png" alt="RUN & EAT" class="logo-text" />
-                    <p class="contacto-info-slogan">"Corre. Come. Repite"</p>
-                </div>
-
-                <div class="contacto-social-icons">
-                    <a href="#" class="contacto-social-link" aria-label="Twitter">
-                        <svg viewBox="0 0 24 24" class="contacto-social-icon">
-                            <path
-                                d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 9-7 9-7z" />
-                        </svg>
-                    </a>
-                    <a href="#" class="contacto-social-link" aria-label="YouTube">
-                        <svg viewBox="0 0 24 24" class="contacto-social-icon">
-                            <path
-                                d="M22.54 6.42c-.25-1.4-1.41-2.5-2.77-2.77C17.16 3 12 3 12 3s-5.16 0-7.77.65C2.87 3.92 1.71 5.02 1.46 6.42 1 8.99 1 12 1 12s0 3.01.46 5.58c.25 1.4 1.41 2.5 2.77 2.77C6.84 21 12 21 12 21s5.16 0 7.77-.65c1.36-.27 2.52-1.37 2.77-2.77.46-2.57.46-5.58.46-5.58s0-3.01-.46-5.58z" />
-                        </svg>
-                    </a>
-                    <a href="#" class="contacto-social-link" aria-label="Instagram">
-                        <svg viewBox="0 0 24 24" class="contacto-social-icon">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor"
-                                stroke-width="2" />
-                            <path d="M12 16a4 4 0 100-8 4 4 0 000 8z" fill="none" stroke="currentColor"
-                                stroke-width="2" />
-                            <circle cx="18.5" cy="5.5" r="1.5" fill="currentColor" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-
         </div>
     </main>
 
+    <footer>
+        <p>&copy; 2026 Run & Eat. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
-
-
 </html>

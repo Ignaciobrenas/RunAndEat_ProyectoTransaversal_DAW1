@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Run & Eat</title>
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="stylesheet" href="style/styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="img/logo.png" alt="Run & Eat" onclick="location.href='index.html'">
+                <div class="nav-left">
+                    <button onclick="location.href='index.html'">Eventos</button>
+                    <button onclick="location.href='contacto.html'">Contacto</button>
+                </div>
+            </div>
+            <div class="nav-right">
+                <button class="btn-registro" onclick="location.href='perfil.html'">MI PERFIL</button>
+                <button class="btn-login" onclick="location.href='index.html'">CERRAR SESIÓN</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="perfil-container">
+            <!-- Header del Perfil -->
+            <div class="perfil-header">
+                <div class="perfil-top">
+                    <div class="perfil-image-container">
+                        <img src="img/user.png" alt="Foto de perfil" class="perfil-image">
+                        <button class="change-photo-btn">Cambiar</button>
+                    </div>
+                    <div class="perfil-info">
+                        <h2>Nombre</h2>
+                        <p>EMAIL</p>
+                        <p>Miembro desde: Enero 2026</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="perfil-sections">
+
+                <div class="perfil-section">
+                    <h3>Información Personal</h3>
+                    <form method="POST" action="">
+                        <div class="form-group">
+                            <label for="nombre">Nombre Completo</label>
+                            <input type="text" id="nombre" name="nombre" value="Nombre Completo">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" value="Correo Electronico">
+                        </div>
+                        <button type="submit" class="btn-submit">Guardar Cambios</button>
+                    </form>
+                </div>
+
+                <!-- Cambiar Contraseña -->
+                <div class="perfil-section">
+                    <h3>Cambiar Contraseña</h3>
+                    <form method="POST" action="">
+                        <div class="form-group">
+                            <label for="current-password">Contraseña Actual</label>
+                            <input type="password" id="current-password" name="current-password" placeholder="••••••••">
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">Nueva Contraseña</label>
+                            <input type="password" id="new-password" name="new-password" placeholder="••••••••" minlength="8">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-new-password">Confirmar Nueva Contraseña</label>
+                            <input type="password" id="confirm-new-password" name="confirm-new-password" placeholder="••••••••" minlength="8">
+                        </div>
+                        <button type="submit" class="btn-submit">Actualizar Contraseña</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Mis Eventos -->
+            <div class="perfil-section" style="margin-top: 30px;">
+                <h3>Mis Eventos</h3>
+                <div class="my-eventos-list">
+                    <div class="evento-item" onclick="location.href='evento.html'" style="cursor: pointer;">
+                        <div class="evento-item-info">
+                            <h4>Burger Run Barcelona</h4>
+                            <p>Local con hamburguesas artesanas y opciones veganas</p>
+                        </div>
+                        <div class="evento-item-fecha">15 Mar 2024</div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Run & Eat. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

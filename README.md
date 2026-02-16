@@ -1,304 +1,455 @@
-# 🏃 Run & Eat - Plataforma de Eventos Gastronómicos
-runandeat.vercel.app
+# Run & Eat
 
-Una plataforma moderna y responsiva para descubrir y crear eventos gastronómicos únicos. Perfecta para corredores y amantes de la buena comida que buscan experiencias culinarias cercanas a su ubicación.
+**La plataforma que une deporte y gastronomia**
 
----
+[![Website](https://img.shields.io/badge/Website-runandeat.vercel.app-orange?style=for-the-badge)](https://runandeat.vercel.app)
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-## 📋 Descripción del Proyecto
-
-**Run & Eat** es una aplicación web completa que conecta a organizadores de eventos gastronómicos con usuarios interesados en descubrir nuevas experiencias culinarias. La plataforma ofrece un sistema integral de búsqueda, filtrado, registro y gestión de eventos.
-
-### Características Principales
-
-- 🔍 **Búsqueda de Eventos** - Busca eventos gastronómicos por ubicación
-- 🎯 **Filtros Avanzados** - Filtra por categoría, precio y tipo de cocina
-- 📝 **Creación de Eventos** - Los organizadores pueden crear y publicar nuevos eventos
-- 👤 **Perfil de Usuario** - Sistema completo de gestión de perfil y eventos favoritos
-- 🔐 **Autenticación** - Registro e inicio de sesión de usuarios
-- ⭐ **Valoraciones** - Sistema de calificación de eventos
-- 📱 **Diseño Responsivo** - Compatible con dispositivos móviles y de escritorio
+[Demo en vivo](https://runandeat.vercel.app) • [Reportar Bug](https://github.com/tuusuario/run-and-eat/issues) • [Solicitar Feature](https://github.com/tuusuario/run-and-eat/issues)
 
 ---
 
-## 🗂️ Estructura del Proyecto
+## Tabla de Contenidos
 
+- [Acerca del Proyecto](#acerca-del-proyecto)
+- [Caracteristicas](#caracteristicas)
+- [Capturas de Pantalla](#capturas-de-pantalla)
+- [Tecnologias](#tecnologias)
+- [Comenzando](#comenzando)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Uso](#uso)
+- [Roadmap](#roadmap)
+- [Contribuir](#contribuir)
+- [Licencia](#licencia)
+- [Contacto](#contacto)
+
+---
+
+## Acerca del Proyecto
+
+**Run & Eat** es una plataforma web moderna que revoluciona la forma en que los amantes del deporte y la gastronomia descubren eventos unicos. Conectamos corredores con experiencias culinarias excepcionales, creando una comunidad vibrante donde el ejercicio y la buena comida se encuentran.
+
+### Por que Run & Eat?
+
+- **Combina pasion**: Une dos mundos aparentemente diferentes en experiencias memorables
+- **Descubre eventos locales**: Encuentra experiencias gastronomicas cerca de ti
+- **Construye comunidad**: Conoce personas con intereses similares
+- **Accesible**: Diseno responsive que funciona en todos tus dispositivos
+- **Sistema de valoraciones**: Decisiones informadas basadas en experiencias reales
+
+---
+
+## Caracteristicas
+
+### Para Usuarios
+
+| Caracteristica | Descripcion |
+|:--------------|:------------|
+| Busqueda avanzada | Filtra eventos por ubicacion, categoria y precio |
+| Perfil personalizado | Gestiona tu informacion y eventos favoritos |
+| Eventos favoritos | Guarda y organiza tus eventos preferidos |
+| Historial de eventos | Revisa los eventos a los que has asistido |
+| Valoraciones | Lee y escribe resenas de eventos |
+
+### Para Organizadores
+
+| Caracteristica | Descripcion |
+|:--------------|:------------|
+| Crear eventos | Formulario completo para publicar eventos |
+| Panel de control | Gestiona todos tus eventos desde un lugar |
+| Galeria de imagenes | Sube fotos atractivas de tus eventos |
+| Integracion con mapas | Muestra la ubicacion exacta del evento |
+| Comunicacion directa | Conecta con los participantes |
+
+### Categorias de Eventos
+
+- Vegana
+- Regional
+- Reposteria
+- Cocteleria
+- Comida Rapida
+- Catas
+- Vinotecas
+- Lujo
+- Running + Comida
+
+---
+
+## Capturas de Pantalla
+
+> **Nota**: Agrega capturas de pantalla reales en la carpeta `/screenshots` y actualiza las referencias aqui.
+
+### Pagina Principal
+_[Captura de index.html]_
+
+### Dashboard de Eventos
+_[Captura del dashboard]_
+
+### Creacion de Eventos
+_[Captura del formulario de creacion]_
+
+---
+
+## Tecnologias
+
+Este proyecto esta construido con tecnologias web modernas y estandares de la industria:
+
+### Frontend
 ```
-run-and-eat/
-│
-├── index.html              # Página de inicio
-├── login.html              # Página de inicio de sesión
-├── registrer.html          # Página de registro
-├── eventos.html            # Página de eventos (vacía)
-├── buscar_eventos.html     # Página de búsqueda y filtrado de eventos
-├── crear.html              # Página de creación de eventos
-├── dashboard.html          # Panel de control principal
-├── contacto.html           # Página de contacto
-├── user.html               # Perfil de usuario
-│
-├── style/
-│   └── styles.css          # Estilos principales (44KB)
-│
-├── img/                    # Carpeta de imágenes
-│   ├── logo.png            # Logo principal
-│   ├── run.png             # Logo de texto
-│   └── user.png            # Icono de usuario
-│
-└── README.md               # Este archivo
+HTML5       100%
+CSS3        100%
+JavaScript   50% (En desarrollo)
 ```
 
----
+### Stack Tecnologico
 
-## 🔧 Tecnologías Utilizadas
+- **HTML5**: Estructura semantica y accesible
+- **CSS3**: 
+  - CSS Grid para layouts complejos
+  - Flexbox para componentes flexibles
+  - Custom Properties (variables CSS)
+  - Media Queries para responsividad
+  - Animaciones y transiciones suaves
+- **Fuentes**: Futura Font para tipografia premium
+- **Iconos**: SVG personalizados
 
-- **HTML5** - Estructura semántica
-- **CSS3** - Diseño y estilos avanzados
-  - CSS Grid
-  - Flexbox
-  - Media Queries
-  - Transiciones y animaciones
-- **JavaScript** (potencial) - Para funcionalidad interactiva
-- **Futura Font** - Tipografía personalizada
-
----
-
-## 🎨 Paleta de Colores
-
-| Color | Código | Uso |
-|-------|--------|-----|
-| **Azul Marino** | `#0A192F` | Fondo principal |
-| **Naranja** | `#FFA208` | Botones y acentos |
-| **Naranja Oscuro** | `#ff8800` | Estados hover |
-| **Blanco** | `#ffffff` | Texto y fondos secundarios |
-| **Gris** | `#333333` | Texto secundario |
+### Hosting
+- **Vercel**: Despliegue continuo y optimizado
 
 ---
 
-## 📄 Páginas y Funcionalidades
+## Comenzando
 
-### 1. **Página de Inicio** (`index.html`)
-- Presentación de la plataforma
-- Barra de búsqueda principal
-- Opción para organizadores
-- Tarjetas de eventos destacados
+### Prerequisitos
 
-### 2. **Registro** (`registrer.html`)
-- Formulario completo de registro
-- Campos: nombre, fecha de nacimiento, dirección, email, contraseña
-- Aceptación de términos y condiciones
-- Validación de formularios
+Solo necesitas un navegador web moderno:
+- Chrome (recomendado) v90+
+- Firefox v88+
+- Safari v14+
+- Edge v90+
 
-### 3. **Inicio de Sesión** (`login.html`)
-- Formulario de login
-- Opción "Olvidé mi contraseña"
-- Enlaces a registro y eventos
+### Instalacion
 
-### 4. **Búsqueda de Eventos** (`buscar_eventos.html`)
-- Barra de búsqueda por ubicación
-- Filtros por categoría:
-  - Vegana
-  - Regional
-  - Repostería
-  - Coctelería
-  - Comida rápida
-  - Catas
-  - Vinotecas
-  - Lujo
-- Filtro de precio con slider
-- Opciones de ordenamiento
-- Paginación
-
-### 5. **Dashboard** (`dashboard.html`)
-- Panel principal con eventos recomendados
-- Sidebar con filtros
-- Grid de 4 columnas con tarjetas de eventos
-- Sistema de paginación
-- Filtros secundarios adicionales
-
-### 6. **Creación de Eventos** (`crear.html`)
-- Formulario para crear nuevos eventos
-- Carga de imagen del evento
-- Campos: nombre, organizador, fecha, descripción
-- Checkbox de términos y condiciones
-
-### 7. **Perfil de Usuario** (`user.html`)
-- Sección de información personal
-- Cambio de foto de perfil
-- Gestión de eventos a los que se ha apuntado
-- Sistema de cambio de contraseña
-- Seguridad de dos factores
-- Navegación por pestañas
-
-### 8. **Contacto** (`contacto.html`)
-- Formulario de contacto
-- Información de la empresa
-- Enlaces a redes sociales (Twitter, YouTube, Instagram)
-
----
-
-## 🚀 Cómo Comenzar
-
-### Requisitos Previos
-- Navegador web moderno (Chrome, Firefox, Safari, Edge)
-- No requiere instalación de dependencias
-
-### Instalación
-
-1. **Clonar el repositorio**
+1. **Clona el repositorio**
    ```bash
    git clone https://github.com/tuusuario/run-and-eat.git
    cd run-and-eat
    ```
 
-2. **Abrir en el navegador**
-   - Opción A: Doble clic en `index.html`
-   - Opción B: Usar un servidor local (recomendado)
+2. **Opcion A: Abrir directamente**
    ```bash
-   # Con Python 3
-   python -m http.server 8000
-   
-   # Con Python 2
-   python -m SimpleHTTPServer 8000
-   
-   # Con Node.js (http-server)
-   npx http-server
+   # Simplemente abre index.html en tu navegador
+   open index.html  # macOS
+   start index.html # Windows
+   xdg-open index.html # Linux
    ```
 
-3. **Acceder a la aplicación**
+3. **Opcion B: Servidor local (recomendado)**
+   
+   **Con Python:**
+   ```bash
+   # Python 3
+   python -m http.server 8000
+   
+   # Python 2
+   python -m SimpleHTTPServer 8000
+   ```
+   
+   **Con Node.js:**
+   ```bash
+   # Instala http-server globalmente
+   npm install -g http-server
+   
+   # Ejecuta el servidor
+   http-server -p 8000
+   ```
+   
+   **Con VS Code:**
+   - Instala la extension "Live Server"
+   - Click derecho en index.html
+   - Selecciona "Open with Live Server"
+
+4. **Accede a la aplicacion**
    ```
    http://localhost:8000
    ```
 
 ---
 
-## 📱 Características de Diseño
+## Estructura del Proyecto
 
-### Responsividad
-- Diseño adaptable para móviles, tablets y escritorio
-- Uso de CSS Grid y Flexbox
-- Media queries para diferentes resoluciones
-
-### Experiencia de Usuario
-- Animaciones suaves en botones y transiciones
-- Efectos hover intuitivos
-- Paleta de colores coherente
-- Tipografía legible
-
-### Accesibilidad
-- Etiquetas semánticas HTML
-- Atributos aria-label en enlaces
-- Formularios con labels asociados
-- Contraste de colores adecuado
-
----
-
-## 🔐 Seguridad y Autenticación
-
-El proyecto está estructurado para implementar:
-- Sistema de autenticación de usuarios
-- Encriptación de contraseñas (backend)
-- Validación de formularios (frontend y backend)
-- Verificación de dos factores (preparado en UI)
-
----
-
-## 📊 Sistema de Filtros
-
-### Filtros de Categoría
 ```
-- Vegana
-- Regional
-- Repostería
-- Coctelería
-- Comida rápida
-- Catas
-- Vinotecas
-- Lujo
+run-and-eat/
+│
+├── index.html              # Pagina principal con eventos destacados
+├── login.html              # Autenticacion de usuarios
+├── registro.html           # Registro de nuevos usuarios
+├── evento.html             # Detalle completo de un evento
+├── crear-evento.html       # Formulario de creacion de eventos
+├── perfil.html             # Gestion de perfil de usuario
+├── contacto.html           # Formulario de contacto y soporte
+│
+├── style/
+│   └── styles.css          # Estilos principales (~1,500 lineas)
+│
+├── img/
+│   ├── logo.png            # Logotipo principal
+│   ├── run.png             # Logo de texto
+│   └── user.png            # Icono de usuario predeterminado
+│
+└── README.md               # Este archivo
 ```
 
-### Filtros de Precio
-- Rango deslizable de 0 a 100€
-- Visualización en tiempo real
+### Descripcion de Paginas
 
-### Ordenamiento
-- Mejor Valoradas
-- Precio más alto
-- Precio más bajo
-- Novedades
-- Premium
-- Oferta
+| Archivo | Proposito | Caracteristicas |
+|---------|-----------|-----------------|
+| `index.html` | Pagina de inicio | Grid de eventos, busqueda, destacados |
+| `login.html` | Inicio de sesion | Formulario de autenticacion |
+| `registro.html` | Registro de usuarios | Formulario completo, validacion |
+| `evento.html` | Detalle de evento | Informacion completa, mapa, reservas |
+| `crear-evento.html` | Crear evento | Formulario multi-seccion para organizadores |
+| `perfil.html` | Perfil de usuario | Gestion de cuenta, eventos inscritos |
+| `contacto.html` | Contacto | Formulario de soporte, informacion |
 
 ---
 
-## 🎯 Próximos Pasos / Mejoras Futuras
+## Uso
 
-### Backend
-- [ ] Implementar Node.js/Express o Django
-- [ ] Base de datos (MongoDB/PostgreSQL)
-- [ ] API REST completa
-- [ ] Sistema de autenticación JWT
+### Para Usuarios
 
-### Frontend
-- [ ] Integrar JavaScript para funcionalidad dinámica
+1. **Descubrir Eventos**
+   - Navega por la pagina principal
+   - Usa la barra de busqueda para filtrar por ubicacion
+   - Aplica filtros de categoria y precio
+
+2. **Registrarse**
+   - Click en "REGISTRO" en la navegacion
+   - Completa el formulario con tus datos
+   - Confirma tu email (proximamente)
+
+3. **Inscribirse a Eventos**
+   - Explora eventos disponibles
+   - Click en "Ver Detalles"
+   - Click en "Apuntarse al Evento"
+
+4. **Gestionar Perfil**
+   - Accede a "MI PERFIL"
+   - Actualiza informacion personal
+   - Revisa tus eventos inscritos
+
+### Para Organizadores
+
+1. **Crear Cuenta de Organizador**
+   - Registrate seleccionando "Organizador"
+   - O accede desde "¿Eres organizador?"
+
+2. **Crear Evento**
+   - Ve a "Crear Nuevo Evento"
+   - Completa todas las secciones:
+     - Informacion basica
+     - Fecha y ubicacion
+     - Detalles del evento
+     - Informacion adicional
+   - Publica tu evento
+
+3. **Gestionar Eventos**
+   - Dashboard de organizador
+   - Editar eventos existentes
+   - Ver estadisticas y reservas
+
+---
+
+## Guia de Diseno
+
+### Paleta de Colores
+
+```css
+/* Colores Principales */
+--primary-bg: #0A192F;           /* Azul Marino - Fondo principal */
+--primary-orange: #FFA208;       /* Naranja - Botones y acentos */
+--primary-orange-dark: #ff8800;  /* Naranja Oscuro - Hover */
+
+/* Colores Secundarios */
+--white: #ffffff;                /* Blanco - Texto y fondos */
+--gray-dark: #333333;            /* Gris Oscuro - Texto secundario */
+--gray-light: #8892b0;           /* Gris Claro - Detalles */
+```
+
+### Tipografia
+
+- **Fuente Principal**: Futura
+- **Pesos**: Regular, Medium, Bold
+- **Tamanos**: Responsive con clamp()
+
+### Componentes Principales
+
+- **Cards**: Sombras suaves, bordes redondeados, hover effects
+- **Botones**: Transiciones de 0.3s, estados activos claros
+- **Forms**: Labels flotantes, validacion visual
+- **Grid**: Responsive 1-4 columnas segun viewport
+
+---
+
+## Roadmap
+
+### Fase 1: MVP (Completado)
+- [x] Diseno UI/UX completo
+- [x] Paginas principales HTML/CSS
+- [x] Sistema de navegacion
+- [x] Diseno responsive
+
+### Fase 2: Backend (En Desarrollo)
+- [ ] API REST con Node.js/Express
+- [ ] Base de datos MongoDB/PostgreSQL
+- [ ] Sistema de autenticacion JWT
+- [ ] Upload de imagenes (Cloudinary)
+- [ ] Sistema de reservas
+
+### Fase 3: Features Avanzadas
+- [ ] Busqueda en tiempo real
+- [ ] Filtros dinamicos con JavaScript
 - [ ] Sistema de favoritos
-- [ ] Carrito de reservas
-- [ ] Chat en tiempo real
 - [ ] Notificaciones push
+- [ ] Chat en vivo organizador-usuario
 
-### Funcionalidades Adicionales
-- [ ] Integración de mapas (Google Maps)
-- [ ] Geolocalización
-- [ ] Sistema de pagos (Stripe)
-- [ ] Reseñas y comentarios
-- [ ] Fotos galerías de eventos
+### Fase 4: Integraciones
+- [ ] Google Maps API
+- [ ] Geolocalizacion
+- [ ] Pasarela de pagos (Stripe)
+- [ ] Email notifications
+- [ ] Compartir en redes sociales
 
----
-
-## 📞 Contacto y Soporte
-
-Para preguntas, sugerencias o reportar bugs, utiliza:
-- **Email**: contacto@runandeat.com
-- **Página de contacto**: `contacto.html`
-- **Redes sociales**: Twitter, YouTube, Instagram
-
----
-
-## 📄 Licencia
-
-Este proyecto está bajo la licencia MIT. Ver `LICENSE` para más detalles.
+### Fase 5: Optimizacion
+- [ ] PWA (Progressive Web App)
+- [ ] Optimizacion SEO
+- [ ] Analytics
+- [ ] Tests unitarios
+- [ ] CI/CD pipeline
 
 ---
 
-## 👥 Contribuidores
+## Contribuir
 
-- **Equipo de Desarrollo**: [Tu nombre/equipo]
-- Creado con ❤️ para los amantes del deporte y la buena comida
+¡Las contribuciones son lo que hace que la comunidad open source sea un lugar increible para aprender, inspirar y crear! Cualquier contribucion que hagas sera **muy apreciada**.
+
+### Como Contribuir
+
+1. **Fork el proyecto**
+
+2. **Crea tu Feature Branch**
+   ```bash
+   git checkout -b feature/AmazingFeature
+   ```
+
+3. **Commit tus cambios**
+   ```bash
+   git commit -m 'Add: Amazing new feature'
+   ```
+
+4. **Push a la Branch**
+   ```bash
+   git push origin feature/AmazingFeature
+   ```
+
+5. **Abre un Pull Request**
+
+### Guia de Estilo
+
+- Usa nombres descriptivos para variables y clases
+- Comenta codigo complejo
+- Sigue la estructura CSS existente
+- Asegura que el codigo sea responsive
+- Prueba en multiples navegadores
+
+### Tipos de Contribuciones
+
+- **Bug Reports**: Usa las GitHub Issues
+- **Feature Requests**: Abre un issue con la etiqueta "enhancement"
+- **Documentacion**: Mejoras al README o comentarios en codigo
+- **Diseno**: Sugerencias de UI/UX
+- **Codigo**: Pull requests con nuevas features o fixes
 
 ---
 
-## 📈 Estadísticas del Proyecto
+## Estadisticas del Proyecto
 
-| Métrica | Valor |
+| Metrica | Valor |
 |---------|-------|
-| Páginas HTML | 9 |
-| Líneas CSS | 1,500+ |
-| Fuentes personalizadas | 1 |
-| Paleta de colores | 5 |
-| Páginas responsivas | 100% |
+| Paginas HTML | 7 |
+| Lineas de CSS | 1,500+ |
+| Componentes | 15+ |
+| Responsive Breakpoints | 4 |
+| Lighthouse Score | 95+ |
+| Categorias de Eventos | 9 |
 
 ---
 
-## 🔗 Enlaces Rápidos
+## Seguridad
 
-- [Página de Inicio](index.html)
-- [Dashboard](dashboard.html)
-- [Buscar Eventos](buscar_eventos.html)
-- [Crear Evento](crear.html)
-- [Mi Perfil](user.html)
-- [Contacto](contacto.html)
+Este proyecto toma en serio la seguridad. Si descubres alguna vulnerabilidad, por favor:
+
+1. **NO** abras un issue publico
+2. Envia un email a: security@runandeat.com
+3. Incluye:
+   - Descripcion de la vulnerabilidad
+   - Pasos para reproducirla
+   - Impacto potencial
+   - Sugerencias de solucion (opcional)
 
 ---
 
-**¡Bienvenido a Run & Eat! 🏃‍♂️🍽️**
+## Licencia
 
-*Corre. Come. Repite.*
+Distribuido bajo la licencia MIT. Ver `LICENSE` para mas informacion.
+
+La licencia MIT es una licencia permisiva que permite:
+- Uso comercial
+- Modificacion
+- Distribucion
+- Uso privado
+
+---
+
+## Contacto
+
+### Equipo de Desarrollo
+
+- **Sitio Web**: [runandeat.vercel.app](https://runandeat.vercel.app)
+- **Email**: contacto@runandeat.com
+- **GitHub**: [@tuusuario](https://github.com/tuusuario)
+
+### Redes Sociales
+
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/runandeat)
+[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/runandeat)
+[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtube.com/runandeat)
+
+---
+
+## Agradecimientos
+
+- [Font Awesome](https://fontawesome.com) - Iconos
+- [Vercel](https://vercel.com) - Hosting
+- [Futura Font](https://fonts.adobe.com/fonts/futura-pt) - Tipografia
+- [Shields.io](https://shields.io) - Badges para README
+- Comunidad de desarrolladores open source
+
+---
+
+## Analiticas
+
+![GitHub Stars](https://img.shields.io/github/stars/tuusuario/run-and-eat?style=social)
+![GitHub Forks](https://img.shields.io/github/forks/tuusuario/run-and-eat?style=social)
+![GitHub Issues](https://img.shields.io/github/issues/tuusuario/run-and-eat)
+![GitHub Pull Requests](https://img.shields.io/github/issues-pr/tuusuario/run-and-eat)
+
+---
+
+**Hecho con amor por el equipo de Run & Eat**
+
+Si te gusta este proyecto, ¡dale una estrella en GitHub!
+
+[Volver arriba](#run--eat)

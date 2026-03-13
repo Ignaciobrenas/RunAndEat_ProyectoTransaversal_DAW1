@@ -232,24 +232,36 @@ main {
 .search-input::placeholder {
     color: #ffffff;
 }
-
+/* ...existing code... */
 .filter-icon {
     background: none;
     border: 2px solid #FFA208;
     color: #FFA208;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1rem;
     transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.filter-icon img {
+    width: 20px;
+    height: 20px;
+}
+
 
 .filter-icon:hover {
     background-color: #FFA208;
     color: #0a192f;
 }
 
-/* Dropdown de filtros */
+.filter-icon:hover img {
+    filter: invert(8%) sepia(100%) saturate(1000%) hue-rotate(210deg) brightness(20%) contrast(100%);
+}
+
 .filter-dropdown {
     display: none;
     position: absolute;

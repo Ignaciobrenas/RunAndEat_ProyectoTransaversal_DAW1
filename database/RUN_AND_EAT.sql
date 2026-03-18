@@ -147,3 +147,4 @@ INSERT INTO CATEGORIAS (nombre, descripcion) VALUES
 ('Tacos', 'Ruta de tacos'),
 ('Opciones Veganas', 'Eventos con opciones veganas'),
 ('Opciones Vegetarianas', 'Eventos vegetarianos');
+

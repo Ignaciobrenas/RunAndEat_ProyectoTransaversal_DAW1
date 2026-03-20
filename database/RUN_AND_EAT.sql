@@ -26,8 +26,7 @@ administración de la plataforma.
 Proyecto académico desarrollado para el ciclo formativo de 
 Desarrollo de Aplicaciones Web (DAW).
 */
-DROP DATABASE IF EXISTS RUN_AND_EAT;
-CREATE DATABASE RUN_AND_EAT;
+CREATE DATABASE IF NOT EXISTS RUN_AND_EAT;
 USE RUN_AND_EAT;
 
 CREATE TABLE USUARIOS (
@@ -148,3 +147,84 @@ INSERT INTO CATEGORIAS (nombre, descripcion) VALUES
 ('Opciones Veganas', 'Eventos con opciones veganas'),
 ('Opciones Vegetarianas', 'Eventos vegetarianos');
 
+ /* CREAMOS LOS USUARIOS*/
+CREATE USER IF NOT EXISTS 'ignacio'@'localhost' IDENTIFIED BY 'Ignacio2026!';
+GRANT ALL PRIVILEGES ON RUN_AND_EAT.* TO 'ignacio'@'localhost' WITH GRANT OPTION;
+ 
+CREATE USER IF NOT EXISTS 'gorka'@'localhost' IDENTIFIED BY 'Gorka2026!';
+GRANT ALL PRIVILEGES ON RUN_AND_EAT.* TO 'gorka'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+DELIMITER $$
+ 
+CREATE PROCEDURE CrearEvento(
+    IN p_id_organizador INT,
+    IN p_id_categoria   INT,
+    IN p_titulo         VARCHAR(150),
+    IN p_descripcion    TEXT,
+    IN p_imagen         VARCHAR(255),
+    IN p_fecha          DATE,
+    IN p_hora           TIME,
+    IN p_ciudad         VARCHAR(100),
+    IN p_direccion      VARCHAR(255),
+    IN p_precio         DECIMAL(10,2),
+    IN p_capacidad      INT,
+    IN p_que_incluye    TEXT,
+    IN p_que_traer      TEXT
+)
+BEGIN
+    INSERT INTO EVENTOS (
+        id_organizador, id_categoria, titulo, descripcion, imagen,
+        fecha, hora, ciudad, direccion_completa,
+        precio, capacidad, plazas_disponibles,
+        que_incluye, que_traer
+    ) VALUES (
+        p_id_organizador, p_id_categoria, p_titulo, p_descripcion, p_imagen,
+        p_fecha, p_hora, p_ciudad, p_direccion,
+        p_precio, p_capacidad, p_capacidad,
+        p_que_incluye, p_que_traer
+    );
+END$$
+ 
+ 
+CREATE PROCEDURE EliminarEvento(
+    IN p_id_evento INT
+)
+BEGIN
+    DELETE FROM EVENTOS WHERE id_evento = p_id_evento;
+END$$
+ 
+ 
+CREATE PROCEDURE ModificarEvento(
+    IN p_id_evento INT,
+    IN p_id_categoria INT,
+    IN p_titulo VARCHAR(150),
+    IN p_descripcion  TEXT,
+    IN p_fecha        DATE,
+    IN p_hora         TIME,
+    IN p_ciudad       VARCHAR(100),
+    IN p_direccion    VARCHAR(255),
+    IN p_precio       DECIMAL(10,2),
+    IN p_capacidad    INT,
+    IN p_que_incluye  TEXT,
+    IN p_que_traer    TEXT
+)
+BEGIN
+    UPDATE EVENTOS
+    SET
+        id_categoria = p_id_categoria,
+        titulo = p_titulo,
+        descripcion = p_descripcion,
+        fecha = p_fecha,
+        hora = p_hora,
+        ciudad = p_ciudad,
+        direccion_completa = p_direccion,
+        precio = p_precio,
+        capacidad = p_capacidad,
+        que_incluye = p_que_incluye,
+        que_traer = p_que_traer
+    WHERE id_evento = p_id_evento;
+END$$
+ 
+DELIMITER ;
+ 

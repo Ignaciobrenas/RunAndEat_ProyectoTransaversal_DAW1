@@ -1380,3 +1380,202 @@ footer {
         font-size: 1rem;
     }
 }
+
+.aboutus-hero {
+    text-align: center;
+    padding: 60px 20px 50px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.aboutus-hero__logo {
+    width: 180px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.aboutus-hero__title {
+    font-size: 2.2rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.aboutus-hero__desc {
+    color: #aaaaaa;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.aboutus-values {
+    padding: 40px 20px 50px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.aboutus-values__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.aboutus-value-card {
+    background-color: #2a2f3c;
+    border: 1px solid #ffbf00;
+    border-radius: 12px;
+    padding: 28px 24px;
+}
+
+.aboutus-value-card h3 {
+    color: #FFA208;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.aboutus-value-card p {
+    color: #999999;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.aboutus-team {
+    padding: 50px 20px 70px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.aboutus-team__title {
+    font-size: 1.8rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.aboutus-team__subtitle {
+    color: #888888;
+    font-size: 0.9rem;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.aboutus-team__cofounders {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+    margin-bottom: 50px;
+}
+
+.aboutus-member {
+    background-color: #2a2f3c;
+    border: 1px solid #2e2e2e;
+    border-radius: 12px;
+    padding: 28px 24px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.aboutus-member__photo {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid #2e2e2e;
+}
+
+.aboutus-member__info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.aboutus-member__role {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #FFA208;
+}
+
+.aboutus-member__name {
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin: 0;
+}
+
+.aboutus-member__bio {
+    color: #999999;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    margin: 4px 0 12px;
+}
+
+.aboutus-member__btn {
+    align-self: flex-start;
+    padding: 8px 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.aboutus-member__btn--outline {
+    background: transparent;
+    border: 1px solid #FFA208;
+    color: #FFA208;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    align-self: flex-start;
+}
+
+.aboutus-member__btn--outline:hover {
+    background: rgba(255, 162, 8, 0.1);
+}
+
+.aboutus-honorary {
+    border-top: 1px solid #2e2e2e;
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.aboutus-honorary__label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #555555;
+    margin: 0;
+}
+
+.aboutus-member--honorary {
+    max-width: 520px;
+    border-color: #252525;
+}
+
+@media (max-width: 600px) {
+    .aboutus-member {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .aboutus-member__info {
+        align-items: center;
+    }
+
+    .aboutus-member__btn,
+    .aboutus-member__btn--outline {
+        align-self: center;
+    }
+
+    .aboutus-team__cofounders {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+

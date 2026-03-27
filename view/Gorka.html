@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gorka Ramírez - Run & Eat</title>
+    <link rel="icon" type="image/png" href="/public/img/logo.png">
+    <link rel="stylesheet" href="/public/style/styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="/public/img/logo.png" alt="Run & Eat" onclick="location.href='index.html'">
+                <div class="nav-left">
+                    <button onclick="location.href='index.html'">Eventos</button>
+                    <button onclick="location.href='contacto.html'">Contacto</button>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="crear-evento.html" class="organizer-link">¿Eres organizador?</a>
+                <button class="btn-registro" onclick="location.href='registro.html'">REGISTRO</button>
+                <button class="btn-login" onclick="location.href='login.html'">INICIAR SESIÓN</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <div class="profile-page">
+
+            <div class="profile-page__back">
+                <button class="profile-back-btn" onclick="location.href='about-us.html'">&larr; Volver al equipo</button>
+            </div>
+
+            <div class="profile-page__hero">
+                <img src="/public/img/user.png" alt="Gorka Ramírez" class="profile-page__photo">
+                <div class="profile-page__identity">
+                    <span class="profile-page__role">Co-CEO &amp; Co-Fundador</span>
+                    <h1 class="profile-page__name">Gorka Ramírez</h1>
+                    <p class="profile-page__tagline">Programador, creador de Run &amp; Eat y responsable del frontend y la experiencia de usuario.</p>
+                </div>
+            </div>
+
+            <div class="profile-page__body">
+
+                <div class="profile-page__main">
+
+                    <div class="profile-section">
+                        <h2 class="profile-section__title">Sobre mí</h2>
+                        <p class="profile-section__text">
+                            Soy Gorka Ramírez, estudiante de Desarrollo de Aplicaciones Web en Barcelona y Co-CEO de Run &amp; Eat.
+                            Junto a Ignacio Breñas, construí esta plataforma desde cero como proyecto académico del ciclo DAW,
+                            con el objetivo de crear una herramienta real para la comunidad gastronómica.
+                        </p>
+                        <p class="profile-section__text">
+                            Me interesa especialmente la interfaz de usuario, el diseño web y conseguir que las cosas
+                            sean intuitivas y agradables de usar. Creo que una buena experiencia de usuario es tan
+                            importante como cualquier decisión técnica del proyecto.
+                        </p>
+                    </div>
+
+                    <div class="profile-section">
+                        <h2 class="profile-section__title">Mi rol en Run &amp; Eat</h2>
+                        <p class="profile-section__text">
+                            Como Co-CEO y programador, fui el responsable del desarrollo de todas las vistas de la plataforma:
+                            la página principal de eventos, el detalle de evento, el formulario de creación, el perfil de usuario,
+                            el contacto, el registro y el inicio de sesión.
+                        </p>
+                        <p class="profile-section__text">
+                            Me encargué de que la interfaz fuera coherente, accesible y adaptada a distintos dispositivos,
+                            trabajando mano a mano con Ignacio para que el frontend y el backend encajaran correctamente.
+                        </p>
+                    </div>
+
+                </div>
+
+                <aside class="profile-page__sidebar">
+
+                    <div class="profile-sidebar-card">
+                        <h3 class="profile-sidebar-card__title">Tecnologías</h3>
+                        <ul class="profile-tag-list">
+                            <li class="profile-tag">HTML</li>
+                            <li class="profile-tag">CSS</li>
+                            <li class="profile-tag">JavaScript</li>
+                            <li class="profile-tag">PHP</li>
+                            <li class="profile-tag">MySQL</li>
+                            <li class="profile-tag">Git</li>
+                        </ul>
+                    </div>
+
+                    <div class="profile-sidebar-card">
+                        <h3 class="profile-sidebar-card__title">Datos</h3>
+                        <ul class="profile-data-list">
+                            <li>
+                                <span class="profile-data-list__label">Empresa</span>
+                                <span class="profile-data-list__value">Run &amp; Eat</span>
+                            </li>
+                            <li>
+                                <span class="profile-data-list__label">Cargo</span>
+                                <span class="profile-data-list__value">Co-CEO</span>
+                            </li>
+                            <li>
+                                <span class="profile-data-list__label">Ciudad</span>
+                                <span class="profile-data-list__value">Barcelona</span>
+                            </li>
+                            <li>
+                                <span class="profile-data-list__label">Formación</span>
+                                <span class="profile-data-list__value">DAW 1, Stucom</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="profile-sidebar-card">
+                        <h3 class="profile-sidebar-card__title">Equipo</h3>
+                        <div class="profile-teammate" onclick="location.href='Ignacio.html'" style="cursor:pointer;">
+                            <img src="/public/img/user.png" alt="Ignacio Breñas" class="profile-teammate__photo">
+                            <div>
+                                <p class="profile-teammate__name">Ignacio Breñas</p>
+                                <p class="profile-teammate__role">Co-CEO &amp; Co-Fundador</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Run & Eat. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="/public/scripts/script.js"></script>
+</body>
+</html>

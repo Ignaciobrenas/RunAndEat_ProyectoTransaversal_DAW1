@@ -1465,7 +1465,7 @@ footer {
 }
 
 .aboutus-member {
-    background-color: #2a2f3c;
+    background-color:  #2a2f3c;
     border: 1px solid #2e2e2e;
     border-radius: 12px;
     padding: 28px 24px;
@@ -1577,5 +1577,226 @@ footer {
     }
 }
 
+.profile-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px 70px;
+}
 
+.profile-page__back {
+    margin-bottom: 30px;
+}
+
+.profile-back-btn {
+    background: transparent;
+    border: 1px solid #2e2e2e;
+    color: #888888;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.profile-back-btn:hover {
+    border-color: #FFA208;
+    color: #FFA208;
+}
+
+.profile-page__hero {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    background-color:  #2a2f3c;
+    border: 1px solid #2e2e2e;
+    border-radius: 12px;
+    padding: 32px 28px;
+    margin-bottom: 28px;
+}
+
+.profile-page__photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #2e2e2e;
+    flex-shrink: 0;
+}
+
+.profile-page__role {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #FFA208;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.profile-page__name {
+    font-size: 2rem;
+    color: #ffffff;
+    margin: 0 0 10px;
+}
+
+.profile-page__tagline {
+    color: #999999;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.profile-page__body {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 24px;
+    align-items: start;
+}
+
+.profile-page__main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-section {
+    background-color: #2a2f3c;
+    border: 1px solid #2e2e2e;
+    border-radius: 12px;
+    padding: 28px 24px;
+}
+
+.profile-section__title {
+    font-size: 1rem;
+    color: #ffffff;
+    margin: 0 0 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #2e2e2e;
+}
+
+.profile-section__text {
+    color: #999999;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    margin: 0 0 12px;
+}
+
+.profile-section__text:last-child {
+    margin-bottom: 0;
+}
+
+.profile-section__text strong {
+    color: #cccccc;
+    font-weight: 600;
+}
+
+.profile-page__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-sidebar-card {
+    background-color: #2a2f3c;
+    border: 1px solid #2e2e2e;
+    border-radius: 12px;
+    padding: 22px 20px;
+}
+
+.profile-sidebar-card__title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #555555;
+    margin: 0 0 16px;
+}
+
+.profile-tag-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.profile-tag {
+    background-color: #2a2f3c;
+    border: 1px solid #333333;
+    color: #cccccc;
+    font-size: 0.8rem;
+    padding: 4px 12px;
+    border-radius: 50px;
+}
+
+.profile-data-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-data-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.88rem;
+}
+
+.profile-data-list__label {
+    color: #555555;
+}
+
+.profile-data-list__value {
+    color: #cccccc;
+    font-weight: 500;
+}
+
+.profile-teammate {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.profile-teammate:hover {
+    background-color: #252525;
+}
+
+.profile-teammate__photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #2e2e2e;
+    flex-shrink: 0;
+}
+
+.profile-teammate__name {
+    font-size: 0.9rem;
+    color: #ffffff;
+    margin: 0 0 2px;
+}
+
+.profile-teammate__role {
+    font-size: 0.75rem;
+    color: #666666;
+    margin: 0;
+}
+
+@media (max-width: 720px) {
+    .profile-page__hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-page__body {
+        grid-template-columns: 1fr;
+    }
+}
 

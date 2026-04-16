@@ -91,6 +91,10 @@ unset($_SESSION["error"]);
                                placeholder="••••••••" required autocomplete="new-password">
                     </div>
 
+<<<<<<< HEAD
+=======
+                    <!-- Identifica la acción en el controlador -->
+>>>>>>> 07c2779fecb64249640add273f8a0058afe61307
                     <button type="submit" name="register" class="btn-submit">Crear Cuenta</button>
                 </form>
 

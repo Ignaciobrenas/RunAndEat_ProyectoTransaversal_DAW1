@@ -1,0 +1,142 @@
+<?php
+session_start();
+
+if (isset($_SESSION["id_usuario"])) {
+    header("Location: ../index.html");
+    exit();
+}
+
+// Recoger error de sesión
+$error = $_SESSION["error"] ?? "";
+unset($_SESSION["error"]);
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Run & Eat</title>
+    <link rel="icon" type="image/png" href="../public/img/logo.png">
+    <link rel="stylesheet" href="../public/style/styles.css">
+    <style>
+        .alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 14px; font-size: 0.9rem; }
+        .alert-error { background: #fdecea; color: #c0392b; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="../public/img/logo.png" alt="Run & Eat" onclick="location.href='../index.html'">
+                <div class="nav-left">
+                    <button onclick="location.href='../index.html'">Eventos</button>
+                    <button onclick="location.href='../view/contacto.html'">Contacto</button>
+                </div>
+            </div>
+            <div class="nav-right">
+                <button class="btn-login" onclick="location.href='login.php'">INICIAR SESIÓN</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="auth-container">
+            <div class="auth-form">
+                <h2>Crear Cuenta</h2>
+                <p>Únete a la comunidad de Run &amp; Eat</p>
+
+                <?php if ($error): ?>
+                    <div class="alert alert-error"><?= htmlspecialchars($error) ?></div>
+                <?php endif; ?>
+
+                <!-- El formulario envía al UserController -->
+                <form method="POST" action="UserController.php">
+
+                    <div class="form-group">
+                        <label>Tipo de Usuario</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="cliente" name="tipo-usuario" value="cliente" checked>
+                                <label for="cliente">Cliente</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="organizador" name="tipo-usuario" value="organizador">
+                                <label for="organizador">Organizador</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre Completo</label>
+                        <input type="text" id="nombre" name="nombre"
+                               placeholder="Tu nombre completo" required autocomplete="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email"
+                               placeholder="Correo Electrónico" required autocomplete="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" name="password"
+                               placeholder="••••••••" required autocomplete="new-password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm-password">Confirmar Contraseña</label>
+                        <input type="password" id="confirm-password" name="confirm-password"
+                               placeholder="••••••••" required autocomplete="new-password">
+                    </div>
+
+                    <!-- Identifica la acción en el controlador -->
+                    <button type="submit" name="register" class="btn-submit">Crear Cuenta</button>
+                </form>
+
+                <div class="auth-footer">
+                    ¿Ya tienes cuenta? <a href="login.php">Inicia sesión aquí</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <div class="site-footer__brand">
+                <img src="../public/img/logo.png" alt="Run & Eat" class="site-footer__logo">
+                <p class="site-footer__tagline">La plataforma de eventos gastronómicos.</p>
+                <p class="site-footer__copy">&copy; 2026 Run &amp; Eat. Todos los derechos reservados.</p>
+            </div>
+            <div class="site-footer__nav">
+                <div class="site-footer__col">
+                    <h4 class="site-footer__col-title">Plataforma</h4>
+                    <ul>
+                        <li><a href="../index.html">Eventos</a></li>
+                        <li><a href="../view/crear-evento.html">Crear evento</a></li>
+                        <li><a href="login.php">Iniciar sesión</a></li>
+                    </ul>
+                </div>
+                <div class="site-footer__col">
+                    <h4 class="site-footer__col-title">Soporte</h4>
+                    <ul>
+                        <li><a href="../view/faq.html">Preguntas frecuentes</a></li>
+                        <li><a href="../view/contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="site-footer__col">
+                    <h4 class="site-footer__col-title">Empresa</h4>
+                    <ul>
+                        <li><a href="../view/about-us.html">Sobre nosotros</a></li>
+                        <li><a href="../view/Ignacio.html">Ignacio Breñas</a></li>
+                        <li><a href="../view/Gorka.html">Gorka Ramírez</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../public/scripts/script.js"></script>
+</body>
+</html>

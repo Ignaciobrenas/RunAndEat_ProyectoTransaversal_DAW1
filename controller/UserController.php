@@ -15,7 +15,40 @@ class UserController
         }
     }
 
-    public function login(): void {}
+    public function login(): void
+    {
+        $email      = trim($_POST["email"]      ?? "");
+        $contrasena = $_POST["contrasena"]       ?? "";
+
+        if (empty($email) || empty($contrasena)) {
+            $this->redirectWithError("login.php", "Por favor, rellena todos los campos.");
+            return;
+        }
+        $stmt = mysqli_prepare(
+            $this->conexion,
+            "SELECT id_usuario, nombre_completo, email, contrasena, tipo_usuario, foto_perfil
+             FROM USUARIOS
+             WHERE email = ? 
+             LIMIT 1"
+        );
+        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
+        $usuario   = mysqli_fetch_assoc($resultado);
+        mysqli_stmt_close($stmt);
+
+        if ($usuario && $contrasena === $usuario["contrasena"]) {
+            $_SESSION["id_usuario"]      = $usuario["id_usuario"];
+            $_SESSION["nombre_completo"] = $usuario["nombre_completo"];
+            $_SESSION["tipo_usuario"]    = $usuario["tipo_usuario"];
+            $_SESSION["foto_perfil"]     = $usuario["foto_perfil"];
+
+            header("Location: ../index.html");
+            exit();
+        } else {
+            $this->redirectWithError("login.php", "Email o contraseña incorrectos.");
+        }
+    }
 
     public function logout(): void
     {

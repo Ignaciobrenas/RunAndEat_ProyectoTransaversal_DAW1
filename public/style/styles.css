@@ -7,7 +7,7 @@
 
 @font-face {
     font-family: "Futura";
-    src: url("/public/fonts/Futura\ Bold.otf") format("opentype");
+    src: url("../public/fonts/Futura\ Bold.otf") format("opentype");
     font-weight: bold;
     font-style: normal;
 }

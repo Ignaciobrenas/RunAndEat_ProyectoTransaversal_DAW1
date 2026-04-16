@@ -5,24 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Run & Eat - Eventos Gastronómicos</title>
-    <link rel="icon" type="image/png" href="/public/img/logo.png">
-    <link rel="stylesheet" href="/public/style/styles.css">
+    <link rel="icon" type="image/png" href="./public/img/logo.png">
+    <link rel="stylesheet" href="./public/style/styles.css">
 </head>
 
 <body>
     <header>
         <div class="header-container">
             <div class="logo-section">
-                <img src="/public/img/logo.png" alt="Run & Eat" onclick="location.href='../index.html'">
+                <img src="./public/img/logo.png" alt="Run & Eat" onclick="location.href='/index.html'">
                 <div class="nav-left">
-                    <button onclick="location.href='../index.html'">Eventos</button>
-                    <button onclick="location.href='../view/contacto.html'">Contacto</button>
+                    <button onclick="location.href='index.html'">Eventos</button>
+                    <button onclick="location.href='/view/contacto.html'">Contacto</button>
                 </div>
             </div>
             <div class="nav-right">
-                <a href="crear-evento.html" class="organizer-link">¿Eres organizador?</a>
-                <button class="btn-registro" onclick="location.href='../view/registro.html'">REGISTRO</button>
-                <button class="btn-login" onclick="location.href='../controller/login.php'">INICIAR SESIÓN</button>
+                <a href="/view/crear-evento.html" class="organizer-link">¿Eres organizador?</a>
+                <button class="btn-registro" onclick="location.href='./controller/registro.php'">REGISTRO</button>
+                <button class="btn-login" onclick="location.href='./controller/login.php'">INICIAR SESIÓN</button>
+                <button class="btn-login" onclick="location.href='./controller/logout.php'">LOGOUT</button>
+
             </div>
         </div>
     </header>
@@ -32,9 +34,8 @@
             <div class="search-container search-dropdown">
                 <div class="location-icon">Buscar</div>
                 <input type="text" class="search-input" placeholder="Barcelona" autocomplete="off">
-                <button class="filter-icon"><img src="/public/svg/busqueda-de-lupa.svg" alt="Buscar"></button>
-                
-                <!-- El dropdown se genera dinámicamente con JavaScript -->
+                <button class="filter-icon"><img src="./public/svg/busqueda-de-lupa.svg" alt="Buscar"></button>
+    
             </div>
         </section>
 
@@ -43,7 +44,7 @@
 
                 <div class="evento-card">
                     <div class="evento-image">
-                        <img src="/public/img/user.png" alt="Evento 1">
+                        <img src="./public/img/user.png" alt="Evento 1">
                     </div>
                     <div class="evento-content">
                         <h3 class="evento-title">Burger Run Barcelona</h3>
@@ -51,13 +52,13 @@
                             y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.
                         </p>
                         <div class="evento-stars">★★★★★</div>
-                        <button class="evento-button" onclick="location.href='evento.html'">Ver Detalles</button>
+                        <button class="evento-button" onclick="location.href='./view/evento.html'">Ver Detalles</button>
                     </div>
                 </div>
 
                 <div class="evento-card">
                     <div class="evento-image">
-                        <img src="/public/img/user.png" alt="Evento 1">
+                        <img src="./public/img/user.png" alt="Evento 1">
                     </div>
                     <div class="evento-content">
                         <h3 class="evento-title">Burger Run Barcelona</h3>
@@ -65,12 +66,12 @@
                             y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.
                         </p>
                         <div class="evento-stars">★★★★★</div>
-                        <button class="evento-button" onclick="location.href='evento.html'">Ver Detalles</button>
+                        <button class="evento-button" onclick="location.href='./view/evento.html'">Ver Detalles</button>
                     </div>
                 </div>
                 <div class="evento-card">
                     <div class="evento-image">
-                        <img src="/public/img/user.png" alt="Evento 1">
+                        <img src="./public/img/user.png" alt="Evento 1">
                     </div>
                     <div class="evento-content">
                         <h3 class="evento-title">Burger Run Barcelona</h3>
@@ -78,12 +79,12 @@
                             y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.
                         </p>
                         <div class="evento-stars">★★★★★</div>
-                        <button class="evento-button" onclick="location.href='evento.html'">Ver Detalles</button>
+                        <button class="evento-button" onclick="location.href='./view/evento.html'">Ver Detalles</button>
                     </div>
                 </div>
                 <div class="evento-card">
                     <div class="evento-image">
-                        <img src="/public/img/user.png" alt="Evento 1">
+                        <img src="./public/img/user.png" alt="Evento 1">
                     </div>
                     <div class="evento-content">
                         <h3 class="evento-title">Burger Run Barcelona</h3>
@@ -91,13 +92,13 @@
                             y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.
                         </p>
                         <div class="evento-stars">★★★★★</div>
-                        <button class="evento-button" onclick="location.href='evento.html'">Ver Detalles</button>
+                        <button class="evento-button" onclick="location.href='./view/evento.html'">Ver Detalles</button>
                     </div>
                 </div>
 
                 <div class="evento-card">
                     <div class="evento-image">
-                        <img src="/public/img/user.png" alt="Evento 1">
+                        <img src="./public/img/user.png" alt="Evento 1">
                     </div>
                     <div class="evento-content">
                         <h3 class="evento-title">Burger Run Barcelona</h3>
@@ -105,12 +106,12 @@
                             y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.
                         </p>
                         <div class="evento-stars">★★★★★</div>
-                        <button class="evento-button" onclick="location.href='evento.html'">Ver Detalles</button>
+                        <button class="evento-button" onclick="location.href='./view/evento.html'">Ver Detalles</button>
                     </div>
                 </div>
                 <div class="evento-card">
                     <div class="evento-image">
-                        <img src="/public/img/user.png" alt="Evento 1">
+                        <img src="./public/img/user.png" alt="Evento 1">
                     </div>
                     <div class="evento-content">
                         <h3 class="evento-title">Burger Run Barcelona</h3>
@@ -118,12 +119,12 @@
                             y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.
                         </p>
                         <div class="evento-stars">★★★★★</div>
-                        <button class="evento-button" onclick="location.href='evento.html'">Ver Detalles</button>
+                        <button class="evento-button" onclick="location.href='./view/evento.html'">Ver Detalles</button>
                     </div>
                 </div>
                 <div class="evento-card">
                     <div class="evento-image">
-                        <img src="/public/img/user.png" alt="Evento 1">
+                        <img src="./public/img/user.png" alt="Evento 1">
                     </div>
                     <div class="evento-content">
                         <h3 class="evento-title">Burger Run Barcelona</h3>
@@ -131,12 +132,12 @@
                             y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.
                         </p>
                         <div class="evento-stars">★★★★★</div>
-                        <button class="evento-button" onclick="location.href='evento.html'">Ver Detalles</button>
+                        <button class="evento-button" onclick="location.href='./view/evento.html'">Ver Detalles</button>
                     </div>
                 </div>
                 <div class="evento-card">
                     <div class="evento-image">
-                        <img src="/public/img/user.png" alt="Evento 1">
+                        <img src="./public/img/user.png" alt="Evento 1">
                     </div>
                     <div class="evento-content">
                         <h3 class="evento-title">Burger Run Barcelona</h3>
@@ -144,7 +145,7 @@
                             y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.
                         </p>
                         <div class="evento-stars">★★★★★</div>
-                        <button class="evento-button" onclick="location.href='evento.html'">Ver Detalles</button>
+                        <button class="evento-button" onclick="location.href='./view/evento.html'">Ver Detalles</button>
                     </div>
                 </div>
             </div>
@@ -162,7 +163,7 @@
         <div class="site-footer__inner">
 
             <div class="site-footer__brand">
-                <img src="/public/img/logo.png" alt="Run & Eat" class="site-footer__logo">
+                <img src="./public/img/logo.png" alt="Run & Eat" class="site-footer__logo">
                 <p class="site-footer__tagline">La plataforma de eventos gastronómicos.</p>
                 <p class="site-footer__copy">&copy; 2026 Run &amp; Eat. Todos los derechos reservados.</p>
             </div>
@@ -171,33 +172,34 @@
                 <div class="site-footer__col">
                     <h4 class="site-footer__col-title">Plataforma</h4>
                     <ul>
-                        <li><a href="../index.html">Eventos</a></li>
-                        <li><a href="/view/crear-evento.html">Crear evento</a></li>
-                        <li><a href="/view/registro.html">Registro</a></li>
-                        <li><a href="/view/login.html">Iniciar sesión</a></li>
+                        <li><a href="index.html">Eventos</a></li>
+                        <li><a href="./view/crear-evento.html">Crear evento</a></li>
+                        <li><a href="./controller/registro.php">Registro</a></li>
+                        <li><a href="./controller/login.php">Iniciar sesión</a></li>
                     </ul>
                 </div>
                 <div class="site-footer__col">
                     <h4 class="site-footer__col-title">Soporte</h4>
                     <ul>
-                        <li><a href="/view/faq.html">Preguntas frecuentes</a></li>
-                        <li><a href="/view/contacto.html">Contacto</a></li>
+                        <li><a href="./view/faq.html">Preguntas frecuentes</a></li>
+                        <li><a href="./view/contacto.html">Contacto</a></li>
                     </ul>
                 </div>
                 <div class="site-footer__col">
                     <h4 class="site-footer__col-title">Empresa</h4>
                     <ul>
-                        <li><a href="/view/about-us.html">Sobre nosotros</a></li>
-                        <li><a href="/view/Ignacio.html">Ignacio Breñas</a></li>
-                        <li><a href="/view/Gorka.html">Gorka Ramírez</a></li>
+                        <li><a href="./view/about-us.html">Sobre nosotros</a></li>
+                        <li><a href="./view/Ignacio.html">Ignacio Breñas</a></li>
+                        <li><a href="./view/Gorka.html">Gorka Ramírez</a></li>
                     </ul>
                 </div>
             </div>
 
         </div>
+
     </footer>
 
-    <script src="/public/scripts/script.js"></script>
+    <script src="./public/scripts/script.js"></script>
 </body>
 
 </html>

@@ -1894,3 +1894,85 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+.forbidden-wrapper {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: #0f2742; /* azul oscuro fondo */
+}
+
+.forbidden-card {
+    background: #162f4d; /* azul más claro que el fondo */
+    border: 1px solid #1f3b5c;
+    border-radius: 16px;
+    padding: 48px 40px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+}
+
+.forbidden-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    color: #FFA208; /* amarillo */
+}
+
+.forbidden-card h2 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+}
+
+.forbidden-card p {
+    color: #c7d0d9; /* gris claro */
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.forbidden-card p span {
+    color: #FFA208; /* amarillo */
+    font-weight: 600;
+}
+
+.forbidden-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.btn-contacto-problema {
+    background: #FFA208;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+}
+
+.btn-contacto-problema:hover {
+    background: #e8920a;
+}
+
+.btn-backo {
+    background: transparent;
+    color: #c7d0d9;
+    border: 1px solid #2f4a68;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+}
+
+.btn-backo:hover {
+    color: #ffffff;
+    border-color: #4f6b8a;
+}

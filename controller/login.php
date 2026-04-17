@@ -37,7 +37,7 @@ unset($_SESSION["error"]);
                 </div>
             </div>
             <div class="nav-right">
-                <a href="../view/crear-evento.html" class="organizer-link">¿Eres organizador?</a>
+                <a href="../controller/crear-evento.php" class="organizer-link">¿Eres organizador?</a>
                 <button class="btn-registro" onclick="location.href='registro.php'">REGISTRO</button>
             </div>
         </div>
@@ -91,7 +91,7 @@ unset($_SESSION["error"]);
                     <h4 class="site-footer__col-title">Plataforma</h4>
                     <ul>
                         <li><a href="../index.html">Eventos</a></li>
-                        <li><a href="../view/crear-evento.html">Crear evento</a></li>
+                        <li><a href="../controller/crear-evento.php">Crear evento</a></li>
                         <li><a href="registro.php">Registro</a></li>
                     </ul>
                 </div>

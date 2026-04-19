@@ -1,18 +1,66 @@
 <?php
 session_start();
 
-// Si no hay sesión activa, redirigir al login
 if (!isset($_SESSION["id_usuario"])) {
     header("Location: login.php");
     exit();
 }
 
-$conexion   = mysqli_connect("localhost", "root", "", "run_and_eat");
+$conexion = mysqli_connect("localhost", "root", "", "run_and_eat");
 mysqli_set_charset($conexion, "utf8");
 
 $id_usuario    = $_SESSION["id_usuario"];
 $mensaje_ok    = "";
 $mensaje_error = "";
+
+// ── CAMBIAR FOTO DE PERFIL ────────────────────────────────────────────────────
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["update_photo"])) {
+    if (!isset($_FILES["foto_perfil"]) || $_FILES["foto_perfil"]["error"] !== UPLOAD_ERR_OK) {
+        $mensaje_error = "No se ha podido subir la imagen. Inténtalo de nuevo.";
+    } else {
+        $archivo   = $_FILES["foto_perfil"];
+        $tamano    = $archivo["size"];
+        $tmp       = $archivo["tmp_name"];
+        $extension = strtolower(pathinfo($archivo["name"], PATHINFO_EXTENSION));
+
+        $extensiones_permitidas = ["jpg", "jpeg", "png", "webp", "gif"];
+        $mimes_permitidos       = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime  = finfo_file($finfo, $tmp);
+        finfo_close($finfo);
+
+        if (!in_array($extension, $extensiones_permitidas) || !in_array($mime, $mimes_permitidos)) {
+            $mensaje_error = "Formato no permitido. Usa JPG, PNG, WEBP o GIF.";
+        } elseif ($tamano > 2 * 1024 * 1024) {
+            $mensaje_error = "La imagen no puede superar los 2 MB.";
+        } else {
+            $directorio = __DIR__ . "/../public/img/user-photos/";
+            if (!is_dir($directorio)) {
+                mkdir($directorio, 0755, true);
+            }
+
+            $nombre_archivo = "user_" . $id_usuario . "_" . time() . "." . $extension;
+            $ruta_destino   = $directorio . $nombre_archivo;
+
+            if (move_uploaded_file($tmp, $ruta_destino)) {
+                $ruta_bd   = "public/img/user-photos/" . $nombre_archivo;
+                $stmt_foto = mysqli_prepare($conexion,
+                    "UPDATE USUARIOS SET foto_perfil = ? WHERE id_usuario = ?");
+                mysqli_stmt_bind_param($stmt_foto, "si", $ruta_bd, $id_usuario);
+                if (mysqli_stmt_execute($stmt_foto)) {
+                    $_SESSION["foto_perfil"] = $ruta_bd;
+                    $mensaje_ok = "Foto de perfil actualizada correctamente.";
+                } else {
+                    $mensaje_error = "Error al guardar la foto en la base de datos.";
+                }
+                mysqli_stmt_close($stmt_foto);
+            } else {
+                $mensaje_error = "Error al mover el archivo. Comprueba los permisos del directorio.";
+            }
+        }
+    }
+}
 
 // ── ACTUALIZAR INFORMACIÓN PERSONAL ──────────────────────────────────────────
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["update_info"])) {
@@ -87,7 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["update_password"])) {
 
 // ── LEER DATOS ACTUALES DEL USUARIO ──────────────────────────────────────────
 $stmt_u = mysqli_prepare($conexion,
-    "SELECT nombre_completo, email, tipo_usuario, fecha_registro
+    "SELECT nombre_completo, email, tipo_usuario, fecha_registro, foto_perfil
      FROM USUARIOS WHERE id_usuario = ? LIMIT 1");
 mysqli_stmt_bind_param($stmt_u, "i", $id_usuario);
 mysqli_stmt_execute($stmt_u);
@@ -104,7 +152,7 @@ if (!$usuario) {
 // ── LEER EVENTOS INSCRITOS ────────────────────────────────────────────────────
 $eventos_usuario = [];
 $stmt_ev = mysqli_prepare($conexion,
-    "SELECT e.id_evento, e.titulo, e.fecha, e.ubicacion
+    "SELECT e.id_evento, e.titulo, e.fecha, e.ciudad AS ubicacion
      FROM EVENTOS e
      INNER JOIN INSCRIPCIONES i ON i.id_evento = e.id_evento
      WHERE i.id_usuario = ?
@@ -121,7 +169,10 @@ if ($stmt_ev) {
 
 mysqli_close($conexion);
 
-// Fecha de registro legible
+$foto_src = !empty($usuario["foto_perfil"])
+    ? "../" . htmlspecialchars($usuario["foto_perfil"])
+    : "../public/img/user.png";
+
 $fecha_registro = "";
 if (!empty($usuario["fecha_registro"])) {
     $meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
@@ -139,9 +190,46 @@ if (!empty($usuario["fecha_registro"])) {
     <link rel="icon" type="image/png" href="../public/img/logo.png">
     <link rel="stylesheet" href="../public/style/styles.css">
     <style>
-        .alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 14px; font-size: 0.9rem; }
+   .alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 14px; font-size: 0.9rem; }
         .alert-error   { background: #fdecea; color: #c0392b; border: 1px solid #f5c6cb; }
         .alert-success { background: #eafaf1; color: #1e8449; border: 1px solid #a9dfbf; }
+
+        #foto_perfil_input {
+            display: none;
+        }
+
+        label.change-photo-btn {
+            cursor: pointer;
+        }
+
+        .btn-subir-foto {
+            display: block;
+            margin-top: 8px;
+            background-color: transparent;
+            border: 1px solid #FFA208;
+            color: #FFA208;
+            padding: 0.3rem 0.9rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.78rem;
+            font-weight: 600;
+            font-family: inherit;
+            transition: all 0.3s;
+            width: 120px;
+            text-align: center;
+        }
+
+        .btn-subir-foto:hover {
+            background-color: #FFA208;
+            color: #0a192f;
+        }
+
+        .foto-form-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
     </style>
 </head>
 <body>
@@ -175,13 +263,26 @@ if (!empty($usuario["fecha_registro"])) {
                 <div class="alert alert-error"><?= htmlspecialchars($mensaje_error) ?></div>
             <?php endif; ?>
 
-            <!-- Header del Perfil -->
             <div class="perfil-header">
                 <div class="perfil-top">
-                    <div class="perfil-image-container">
-                        <img src="../public/img/user.png" alt="Foto de perfil" class="perfil-image">
-                        <button class="change-photo-btn">Cambiar</button>
-                    </div>
+
+                    <form method="POST" action="perfil.php" enctype="multipart/form-data">
+                        <input type="hidden" name="update_photo" value="1">
+
+                        <div class="foto-form-wrap">
+                            <div class="perfil-image-container">
+                                <img src="<?= $foto_src ?>" alt="Foto de perfil" class="perfil-image">
+
+
+                                <label for="foto_perfil_input" class="change-photo-btn">Cambiar</label>
+                                <input type="file" id="foto_perfil_input" name="foto_perfil"
+                                       accept="image/jpeg,image/png,image/webp,image/gif">
+                            </div>
+                            <button type="submit" class="btn-subir-foto">Subir foto</button>
+                        </div>
+
+                    </form>
+
                     <div class="perfil-info">
                         <h2><?= htmlspecialchars($usuario["nombre_completo"]) ?></h2>
                         <p><?= htmlspecialchars($usuario["email"]) ?></p>
@@ -192,7 +293,6 @@ if (!empty($usuario["fecha_registro"])) {
 
             <div class="perfil-sections">
 
-                <!-- Información Personal -->
                 <div class="perfil-section">
                     <h3>Información Personal</h3>
                     <form method="POST" action="perfil.php">
@@ -304,6 +404,5 @@ if (!empty($usuario["fecha_registro"])) {
         </div>
     </footer>
 
-    <script src="../public/scripts/script.js"></script>
 </body>
 </html>

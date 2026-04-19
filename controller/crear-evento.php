@@ -27,7 +27,7 @@ $nombre = htmlspecialchars($_SESSION["nombre_completo"]);
             </div>
 
             <div class="nav-right">
-                <button class="btn-registro" onclick="location.href='perfil.html'">MI PERFIL</button>
+                <button class="btn-registro" onclick="location.href='perfil.php'">MI PERFIL</button>
                 <form method="POST" action="../controller/UserController.php" style="display:inline;">
                     <button type="submit" name="logout" class="btn-login">CERRAR SESIÓN</button>
                 </form>

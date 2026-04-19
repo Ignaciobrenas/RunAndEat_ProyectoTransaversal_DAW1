@@ -43,7 +43,7 @@ class UserController
             $_SESSION["tipo_usuario"]    = $usuario["tipo_usuario"];
             $_SESSION["foto_perfil"]     = $usuario["foto_perfil"];
 
-            header("Location: ../index.html");
+            header("Location: index.php");
             exit();
         } else {
             $this->redirectWithError("login.php", "Email o contraseña incorrectos.");
@@ -55,7 +55,7 @@ class UserController
         session_unset();
         session_destroy();
 
-        header("Location: ../index.html");
+        header("Location: index.php");
         exit();
     }
 

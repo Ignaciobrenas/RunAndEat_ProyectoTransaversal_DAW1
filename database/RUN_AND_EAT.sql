@@ -33,7 +33,7 @@ CREATE TABLE USUARIOS (
     email           VARCHAR(100) NOT NULL UNIQUE,
     contrasena      VARCHAR(255) NOT NULL,
     tipo_usuario    ENUM('cliente', 'organizador') DEFAULT 'cliente',
-    foto_perfil     VARCHAR(255) DEFAULT 'img/user.png',
+    foto_perfil     VARCHAR(255) DEFAULT 'public/img/user-photos/user.png',
     fecha_registro  TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
     activo          BOOLEAN      DEFAULT TRUE
 );
@@ -51,7 +51,7 @@ CREATE TABLE EVENTOS (
     id_categoria        INT            NOT NULL,
     titulo              VARCHAR(150)   NOT NULL,
     descripcion         TEXT           NOT NULL,
-    imagen              VARCHAR(255)   DEFAULT 'img/user.png',
+    imagen              VARCHAR(255)   DEFAULT 'public/img/events-photos/user.png',
     fecha               DATE           NOT NULL,
     hora                TIME           NOT NULL,
     ciudad              VARCHAR(100)   NOT NULL,

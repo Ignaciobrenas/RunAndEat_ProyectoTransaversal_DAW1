@@ -122,12 +122,4 @@ El objetivo de **RUN AND EAT** es crear una plataforma accesible donde cualquier
 
 ---
 
-## 💡 Futuras mejoras
 
-* Sistema de valoraciones ⭐
-* Filtros avanzados 🔍
-* Geolocalización 📍
-* Panel de administración
-* Versión móvil 📱
-
----

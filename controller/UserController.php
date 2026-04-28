@@ -7,11 +7,15 @@ class UserController
 
     public function __construct()
     {
-        $this->conexion = mysqli_connect("localhost", "root", "", "run_and_eat");
-        mysqli_set_charset($this->conexion, "utf8");
-
-        if (!$this->conexion) {
-            die("Error de conexión: " . mysqli_connect_error());
+        try {
+            $this->conexion = new PDO(
+                "mysql:host=localhost;dbname=run_and_eat;charset=utf8",
+                "root",
+                ""
+            );
+            $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            die("Error de conexión: " . $e->getMessage());
         }
     }
 
@@ -24,18 +28,14 @@ class UserController
             $this->redirectWithError("login.php", "Por favor, rellena todos los campos.");
             return;
         }
-        $stmt = mysqli_prepare(
-            $this->conexion,
+        $stmt = $this->conexion->prepare(
             "SELECT id_usuario, nombre_completo, email, contrasena, tipo_usuario, foto_perfil
              FROM USUARIOS
              WHERE email = ? 
              LIMIT 1"
         );
-        mysqli_stmt_bind_param($stmt, "s", $email);
-        mysqli_stmt_execute($stmt);
-        $resultado = mysqli_stmt_get_result($stmt);
-        $usuario   = mysqli_fetch_assoc($resultado);
-        mysqli_stmt_close($stmt);
+        $stmt->execute([$email]);
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($usuario && $contrasena === $usuario["contrasena"]) {
             $_SESSION["id_usuario"]      = $usuario["id_usuario"];
@@ -88,31 +88,23 @@ class UserController
         }
 
         // Comprobar si el email ya existe
-        $stmt_check = mysqli_prepare($this->conexion, "SELECT id_usuario FROM USUARIOS WHERE email = ? LIMIT 1");
-        mysqli_stmt_bind_param($stmt_check, "s", $email);
-        mysqli_stmt_execute($stmt_check);
-        mysqli_stmt_store_result($stmt_check);
+        $stmt_check = $this->conexion->prepare("SELECT id_usuario FROM USUARIOS WHERE email = ? LIMIT 1");
+        $stmt_check->execute([$email]);
 
-        if (mysqli_stmt_num_rows($stmt_check) > 0) {
-            mysqli_stmt_close($stmt_check);
+        if ($stmt_check->rowCount() > 0) {
             $this->redirectWithError("registro.php", "Este correo electrónico ya está registrado.");
             return;
         }
-        mysqli_stmt_close($stmt_check);
 
         // Insertar usuario con contraseña en texto plano
-        $stmt_insert = mysqli_prepare(
-            $this->conexion,
+        $stmt_insert = $this->conexion->prepare(
             "INSERT INTO USUARIOS (nombre_completo, email, contrasena, tipo_usuario) VALUES (?, ?, ?, ?)"
         );
-        mysqli_stmt_bind_param($stmt_insert, "ssss", $nombre, $email, $password, $tipo_usuario);
 
-        if (mysqli_stmt_execute($stmt_insert)) {
-            mysqli_stmt_close($stmt_insert);
+        if ($stmt_insert->execute([$nombre, $email, $password, $tipo_usuario])) {
             header("Location: login.php?registered=1");
             exit();
         } else {
-            mysqli_stmt_close($stmt_insert);
             $this->redirectWithError("registro.php", "Error al crear la cuenta. Inténtalo de nuevo.");
         }
     }
@@ -128,7 +120,7 @@ class UserController
     public function __destruct()
     {
         if ($this->conexion) {
-            mysqli_close($this->conexion);
+            $this->conexion = null;
         }
     }
 }

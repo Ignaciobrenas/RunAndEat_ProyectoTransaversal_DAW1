@@ -1,185 +1,17 @@
 <?php
-session_start();
+require_once "UserController.php";
 
-if (!isset($_SESSION["id_usuario"])) {
-    header("Location: login.php");
-    exit();
-}
+$controller = new UserController();
+$data = $controller->getProfileData();
 
-$conexion = mysqli_connect("localhost", "root", "", "run_and_eat");
-mysqli_set_charset($conexion, "utf8");
+$usuario         = $data["usuario"];
+$eventos_usuario = $data["eventos_usuario"];
+$foto_src        = $data["foto_src"];
+$fecha_registro  = $data["fecha_registro"];
 
-$id_usuario    = $_SESSION["id_usuario"];
-$mensaje_ok    = "";
-$mensaje_error = "";
-
-// ── CAMBIAR FOTO DE PERFIL ────────────────────────────────────────────────────
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["update_photo"])) {
-    if (!isset($_FILES["foto_perfil"]) || $_FILES["foto_perfil"]["error"] !== UPLOAD_ERR_OK) {
-        $mensaje_error = "No se ha podido subir la imagen. Inténtalo de nuevo.";
-    } else {
-        $archivo   = $_FILES["foto_perfil"];
-        $tamano    = $archivo["size"];
-        $tmp       = $archivo["tmp_name"];
-        $extension = strtolower(pathinfo($archivo["name"], PATHINFO_EXTENSION));
-
-        $extensiones_permitidas = ["jpg", "jpeg", "png", "webp", "gif"];
-        $mimes_permitidos       = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime  = finfo_file($finfo, $tmp);
-        finfo_close($finfo);
-
-        if (!in_array($extension, $extensiones_permitidas) || !in_array($mime, $mimes_permitidos)) {
-            $mensaje_error = "Formato no permitido. Usa JPG, PNG, WEBP o GIF.";
-        } elseif ($tamano > 2 * 1024 * 1024) {
-            $mensaje_error = "La imagen no puede superar los 2 MB.";
-        } else {
-            $directorio = __DIR__ . "/../public/img/user-photos/";
-            if (!is_dir($directorio)) {
-                mkdir($directorio, 0755, true);
-            }
-
-            $nombre_archivo = "user_" . $id_usuario . "_" . time() . "." . $extension;
-            $ruta_destino   = $directorio . $nombre_archivo;
-
-            if (move_uploaded_file($tmp, $ruta_destino)) {
-                $ruta_bd   = "public/img/user-photos/" . $nombre_archivo;
-                $stmt_foto = mysqli_prepare($conexion,
-                    "UPDATE USUARIOS SET foto_perfil = ? WHERE id_usuario = ?");
-                mysqli_stmt_bind_param($stmt_foto, "si", $ruta_bd, $id_usuario);
-                if (mysqli_stmt_execute($stmt_foto)) {
-                    $_SESSION["foto_perfil"] = $ruta_bd;
-                    $mensaje_ok = "Foto de perfil actualizada correctamente.";
-                } else {
-                    $mensaje_error = "Error al guardar la foto en la base de datos.";
-                }
-                mysqli_stmt_close($stmt_foto);
-            } else {
-                $mensaje_error = "Error al mover el archivo. Comprueba los permisos del directorio.";
-            }
-        }
-    }
-}
-
-// ── ACTUALIZAR INFORMACIÓN PERSONAL ──────────────────────────────────────────
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["update_info"])) {
-    $nombre = trim($_POST["nombre"] ?? "");
-    $email  = trim($_POST["email"]  ?? "");
-
-    if (empty($nombre) || empty($email)) {
-        $mensaje_error = "Por favor, rellena todos los campos.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $mensaje_error = "El formato del correo electrónico no es válido.";
-    } else {
-        $stmt_check = mysqli_prepare($conexion,
-            "SELECT id_usuario FROM USUARIOS WHERE email = ? AND id_usuario != ? LIMIT 1");
-        mysqli_stmt_bind_param($stmt_check, "si", $email, $id_usuario);
-        mysqli_stmt_execute($stmt_check);
-        mysqli_stmt_store_result($stmt_check);
-
-        if (mysqli_stmt_num_rows($stmt_check) > 0) {
-            $mensaje_error = "Ese correo ya está en uso por otra cuenta.";
-        } else {
-            $stmt_up = mysqli_prepare($conexion,
-                "UPDATE USUARIOS SET nombre_completo = ?, email = ? WHERE id_usuario = ?");
-            mysqli_stmt_bind_param($stmt_up, "ssi", $nombre, $email, $id_usuario);
-            if (mysqli_stmt_execute($stmt_up)) {
-                $_SESSION["nombre_completo"] = $nombre;
-                $mensaje_ok = "Información actualizada correctamente.";
-            } else {
-                $mensaje_error = "Error al actualizar. Inténtalo de nuevo.";
-            }
-            mysqli_stmt_close($stmt_up);
-        }
-        mysqli_stmt_close($stmt_check);
-    }
-}
-
-// ── CAMBIAR CONTRASEÑA ────────────────────────────────────────────────────────
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["update_password"])) {
-    $current  = $_POST["current-password"]    ?? "";
-    $nueva    = $_POST["new-password"]         ?? "";
-    $confirma = $_POST["confirm-new-password"] ?? "";
-
-    if (empty($current) || empty($nueva) || empty($confirma)) {
-        $mensaje_error = "Rellena todos los campos de contraseña.";
-    } elseif (strlen($nueva) < 8) {
-        $mensaje_error = "La nueva contraseña debe tener al menos 8 caracteres.";
-    } elseif ($nueva !== $confirma) {
-        $mensaje_error = "Las contraseñas nuevas no coinciden.";
-    } else {
-        $stmt_h = mysqli_prepare($conexion,
-            "SELECT contrasena FROM USUARIOS WHERE id_usuario = ? LIMIT 1");
-        mysqli_stmt_bind_param($stmt_h, "i", $id_usuario);
-        mysqli_stmt_execute($stmt_h);
-        $res_h = mysqli_stmt_get_result($stmt_h);
-        $row_h = mysqli_fetch_assoc($res_h);
-        mysqli_stmt_close($stmt_h);
-
-        if ($current !== ($row_h["contrasena"] ?? "")) {
-            $mensaje_error = "La contraseña actual no es correcta.";
-        } else {
-            $stmt_pw = mysqli_prepare($conexion,
-                "UPDATE USUARIOS SET contrasena = ? WHERE id_usuario = ?");
-            mysqli_stmt_bind_param($stmt_pw, "si", $nueva, $id_usuario);
-            if (mysqli_stmt_execute($stmt_pw)) {
-                $mensaje_ok = "Contraseña actualizada correctamente.";
-            } else {
-                $mensaje_error = "Error al cambiar la contraseña.";
-            }
-            mysqli_stmt_close($stmt_pw);
-        }
-    }
-}
-
-// ── LEER DATOS ACTUALES DEL USUARIO ──────────────────────────────────────────
-$stmt_u = mysqli_prepare($conexion,
-    "SELECT nombre_completo, email, tipo_usuario, fecha_registro, foto_perfil
-     FROM USUARIOS WHERE id_usuario = ? LIMIT 1");
-mysqli_stmt_bind_param($stmt_u, "i", $id_usuario);
-mysqli_stmt_execute($stmt_u);
-$res_u   = mysqli_stmt_get_result($stmt_u);
-$usuario = mysqli_fetch_assoc($res_u);
-mysqli_stmt_close($stmt_u);
-
-if (!$usuario) {
-    session_destroy();
-    header("Location: login.php");
-    exit();
-}
-
-// ── LEER EVENTOS INSCRITOS ────────────────────────────────────────────────────
-$eventos_usuario = [];
-$stmt_ev = mysqli_prepare($conexion,
-    "SELECT e.id_evento, e.titulo, e.fecha, e.ciudad AS ubicacion
-     FROM EVENTOS e
-     INNER JOIN INSCRIPCIONES i ON i.id_evento = e.id_evento
-     WHERE i.id_usuario = ?
-     ORDER BY e.fecha DESC");
-if ($stmt_ev) {
-    mysqli_stmt_bind_param($stmt_ev, "i", $id_usuario);
-    mysqli_stmt_execute($stmt_ev);
-    $res_ev = mysqli_stmt_get_result($stmt_ev);
-    while ($row = mysqli_fetch_assoc($res_ev)) {
-        $eventos_usuario[] = $row;
-    }
-    mysqli_stmt_close($stmt_ev);
-}
-
-mysqli_close($conexion);
-
-$foto_src = !empty($usuario["foto_perfil"])
-    ? "../" . htmlspecialchars($usuario["foto_perfil"])
-    : "../public/img/user.png";
-
-$fecha_registro = "";
-if (!empty($usuario["fecha_registro"])) {
-    $meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
-              "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-    $ts = strtotime($usuario["fecha_registro"]);
-    $fecha_registro = $meses[(int)date("n", $ts) - 1] . " " . date("Y", $ts);
-}
+$mensaje_ok    = $_SESSION["success"] ?? "";
+$mensaje_error = $_SESSION["error"]   ?? "";
+unset($_SESSION["success"], $_SESSION["error"]);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -266,7 +98,7 @@ if (!empty($usuario["fecha_registro"])) {
             <div class="perfil-header">
                 <div class="perfil-top">
 
-                    <form method="POST" action="perfil.php" enctype="multipart/form-data">
+                    <form method="POST" action="UserController.php" enctype="multipart/form-data">
                         <input type="hidden" name="update_photo" value="1">
 
                         <div class="foto-form-wrap">
@@ -295,7 +127,7 @@ if (!empty($usuario["fecha_registro"])) {
 
                 <div class="perfil-section">
                     <h3>Información Personal</h3>
-                    <form method="POST" action="perfil.php">
+                    <form method="POST" action="UserController.php">
                         <div class="form-group">
                             <label for="nombre">Nombre Completo</label>
                             <input type="text" id="nombre" name="nombre"
@@ -317,7 +149,7 @@ if (!empty($usuario["fecha_registro"])) {
                 <!-- Cambiar Contraseña -->
                 <div class="perfil-section">
                     <h3>Cambiar Contraseña</h3>
-                    <form method="POST" action="perfil.php">
+                    <form method="POST" action="UserController.php">
                         <div class="form-group">
                             <label for="current-password">Contraseña Actual</label>
                             <input type="password" id="current-password"

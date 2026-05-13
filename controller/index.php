@@ -127,109 +127,35 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
         <section class="eventos-container">
             <div class="eventos-grid">
 
-                <div class="evento-card">
-                    <div class="evento-image">
-                        <img src="../public/img/user.png" alt="Evento 1">
-                    </div>
-                    <div class="evento-content">
-                        <h3 class="evento-title">Burger Run Barcelona</h3>
-                        <p class="evento-description">Local con hamburguesas artesanas y opciones veganas. Buena música
-                            y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.</p>
-                        <div class="evento-stars">★★★★★</div>
-                        <button class="evento-button" onclick="location.href='../view/evento.html'">Ver Detalles</button>
-                    </div>
-                </div>
+                <?php
+                require_once "EventController.php";
+                $eventCtrl = new EventController();
+                $eventos = $eventCtrl->listarEventos();
 
-                <div class="evento-card">
-                    <div class="evento-image">
-                        <img src="../public/img/user.png" alt="Evento 1">
-                    </div>
-                    <div class="evento-content">
-                        <h3 class="evento-title">Burger Run Barcelona</h3>
-                        <p class="evento-description">Local con hamburguesas artesanas y opciones veganas. Buena música
-                            y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.</p>
-                        <div class="evento-stars">★★★★★</div>
-                        <button class="evento-button" onclick="location.href='../view/evento.html'">Ver Detalles</button>
-                    </div>
-                </div>
-
-                <div class="evento-card">
-                    <div class="evento-image">
-                        <img src="../public/img/user.png" alt="Evento 1">
-                    </div>
-                    <div class="evento-content">
-                        <h3 class="evento-title">Burger Run Barcelona</h3>
-                        <p class="evento-description">Local con hamburguesas artesanas y opciones veganas. Buena música
-                            y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.</p>
-                        <div class="evento-stars">★★★★★</div>
-                        <button class="evento-button" onclick="location.href='../view/evento.html'">Ver Detalles</button>
-                    </div>
-                </div>
-
-                <div class="evento-card">
-                    <div class="evento-image">
-                        <img src="../public/img/user.png" alt="Evento 1">
-                    </div>
-                    <div class="evento-content">
-                        <h3 class="evento-title">Burger Run Barcelona</h3>
-                        <p class="evento-description">Local con hamburguesas artesanas y opciones veganas. Buena música
-                            y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.</p>
-                        <div class="evento-stars">★★★★★</div>
-                        <button class="evento-button" onclick="location.href='../view/evento.html'">Ver Detalles</button>
-                    </div>
-                </div>
-
-                <div class="evento-card">
-                    <div class="evento-image">
-                        <img src="../public/img/user.png" alt="Evento 1">
-                    </div>
-                    <div class="evento-content">
-                        <h3 class="evento-title">Burger Run Barcelona</h3>
-                        <p class="evento-description">Local con hamburguesas artesanas y opciones veganas. Buena música
-                            y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.</p>
-                        <div class="evento-stars">★★★★★</div>
-                        <button class="evento-button" onclick="location.href='../view/evento.html'">Ver Detalles</button>
-                    </div>
-                </div>
-
-                <div class="evento-card">
-                    <div class="evento-image">
-                        <img src="../public/img/user.png" alt="Evento 1">
-                    </div>
-                    <div class="evento-content">
-                        <h3 class="evento-title">Burger Run Barcelona</h3>
-                        <p class="evento-description">Local con hamburguesas artesanas y opciones veganas. Buena música
-                            y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.</p>
-                        <div class="evento-stars">★★★★★</div>
-                        <button class="evento-button" onclick="location.href='../view/evento.html'">Ver Detalles</button>
-                    </div>
-                </div>
-
-                <div class="evento-card">
-                    <div class="evento-image">
-                        <img src="../public/img/user.png" alt="Evento 1">
-                    </div>
-                    <div class="evento-content">
-                        <h3 class="evento-title">Burger Run Barcelona</h3>
-                        <p class="evento-description">Local con hamburguesas artesanas y opciones veganas. Buena música
-                            y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.</p>
-                        <div class="evento-stars">★★★★★</div>
-                        <button class="evento-button" onclick="location.href='../view/evento.html'">Ver Detalles</button>
-                    </div>
-                </div>
-
-                <div class="evento-card">
-                    <div class="evento-image">
-                        <img src="../public/img/user.png" alt="Evento 1">
-                    </div>
-                    <div class="evento-content">
-                        <h3 class="evento-title">Burger Run Barcelona</h3>
-                        <p class="evento-description">Local con hamburguesas artesanas y opciones veganas. Buena música
-                            y precios razonables. Usar Run and Eat me ayudó a decidirme y reservar sin complicaciones.</p>
-                        <div class="evento-stars">★★★★★</div>
-                        <button class="evento-button" onclick="location.href='../view/evento.html'">Ver Detalles</button>
-                    </div>
-                </div>
+                if (empty($eventos)):
+                ?>
+                    <p style="color:white;">No hay eventos disponibles en este momento.</p>
+                <?php else: ?>
+                    <?php foreach ($eventos as $evento): ?>
+                        <div class="evento-card">
+                            <div class="evento-image">
+                                <!-- Asumiendo que la imagen guardada en BD es algo como 'public/img/eventos-photos/user.png' -->
+                                <img src="../<?= htmlspecialchars($evento['imagen'] ?? 'public/img/eventos-photos/user.png') ?>" alt="<?= htmlspecialchars($evento['titulo']) ?>">
+                            </div>
+                            <div class="evento-content">
+                                <h3 class="evento-title"><?= htmlspecialchars($evento['titulo']) ?></h3>
+                                <p class="evento-description"><?= htmlspecialchars(mb_substr($evento['descripcion'], 0, 150)) ?>...</p>
+                                <div class="evento-stars">
+                                    <?php
+                                        $estrellas = (int)round($evento['valoracion_promedio'] ?? 0);
+                                        echo str_repeat("★", $estrellas) . str_repeat("☆", 5 - $estrellas);
+                                    ?>
+                                </div>
+                                <button class="evento-button" onclick="location.href='../view/evento.php?id=<?= $evento['id_evento'] ?>'">Ver Detalles</button>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
 
             </div>
 

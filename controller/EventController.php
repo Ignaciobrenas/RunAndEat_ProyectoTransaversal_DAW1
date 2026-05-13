@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 class EventController
 {
@@ -71,9 +73,9 @@ class EventController
 
         $id_categoria = (int)($_POST["tipo-evento"] ?? 1);
 
-        $imagenPath = 'public/img/events-photos/user.png';
+        $imagenPath = 'public/img/eventos-photos/user.png';
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = __DIR__ . '/../public/img/events-photos/';
+            $uploadDir = __DIR__ . '/../public/img/eventos-photos/';
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
@@ -82,7 +84,7 @@ class EventController
             $destination = $uploadDir . $fileName;
 
             if (move_uploaded_file($_FILES['imagen']['tmp_name'], $destination)) {
-                $imagenPath = 'public/img/events-photos/' . $fileName;
+                $imagenPath = 'public/img/eventos-photos/' . $fileName;
             }
         }
 
@@ -142,14 +144,31 @@ class EventController
 
     }
 
-    public function verEvento(int $idEvento): void
+    public function verEvento(int $idEvento): ?array
     {
-
+        try {
+            $stmt = $this->conexion->prepare("
+                SELECT e.*, u.nombre_completo AS organizador_nombre, u.foto_perfil AS organizador_foto 
+                FROM EVENTOS e
+                JOIN USUARIOS u ON e.id_organizador = u.id_usuario
+                WHERE e.id_evento = ? AND e.activo = 1
+            ");
+            $stmt->execute([$idEvento]);
+            $evento = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $evento ?: null;
+        } catch (PDOException $e) {
+            return null;
+        }
     }
 
-    public function listarEventos(array $filtros = []): void
+    public function listarEventos(): array
     {
-
+        try {
+            $stmt = $this->conexion->query("SELECT id_evento, titulo, descripcion, imagen, valoracion_promedio FROM EVENTOS WHERE activo = 1 ORDER BY fecha DESC");
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return [];
+        }
     }
 
 }

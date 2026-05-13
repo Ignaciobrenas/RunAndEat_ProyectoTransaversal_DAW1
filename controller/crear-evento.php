@@ -38,11 +38,26 @@ $nombre = htmlspecialchars($_SESSION["nombre_completo"]);
 
     <main>
         <div class="create-evento-container">
+            <?php if (isset($_SESSION["success"])): ?>
+                <div class="alert-success" style="background-color: #d4edda; color: #155724; padding: 15px; margin-bottom: 20px; border: 1px solid #c3e6cb; border-radius: 4px; text-align: center;">
+                    <?= $_SESSION["success"] ?>
+                </div>
+                <?php unset($_SESSION["success"]); ?>
+            <?php endif; ?>
+            
+            <?php if (isset($_SESSION["error"])): ?>
+                <div class="alert-error" style="background-color: #f8d7da; color: #721c24; padding: 15px; margin-bottom: 20px; border: 1px solid #f5c6cb; border-radius: 4px; text-align: center;">
+                    <?= $_SESSION["error"] ?>
+                </div>
+                <?php unset($_SESSION["error"]); ?>
+            <?php endif; ?>
+
             <div class="create-evento-form">
                 <h2>Crear Nuevo Evento</h2>
                 <p>Completa la información de tu evento gastronómico</p>
                 
-                <form method="POST" action="" enctype="multipart/form-data">
+                <form method="POST" action="EventController.php" enctype="multipart/form-data">
+                    <input type="hidden" name="action" value="crearEvento">
 
                     <div class="form-section">
                         <h3>Información Básica</h3>
@@ -128,20 +143,14 @@ $nombre = htmlspecialchars($_SESSION["nombre_completo"]);
                             <label for="tipo-evento">Tipo de Evento</label>
                             <select id="tipo-evento" name="tipo-evento" required>
                                 <option value="">Selecciona el tipo</option>
-                                <option value="cata-vino">Cata de Vino</option>
-                                <option value="hamburguesas">Hamburguesas</option>
-                                <option value="restaurante">Restaurante</option>
-                                <option value="bar">Bar / Tapas</option>
-                                <option value="comida-china">Comida China</option>
-                                <option value="comida-mexicana">Comida Mexicana</option>
-                                <option value="comida-filipina">Comida Filipina</option>
-                                <option value="comida-italiana">Comida Italiana</option>
-                                <option value="comida-japonesa">Comida Japonesa</option>
-                                <option value="comida-india">Comida India</option>
-                                <option value="cafeteria">Cafetería</option>
-                                <option value="pizzeria">Pizzería</option>
-                                <option value="sushi">Sushi</option>
-                                <option value="tacos">Tacos</option>
+                                <?php
+                                require_once "../controller/EventController.php";
+                                $eventCtrl = new EventController();
+                                $listaCategorias = $eventCtrl->getCategorias();
+                                foreach ($listaCategorias as $cat) {
+                                    echo '<option value="' . $cat['id_categoria'] . '">' . htmlspecialchars($cat['nombre']) . '</option>';
+                                }
+                                ?>
                             </select>
                         </div>
 

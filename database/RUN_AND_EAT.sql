@@ -23,7 +23,7 @@ administración de la plataforma.
 Proyecto académico desarrollado para el ciclo formativo de 
 Desarrollo de Aplicaciones Web (DAW).
 */
-CREATE DATABASE IF NOT EXISTS RUN_AND_EAT;
+CREATE DATABASE RUN_AND_EAT;
 
 USE RUN_AND_EAT;
  
@@ -32,7 +32,7 @@ CREATE TABLE USUARIOS (
     nombre_completo VARCHAR(100) NOT NULL,
     email           VARCHAR(100) NOT NULL UNIQUE,
     contrasena      VARCHAR(255) NOT NULL,
-    tipo_usuario    ENUM('cliente', 'organizador') DEFAULT 'cliente',
+    tipo_usuario    ENUM('cliente', 'organizador','admin') DEFAULT 'cliente',
     foto_perfil     VARCHAR(255) DEFAULT 'public/img/user-photos/user.png',
     fecha_registro  TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
     activo          BOOLEAN      DEFAULT TRUE
@@ -60,6 +60,8 @@ CREATE TABLE EVENTOS (
     precio              DECIMAL(10, 2) NOT NULL,
     capacidad           INT            NOT NULL,
     plazas_disponibles  INT            NOT NULL,
+    distancia           DECIMAL(5, 2)  DEFAULT NULL,
+    nivel               VARCHAR(50)    DEFAULT NULL,
     que_incluye         TEXT,
     que_traer           TEXT,
     notas_adicionales   TEXT,
@@ -167,20 +169,25 @@ CREATE PROCEDURE CrearEvento(
     IN p_direccion      VARCHAR(255),
     IN p_precio         DECIMAL(10,2),
     IN p_capacidad      INT,
+    IN p_distancia      DECIMAL(5,2),
+    IN p_nivel          VARCHAR(50),
     IN p_que_incluye    TEXT,
-    IN p_que_traer      TEXT
+    IN p_que_traer      TEXT,
+    IN p_notas          TEXT
 )
 BEGIN
     INSERT INTO EVENTOS (
         id_organizador, id_categoria, titulo, descripcion, imagen,
         fecha, hora, ciudad, direccion_completa,
         precio, capacidad, plazas_disponibles,
-        que_incluye, que_traer
+        distancia, nivel,
+        que_incluye, que_traer, notas_adicionales
     ) VALUES (
         p_id_organizador, p_id_categoria, p_titulo, p_descripcion, p_imagen,
         p_fecha, p_hora, p_ciudad, p_direccion,
         p_precio, p_capacidad, p_capacidad,
-        p_que_incluye, p_que_traer
+        p_distancia, p_nivel,
+        p_que_incluye, p_que_traer, p_notas
     );
 END$$
  
@@ -204,8 +211,11 @@ CREATE PROCEDURE ModificarEvento(
     IN p_direccion    VARCHAR(255),
     IN p_precio       DECIMAL(10,2),
     IN p_capacidad    INT,
+    IN p_distancia    DECIMAL(5,2),
+    IN p_nivel        VARCHAR(50),
     IN p_que_incluye  TEXT,
-    IN p_que_traer    TEXT
+    IN p_que_traer    TEXT,
+    IN p_notas        TEXT
 )
 BEGIN
     UPDATE EVENTOS
@@ -219,8 +229,11 @@ BEGIN
         direccion_completa = p_direccion,
         precio             = p_precio,
         capacidad          = p_capacidad,
+        distancia          = p_distancia,
+        nivel              = p_nivel,
         que_incluye        = p_que_incluye,
-        que_traer          = p_que_traer
+        que_traer          = p_que_traer,
+        notas_adicionales  = p_notas
     WHERE id_evento = p_id_evento;
 END$$
  
@@ -258,5 +271,101 @@ BEGIN
         contrasena      = p_contrasena
     WHERE id_usuario = p_id_usuario;
 END$$
- 
+
+CREATE PROCEDURE InscribirUsuarioEvento(
+    IN  p_id_usuario INT,
+    IN  p_id_evento  INT,
+    OUT p_resultado  TINYINT,
+    OUT p_mensaje    VARCHAR(200)
+)
+proc: BEGIN
+    DECLARE v_activo             TINYINT;
+    DECLARE v_fecha              DATE;
+    DECLARE v_plazas             INT;
+    DECLARE v_titulo             VARCHAR(150);
+    DECLARE v_estado_existente   VARCHAR(20) DEFAULT NULL;
+    DECLARE v_id_inscripcion     INT         DEFAULT NULL;
+    DECLARE v_filas_afectadas    INT;
+
+    SELECT activo, fecha, plazas_disponibles, titulo
+    INTO   v_activo, v_fecha, v_plazas, v_titulo
+    FROM   EVENTOS
+    WHERE  id_evento = p_id_evento
+    LIMIT  1;
+
+    IF v_titulo IS NULL THEN
+        SET p_resultado = -1;
+        SET p_mensaje   = 'El evento no existe.';
+        LEAVE proc;
+    END IF;
+
+    IF v_activo = FALSE THEN
+        SET p_resultado = -2;
+        SET p_mensaje   = 'Este evento ya no está disponible.';
+        LEAVE proc;
+    END IF;
+
+    IF v_fecha < CURDATE() THEN
+        SET p_resultado = -3;
+        SET p_mensaje   = 'No puedes inscribirte en un evento que ya ha pasado.';
+        LEAVE proc;
+    END IF;
+
+    IF v_plazas <= 0 THEN
+        SET p_resultado = -4;
+        SET p_mensaje   = 'Lo sentimos, no quedan plazas disponibles en este evento.';
+        LEAVE proc;
+    END IF;
+
+    SELECT id_inscripcion, estado
+    INTO   v_id_inscripcion, v_estado_existente
+    FROM   INSCRIPCIONES
+    WHERE  id_evento  = p_id_evento
+      AND  id_usuario = p_id_usuario
+    LIMIT  1;
+
+    IF v_estado_existente IS NOT NULL AND v_estado_existente <> 'cancelada' THEN
+        SET p_resultado = -5;
+        SET p_mensaje   = 'Ya estás inscrito en este evento.';
+        LEAVE proc;
+    END IF;
+
+    START TRANSACTION;
+
+        IF v_estado_existente = 'cancelada' THEN
+            UPDATE INSCRIPCIONES
+            SET    estado            = 'confirmada',
+                   fecha_inscripcion = NOW()
+            WHERE  id_inscripcion    = v_id_inscripcion;
+        ELSE
+            INSERT INTO INSCRIPCIONES (id_evento, id_usuario, estado)
+            VALUES (p_id_evento, p_id_usuario, 'confirmada');
+        END IF;
+
+        UPDATE EVENTOS
+        SET    plazas_disponibles = plazas_disponibles - 1
+        WHERE  id_evento          = p_id_evento
+          AND  plazas_disponibles > 0;
+
+        SET v_filas_afectadas = ROW_COUNT();
+
+        IF v_filas_afectadas = 0 THEN
+            ROLLBACK;
+            SET p_resultado = -6;
+            SET p_mensaje   = 'Lo sentimos, las plazas se agotaron justo antes de tu inscripcion.';
+            LEAVE proc;
+        END IF;
+
+    COMMIT;
+
+    IF v_estado_existente = 'cancelada' THEN
+        SET p_resultado = 2;
+        SET p_mensaje   = CONCAT('Tu inscripcion en "', v_titulo, '" ha sido reactivada!');
+    ELSE
+        SET p_resultado = 1;
+        SET p_mensaje   = CONCAT('Te has inscrito correctamente en "', v_titulo, '"!');
+    END IF;
+
+END proc$$
+
 DELIMITER ;

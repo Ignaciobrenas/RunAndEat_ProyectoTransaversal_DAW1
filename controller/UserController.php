@@ -109,10 +109,217 @@ class UserController
         }
     }
 
+    public function updateInfo(): void
+    {
+        if (!isset($_SESSION["id_usuario"])) {
+            $this->redirectWithError("login.php", "Debes iniciar sesión.");
+            return;
+        }
+
+        $id_usuario = $_SESSION["id_usuario"];
+        $nombre     = trim($_POST["nombre"] ?? "");
+        $email      = trim($_POST["email"]  ?? "");
+
+        if (empty($nombre) || empty($email)) {
+            $this->redirectWithError("perfil.php", "Por favor, rellena todos los campos.");
+            return;
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->redirectWithError("perfil.php", "El formato del correo electrónico no es válido.");
+            return;
+        }
+
+        // Comprobar si el email ya está en uso por otro usuario
+        $stmt_check = $this->conexion->prepare(
+            "SELECT id_usuario FROM USUARIOS WHERE email = ? AND id_usuario != ? LIMIT 1"
+        );
+        $stmt_check->execute([$email, $id_usuario]);
+
+        if ($stmt_check->rowCount() > 0) {
+            $this->redirectWithError("perfil.php", "Ese correo ya está en uso por otra cuenta.");
+            return;
+        }
+
+        // Actualizar información
+        $stmt_up = $this->conexion->prepare(
+            "UPDATE USUARIOS SET nombre_completo = ?, email = ? WHERE id_usuario = ?"
+        );
+
+        if ($stmt_up->execute([$nombre, $email, $id_usuario])) {
+            $_SESSION["nombre_completo"] = $nombre;
+            $this->redirectWithSuccess("perfil.php", "Información actualizada correctamente.");
+        } else {
+            $this->redirectWithError("perfil.php", "Error al actualizar. Inténtalo de nuevo.");
+        }
+    }
+
+    public function updatePhoto(): void
+    {
+        if (!isset($_SESSION["id_usuario"])) {
+            $this->redirectWithError("login.php", "Debes iniciar sesión.");
+            return;
+        }
+
+        $id_usuario = $_SESSION["id_usuario"];
+
+        if (!isset($_FILES["foto_perfil"]) || $_FILES["foto_perfil"]["error"] !== UPLOAD_ERR_OK) {
+            $this->redirectWithError("perfil.php", "No se ha podido subir la imagen. Inténtalo de nuevo.");
+            return;
+        }
+
+        $archivo   = $_FILES["foto_perfil"];
+        $tamano    = $archivo["size"];
+        $tmp       = $archivo["tmp_name"];
+        $extension = strtolower(pathinfo($archivo["name"], PATHINFO_EXTENSION));
+
+        $extensiones_permitidas = ["jpg", "jpeg", "png", "webp", "gif"];
+        $mimes_permitidos       = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime  = finfo_file($finfo, $tmp);
+        finfo_close($finfo);
+
+        if (!in_array($extension, $extensiones_permitidas) || !in_array($mime, $mimes_permitidos)) {
+            $this->redirectWithError("perfil.php", "Formato no permitido. Usa JPG, PNG, WEBP o GIF.");
+            return;
+        }
+
+        if ($tamano > 2 * 1024 * 1024) {
+            $this->redirectWithError("perfil.php", "La imagen no puede superar los 2 MB.");
+            return;
+        }
+
+        $directorio = __DIR__ . "/../public/img/user-photos/";
+        if (!is_dir($directorio)) {
+            mkdir($directorio, 0755, true);
+        }
+
+        $nombre_archivo = "user_" . $id_usuario . "_" . time() . "." . $extension;
+        $ruta_destino   = $directorio . $nombre_archivo;
+
+        if (move_uploaded_file($tmp, $ruta_destino)) {
+            $ruta_bd = "public/img/user-photos/" . $nombre_archivo;
+            $stmt = $this->conexion->prepare("UPDATE USUARIOS SET foto_perfil = ? WHERE id_usuario = ?");
+            if ($stmt->execute([$ruta_bd, $id_usuario])) {
+                $_SESSION["foto_perfil"] = $ruta_bd;
+                $this->redirectWithSuccess("perfil.php", "Foto de perfil actualizada correctamente.");
+            } else {
+                $this->redirectWithError("perfil.php", "Error al guardar la foto en la base de datos.");
+            }
+        } else {
+            $this->redirectWithError("perfil.php", "Error al mover el archivo. Comprueba los permisos del directorio.");
+        }
+    }
+
+    public function updatePassword(): void
+    {
+        if (!isset($_SESSION["id_usuario"])) {
+            $this->redirectWithError("login.php", "Debes iniciar sesión.");
+            return;
+        }
+
+        $id_usuario = $_SESSION["id_usuario"];
+        $current    = $_POST["current-password"]    ?? "";
+        $nueva      = $_POST["new-password"]         ?? "";
+        $confirma   = $_POST["confirm-new-password"] ?? "";
+
+        if (empty($current) || empty($nueva) || empty($confirma)) {
+            $this->redirectWithError("perfil.php", "Rellena todos los campos de contraseña.");
+            return;
+        }
+
+        if (strlen($nueva) < 8) {
+            $this->redirectWithError("perfil.php", "La nueva contraseña debe tener al menos 8 caracteres.");
+            return;
+        }
+
+        if ($nueva !== $confirma) {
+            $this->redirectWithError("perfil.php", "Las contraseñas nuevas no coinciden.");
+            return;
+        }
+
+        $stmt = $this->conexion->prepare("SELECT contrasena FROM USUARIOS WHERE id_usuario = ? LIMIT 1");
+        $stmt->execute([$id_usuario]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($current !== ($row["contrasena"] ?? "")) {
+            $this->redirectWithError("perfil.php", "La contraseña actual no es correcta.");
+            return;
+        }
+
+        $stmt_up = $this->conexion->prepare("UPDATE USUARIOS SET contrasena = ? WHERE id_usuario = ?");
+        if ($stmt_up->execute([$nueva, $id_usuario])) {
+            $this->redirectWithSuccess("perfil.php", "Contraseña actualizada correctamente.");
+        } else {
+            $this->redirectWithError("perfil.php", "Error al cambiar la contraseña.");
+        }
+    }
+
+    public function getProfileData(): array
+    {
+        if (!isset($_SESSION["id_usuario"])) {
+            header("Location: login.php");
+            exit();
+        }
+
+        $id_usuario = $_SESSION["id_usuario"];
+
+        $stmt = $this->conexion->prepare(
+            "SELECT nombre_completo, email, tipo_usuario, fecha_registro, foto_perfil
+             FROM USUARIOS WHERE id_usuario = ? LIMIT 1"
+        );
+        $stmt->execute([$id_usuario]);
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$usuario) {
+            session_destroy();
+            header("Location: login.php");
+            exit();
+        }
+
+        $stmt_ev = $this->conexion->prepare(
+            "SELECT e.id_evento, e.titulo, e.fecha, e.ciudad AS ubicacion
+             FROM EVENTOS e
+             INNER JOIN INSCRIPCIONES i ON i.id_evento = e.id_evento
+             WHERE i.id_usuario = ?
+             ORDER BY e.fecha DESC"
+        );
+        $stmt_ev->execute([$id_usuario]);
+        $eventos_usuario = $stmt_ev->fetchAll(PDO::FETCH_ASSOC);
+
+        $fecha_registro = "";
+        if (!empty($usuario["fecha_registro"])) {
+            $meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
+                      "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+            $ts = strtotime($usuario["fecha_registro"]);
+            $fecha_registro = $meses[(int)date("n", $ts) - 1] . " " . date("Y", $ts);
+        }
+
+        $foto_src = !empty($usuario["foto_perfil"])
+            ? "../" . htmlspecialchars($usuario["foto_perfil"])
+            : "../public/img/user.png";
+
+        return [
+            "usuario"         => $usuario,
+            "eventos_usuario" => $eventos_usuario,
+            "foto_src"        => $foto_src,
+            "fecha_registro"  => $fecha_registro
+        ];
+    }
+
     // Redirige a una página pasando el error por sesión
     private function redirectWithError(string $page, string $message): void
     {
         $_SESSION["error"] = $message;
+        header("Location: " . $page);
+        exit();
+    }
+
+    // Redirige a una página pasando el éxito por sesión
+    private function redirectWithSuccess(string $page, string $message): void
+    {
+        $_SESSION["success"] = $message;
         header("Location: " . $page);
         exit();
     }
@@ -135,5 +342,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $user->logout();
     } elseif (isset($_POST["register"])) {
         $user->register();
+    } elseif (isset($_POST["update_info"])) {
+        $user->updateInfo();
+    } elseif (isset($_POST["update_photo"])) {
+        $user->updatePhoto();
+    } elseif (isset($_POST["update_password"])) {
+        $user->updatePassword();
     }
 }

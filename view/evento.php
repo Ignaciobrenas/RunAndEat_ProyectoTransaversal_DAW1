@@ -31,9 +31,17 @@ if (!$evento) {
                 </div>
             </div>
             <div class="nav-right">
-                <a href="../controller/crear-evento.php" class="organizer-link">¿Eres organizador?</a>
-                <button class="btn-registro" onclick="location.href='../controller/registro.php'">REGISTRO</button>
-                <button class="btn-login" onclick="location.href='../controller/login.php'">INICIAR SESIÓN</button>
+                <?php $logueado = isset($_SESSION["id_usuario"]); ?>
+                <?php if ($logueado): ?>
+                    <?php if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] === "organizador"): ?>
+                        <a href="../controller/crear-evento.php" class="organizer-link">Crear evento</a>
+                    <?php endif; ?>
+                    <button class="btn-login" onclick="location.href='../controller/perfil.php'">Mi perfil</button>
+                <?php else: ?>
+                    <a href="../controller/crear-evento.php" class="organizer-link">¿Eres organizador?</a>
+                    <button class="btn-registro" onclick="location.href='../controller/registro.php'">REGISTRO</button>
+                    <button class="btn-login" onclick="location.href='../controller/login.php'">INICIAR SESIÓN</button>
+                <?php endif; ?>
             </div>
         </div>
     </header>
@@ -108,6 +116,14 @@ if (!$evento) {
                     <div class="evento-detail-actions">
                         <button class="btn-primary">Apuntarse al Evento</button>
                         <button class="btn-share">Compartir</button>
+                        <?php 
+                        $es_admin_o_organizador = isset($_SESSION['id_usuario']) && 
+                            ($evento['id_organizador'] == $_SESSION['id_usuario'] || 
+                            (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'admin'));
+                        if ($es_admin_o_organizador): 
+                        ?>
+                            <button class="btn-primary" style="background-color: #333; color: #FFA208; border: 1px solid #FFA208;" onclick="location.href='../controller/edit-event.php?id=<?= $evento['id_evento'] ?>'">Editar Evento</button>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -189,8 +205,10 @@ if (!$evento) {
                     <ul>
                         <li><a href="../controller/index.php">Eventos</a></li>
                         <li><a href="../controller/crear-evento.php">Crear evento</a></li>
-                        <li><a href="../controller/registro.php">Registro</a></li>
-                        <li><a href="../controller/login.php">Iniciar sesión</a></li>
+                        <?php if (!$logueado): ?>
+                            <li><a href="../controller/registro.php">Registro</a></li>
+                            <li><a href="../controller/login.php">Iniciar sesión</a></li>
+                        <?php endif; ?>
                     </ul>
                 </div>
                 <div class="site-footer__col">

@@ -171,6 +171,23 @@ unset($_SESSION["success"], $_SESSION["error"]);
                     </form>
                 </div>
 
+                <!-- Eliminar Cuenta -->
+                <div class="perfil-section">
+                    <h3>Eliminar Cuenta</h3>
+                    <p style="color: #ccc; font-size: 0.9rem; margin-bottom: 15px;">
+                        Esta acción es permanente y no se puede deshacer. Se borrarán todos tus datos, eventos e inscripciones.
+                    </p>
+                    <form method="POST" action="UserController.php" onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu cuenta permanentemente?');">
+                        <div class="form-group">
+                            <label for="password-confirm">Confirma tu contraseña para borrar la cuenta</label>
+                            <input type="password" id="password-confirm" name="password" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" name="delete_account" class="btn-submit">
+                            Eliminar Mi Cuenta
+                        </button>
+                    </form>
+                </div>
+
             </div>
 
             <!-- Mis Eventos -->

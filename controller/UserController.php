@@ -256,6 +256,43 @@ class UserController
         }
     }
 
+    public function deleteAccount(): void
+    {
+        if (!isset($_SESSION["id_usuario"])) {
+            $this->redirectWithError("login.php", "Debes iniciar sesión.");
+            return;
+        }
+
+        $id_usuario = $_SESSION["id_usuario"];
+        $password   = $_POST["password"] ?? "";
+
+        if (empty($password)) {
+            $this->redirectWithError("perfil.php", "Por favor, introduce tu contraseña para confirmar.");
+            return;
+        }
+
+        // Verificar contraseña (en este proyecto se comparan en texto plano según login/registro)
+        $stmt = $this->conexion->prepare("SELECT contrasena FROM USUARIOS WHERE id_usuario = ? LIMIT 1");
+        $stmt->execute([$id_usuario]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($password !== ($row["contrasena"] ?? "")) {
+            $this->redirectWithError("perfil.php", "La contraseña es incorrecta.");
+            return;
+        }
+
+        // Eliminar usuario
+        $stmt_del = $this->conexion->prepare("DELETE FROM USUARIOS WHERE id_usuario = ?");
+        if ($stmt_del->execute([$id_usuario])) {
+            session_unset();
+            session_destroy();
+            header("Location: index.php?deleted=1");
+            exit();
+        } else {
+            $this->redirectWithError("perfil.php", "Error al intentar eliminar la cuenta.");
+        }
+    }
+
     public function getProfileData(): array
     {
         if (!isset($_SESSION["id_usuario"])) {
@@ -348,5 +385,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $user->updatePhoto();
     } elseif (isset($_POST["update_password"])) {
         $user->updatePassword();
+    } elseif (isset($_POST["delete_account"])) {
+        $user->deleteAccount();
     }
 }

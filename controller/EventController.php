@@ -126,7 +126,36 @@ class EventController
 
     public function eliminarEvento(): void
     {
+        $id_evento = (int)($_POST["id_evento"] ?? 0);
+        $id_usuario = $_SESSION["id_usuario"] ?? null;
 
+        if (!$id_usuario) {
+            $this->redirectWithError("../view/login.php", "Debes iniciar sesión para realizar esta acción.");
+            return;
+        }
+
+        $evento = $this->verEvento($id_evento);
+        if (!$evento) {
+            $this->redirectWithError("../index.php", "Evento no encontrado.");
+            return;
+        }
+
+        // Solo el organizador o el admin pueden eliminar
+        if ($evento['id_organizador'] != $id_usuario && $_SESSION['tipo_usuario'] !== 'admin') {
+            $this->redirectWithError("../index.php", "No tienes permiso para eliminar este evento.");
+            return;
+        }
+
+        try {
+            $stmt = $this->conexion->prepare("UPDATE EVENTOS SET activo = 0 WHERE id_evento = ?");
+            $stmt->execute([$id_evento]);
+
+            $_SESSION["success"] = "Evento eliminado correctamente.";
+            header("Location: ../index.php");
+            exit();
+        } catch (PDOException $e) {
+            $this->redirectWithError("../view/evento.php?id=" . $id_evento, "Error al eliminar el evento: " . $e->getMessage());
+        }
     }
 
     public function modificarEvento(): void
@@ -265,6 +294,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $eventoController->crearEvento();
         } elseif ($_POST["action"] === "modificarEvento") {
             $eventoController->modificarEvento();
+        } elseif ($_POST["action"] === "eliminarEvento") {
+            $eventoController->eliminarEvento();
         }
     }
 }

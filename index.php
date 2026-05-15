@@ -116,6 +116,20 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
     </header>
 
     <main>
+        <?php if (isset($_SESSION["success"])): ?>
+            <div style="background-color: #d4edda; color: #155724; padding: 15px; margin: 20px auto; max-width: 1200px; border: 1px solid #c3e6cb; border-radius: 4px; text-align: center;">
+                <?= $_SESSION["success"] ?>
+            </div>
+            <?php unset($_SESSION["success"]); ?>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION["error"])): ?>
+            <div style="background-color: #f8d7da; color: #721c24; padding: 15px; margin: 20px auto; max-width: 1200px; border: 1px solid #f5c6cb; border-radius: 4px; text-align: center;">
+                <?= $_SESSION["error"] ?>
+            </div>
+            <?php unset($_SESSION["error"]); ?>
+        <?php endif; ?>
+
         <section class="search-section">
             <div class="search-container search-dropdown">
                 <div class="location-icon">Buscar</div>

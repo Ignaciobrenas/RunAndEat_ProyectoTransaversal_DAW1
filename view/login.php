@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION["id_usuario"])) {
-    header("Location: ../index.html");
+    header("Location: ../index.php");
     exit();
 }
 
@@ -30,14 +30,14 @@ unset($_SESSION["error"]);
     <header>
         <div class="header-container">
             <div class="logo-section">
-                <img src="../public/img/logo.png" alt="Run & Eat" onclick="location.href='../index.html'">
+                <img src="../public/img/logo.png" alt="Run & Eat" onclick="location.href='../index.php'">
                 <div class="nav-left">
-                    <button onclick="location.href='../index.html'">Eventos</button>
-                    <button onclick="location.href='../view/contacto.html'">Contacto</button>
+                    <button onclick="location.href='../index.php'">Eventos</button>
+                    <button onclick="location.href='contacto.html'">Contacto</button>
                 </div>
             </div>
             <div class="nav-right">
-                <a href="../controller/crear-evento.php" class="organizer-link">¿Eres organizador?</a>
+                <a href="crear-evento.php" class="organizer-link">¿Eres organizador?</a>
                 <button class="btn-registro" onclick="location.href='registro.php'">REGISTRO</button>
             </div>
         </div>
@@ -56,7 +56,7 @@ unset($_SESSION["error"]);
                     <div class="alert alert-error"><?= htmlspecialchars($error) ?></div>
                 <?php endif; ?>
 
-                <form method="POST" action="UserController.php">
+                <form method="POST" action="../controller/UserController.php">
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email"
@@ -90,30 +90,30 @@ unset($_SESSION["error"]);
                 <div class="site-footer__col">
                     <h4 class="site-footer__col-title">Plataforma</h4>
                     <ul>
-                        <li><a href="../index.html">Eventos</a></li>
-                        <li><a href="../controller/crear-evento.php">Crear evento</a></li>
+                        <li><a href="../index.php">Eventos</a></li>
+                        <li><a href="crear-evento.php">Crear evento</a></li>
                         <li><a href="registro.php">Registro</a></li>
                     </ul>
                 </div>
                 <div class="site-footer__col">
                     <h4 class="site-footer__col-title">Soporte</h4>
                     <ul>
-                        <li><a href="../view/faq.html">Preguntas frecuentes</a></li>
-                        <li><a href="../view/contacto.html">Contacto</a></li>
+                        <li><a href="faq.html">Preguntas frecuentes</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
                     </ul>
                 </div>
                 <div class="site-footer__col">
                     <h4 class="site-footer__col-title">Empresa</h4>
                     <ul>
-                        <li><a href="../view/about-us.html">Sobre nosotros</a></li>
-                        <li><a href="../view/Ignacio.html">Ignacio Breñas</a></li>
-                        <li><a href="../view/Gorka.html">Gorka Ramírez</a></li>
+                        <li><a href="about-us.html">Sobre nosotros</a></li>
+                        <li><a href="Ignacio.html">Ignacio Breñas</a></li>
+                        <li><a href="Gorka.html">Gorka Ramírez</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script src="./public/scripts/script.js"></script>
+    <script src="../public/scripts/script.js"></script>
 </body>
 </html>

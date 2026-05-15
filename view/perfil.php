@@ -1,5 +1,5 @@
 <?php
-require_once "UserController.php";
+require_once "../controller/UserController.php";
 
 $controller = new UserController();
 $data = $controller->getProfileData();
@@ -70,15 +70,15 @@ unset($_SESSION["success"], $_SESSION["error"]);
         <div class="header-container">
             <div class="logo-section">
                 <img src="../public/img/logo.png" alt="Run & Eat"
-                     onclick="location.href='../index.html'">
+                     onclick="location.href='../index.php'">
                 <div class="nav-left">
-                    <button onclick="location.href='../index.html'">Eventos</button>
-                    <button onclick="location.href='../view/contacto.html'">Contacto</button>
+                    <button onclick="location.href='../index.php'">Eventos</button>
+                    <button onclick="location.href='contacto.html'">Contacto</button>
                 </div>
             </div>
             <div class="nav-right">
                 <button class="btn-registro" onclick="location.href='perfil.php'">MI PERFIL</button>
-                <form method="POST" action="UserController.php" style="display:inline;">
+                <form method="POST" action="../controller/UserController.php" style="display:inline;">
                     <button type="submit" name="logout" class="btn-login">CERRAR SESIÓN</button>
                 </form>
             </div>
@@ -98,12 +98,12 @@ unset($_SESSION["success"], $_SESSION["error"]);
             <div class="perfil-header">
                 <div class="perfil-top">
 
-                    <form method="POST" action="UserController.php" enctype="multipart/form-data">
+                    <form method="POST" action="../controller/UserController.php" enctype="multipart/form-data">
                         <input type="hidden" name="update_photo" value="1">
 
                         <div class="foto-form-wrap">
                             <div class="perfil-image-container">
-                                <img src="<?= $foto_src ?>" alt="Foto de perfil" class="perfil-image">
+                                <img src="../<?= $foto_src ?>" alt="Foto de perfil" class="perfil-image">
 
 
                                 <label for="foto_perfil_input" class="change-photo-btn">Cambiar</label>
@@ -127,7 +127,7 @@ unset($_SESSION["success"], $_SESSION["error"]);
 
                 <div class="perfil-section">
                     <h3>Información Personal</h3>
-                    <form method="POST" action="UserController.php">
+                    <form method="POST" action="../controller/UserController.php">
                         <div class="form-group">
                             <label for="nombre">Nombre Completo</label>
                             <input type="text" id="nombre" name="nombre"
@@ -149,7 +149,7 @@ unset($_SESSION["success"], $_SESSION["error"]);
                 <!-- Cambiar Contraseña -->
                 <div class="perfil-section">
                     <h3>Cambiar Contraseña</h3>
-                    <form method="POST" action="UserController.php">
+                    <form method="POST" action="../controller/UserController.php">
                         <div class="form-group">
                             <label for="current-password">Contraseña Actual</label>
                             <input type="password" id="current-password"
@@ -177,7 +177,7 @@ unset($_SESSION["success"], $_SESSION["error"]);
                     <p style="color: #ccc; font-size: 0.9rem; margin-bottom: 15px;">
                         Esta acción es permanente y no se puede deshacer. Se borrarán todos tus datos, eventos e inscripciones.
                     </p>
-                    <form method="POST" action="UserController.php" onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu cuenta permanentemente?');">
+                    <form method="POST" action="../controller/UserController.php" onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu cuenta permanentemente?');">
                         <div class="form-group">
                             <label for="password-confirm">Confirma tu contraseña para borrar la cuenta</label>
                             <input type="password" id="password-confirm" name="password" placeholder="••••••••" required>
@@ -197,7 +197,7 @@ unset($_SESSION["success"], $_SESSION["error"]);
                     <?php if (!empty($eventos_usuario)): ?>
                         <?php foreach ($eventos_usuario as $ev): ?>
                             <div class="evento-item"
-                                 onclick="location.href='../view/evento.html?id=<?= $ev['id_evento'] ?>'"
+                                 onclick="location.href='../view/evento.php?id=<?= $ev['id_evento'] ?>'"
                                  style="cursor: pointer;">
                                 <div class="evento-item-info">
                                     <h4><?= htmlspecialchars($ev["titulo"]) ?></h4>
@@ -228,8 +228,8 @@ unset($_SESSION["success"], $_SESSION["error"]);
                 <div class="site-footer__col">
                     <h4 class="site-footer__col-title">Plataforma</h4>
                     <ul>
-                        <li><a href="../index.html">Eventos</a></li>
-                        <li><a href="../view/crear-evento.html">Crear evento</a></li>
+                        <li><a href="../index.php">Eventos</a></li>
+                        <li><a href="crear-evento.html">Crear evento</a></li>
                         <li><a href="registro.php">Registro</a></li>
                         <li><a href="login.php">Iniciar sesión</a></li>
                     </ul>
@@ -237,16 +237,16 @@ unset($_SESSION["success"], $_SESSION["error"]);
                 <div class="site-footer__col">
                     <h4 class="site-footer__col-title">Soporte</h4>
                     <ul>
-                        <li><a href="../view/faq.html">Preguntas frecuentes</a></li>
-                        <li><a href="../view/contacto.html">Contacto</a></li>
+                        <li><a href="faq.html">Preguntas frecuentes</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
                     </ul>
                 </div>
                 <div class="site-footer__col">
                     <h4 class="site-footer__col-title">Empresa</h4>
                     <ul>
-                        <li><a href="../view/about-us.html">Sobre nosotros</a></li>
-                        <li><a href="../view/Ignacio.html">Ignacio Breñas</a></li>
-                        <li><a href="../view/Gorka.html">Gorka Ramírez</a></li>
+                        <li><a href="about-us.html">Sobre nosotros</a></li>
+                        <li><a href="Ignacio.html">Ignacio Breñas</a></li>
+                        <li><a href="Gorka.html">Gorka Ramírez</a></li>
                     </ul>
                 </div>
             </div>

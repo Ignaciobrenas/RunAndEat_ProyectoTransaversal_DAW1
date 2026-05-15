@@ -123,6 +123,12 @@ if (!$evento) {
                         if ($es_admin_o_organizador): 
                         ?>
                             <button class="btn-primary" style="background-color: #333; color: #FFA208; border: 1px solid #FFA208;" onclick="location.href='../view/edit-event.php?id=<?= $evento['id_evento'] ?>'">Editar Evento</button>
+                            
+                            <form action="../controller/EventController.php" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este evento?');">
+                                <input type="hidden" name="action" value="eliminarEvento">
+                                <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
+                                <button type="submit" class="btn-primary" style="background-color: #333; color: #ff4d4d; border: 1px solid #ff4d4d; margin-left: 10px;">Eliminar Evento</button>
+                            </form>
                         <?php endif; ?>
                     </div>
                 </div>

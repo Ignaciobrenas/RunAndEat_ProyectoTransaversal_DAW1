@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 function auth_require_login(): void
 {
     if (!isset($_SESSION["id_usuario"])) {
-        header("Location: ../controller/login.php");
+        header("Location: ../view/login.php");
         exit();
     }
 }
@@ -53,9 +53,9 @@ function auth_show_forbidden(): void
         <header>
             <div class="header-container">
                 <div class="logo-section">
-                    <img src="../public/img/logo.png" alt="Run & Eat" onclick="location.href='../index.html'">
+                    <img src="../public/img/logo.png" alt="Run & Eat" onclick="location.href='../index.php'">
                     <div class="nav-left">
-                        <button onclick="location.href='../index.html'">Eventos</button>
+                        <button onclick="location.href='../index.php'">Eventos</button>
                         <button onclick="location.href='../view/contacto.html'">Contacto</button>
                     </div>
                 </div>
@@ -76,7 +76,7 @@ function auth_show_forbidden(): void
                     <p>Si quieres crear y gestionar eventos en Run &amp; Eat, ponte en contacto con nosotros y te activamos el acceso.</p>
                     <div class="forbidden-actions">
                         <a href="../view/contacto.html" class="btn-contacto-problema">Quiero ser organizador</a>
-                        <a href="../index.html" class="btn-backo">← Volver a los eventos</a>
+                        <a href="../index.php" class="btn-backo">← Volver a los eventos</a>
                     </div>
                 </div>
             </div>
@@ -95,25 +95,25 @@ function auth_show_forbidden(): void
                 <div class="site-footer__col">
                     <h4 class="site-footer__col-title">Plataforma</h4>
                     <ul>
-                        <li><a href="../index.html">Eventos</a></li>
-                        <li><a href="../controller/crear-evento.php ">Crear evento</a></li>
-                        <li><a href="../controller/registro.php">Registro</a></li>
-                        <li><a href="../controller/login.php">Iniciar sesión</a></li>
+                        <li><a href="../index.php">Eventos</a></li>
+                        <li><a href="../view/crear-evento.php ">Crear evento</a></li>
+                        <li><a href="../view/registro.php">Registro</a></li>
+                        <li><a href="../view/login.php">Iniciar sesión</a></li>
                     </ul>
                 </div>
                 <div class="site-footer__col">
                     <h4 class="site-footer__col-title">Soporte</h4>
                     <ul>
-                        <li><a href="faq.html">Preguntas frecuentes</a></li>
-                        <li><a href="contacto.html">Contacto</a></li>
+                        <li><a href="../view/faq.html">Preguntas frecuentes</a></li>
+                        <li><a href="../view/contacto.html">Contacto</a></li>
                     </ul>
                 </div>
                 <div class="site-footer__col">
                     <h4 class="site-footer__col-title">Empresa</h4>
                     <ul>
-                        <li><a href="about-us.html">Sobre nosotros</a></li>
-                        <li><a href="Ignacio.html">Ignacio Breñas</a></li>
-                        <li><a href="Gorka.html">Gorka Ramírez</a></li>
+                        <li><a href="../view/about-us.html">Sobre nosotros</a></li>
+                        <li><a href="../view/Ignacio.html">Ignacio Breñas</a></li>
+                        <li><a href="../view/Gorka.html">Gorka Ramírez</a></li>
                     </ul>
                 </div>
             </div>

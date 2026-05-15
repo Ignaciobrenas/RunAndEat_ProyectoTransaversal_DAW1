@@ -219,7 +219,7 @@ sudo systemctl start mysql
 
 ```bash
 # 5. Accede desde el navegador
-http://localhost/RunAndEat_ProyectoTransaversal_DAW1/controller/index.php
+http://localhost/RunAndEat_ProyectoTransaversal_DAW1/index.php
 ```
 
 ### Permisos de escritura

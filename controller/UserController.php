@@ -25,7 +25,7 @@ class UserController
         $contrasena = $_POST["contrasena"]       ?? "";
 
         if (empty($email) || empty($contrasena)) {
-            $this->redirectWithError("login.php", "Por favor, rellena todos los campos.");
+            $this->redirectWithError("../view/login.php", "Por favor, rellena todos los campos.");
             return;
         }
         $stmt = $this->conexion->prepare(
@@ -43,10 +43,10 @@ class UserController
             $_SESSION["tipo_usuario"]    = $usuario["tipo_usuario"];
             $_SESSION["foto_perfil"]     = $usuario["foto_perfil"];
 
-            header("Location: index.php");
+            header("Location: ../index.php");
             exit();
         } else {
-            $this->redirectWithError("login.php", "Email o contraseña incorrectos.");
+            $this->redirectWithError("../view/login.php", "Email o contraseña incorrectos.");
         }
     }
 
@@ -55,7 +55,7 @@ class UserController
         session_unset();
         session_destroy();
 
-        header("Location: index.php");
+        header("Location: ../index.php");
         exit();
     }
 
@@ -68,22 +68,22 @@ class UserController
         $confirm_password = $_POST["confirm-password"]     ?? "";
 
         if (empty($nombre) || empty($email) || empty($password) || empty($confirm_password)) {
-            $this->redirectWithError("registro.php", "Por favor, rellena todos los campos.");
+            $this->redirectWithError("../view/registro.php", "Por favor, rellena todos los campos.");
             return;
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->redirectWithError("registro.php", "El formato del correo electrónico no es válido.");
+            $this->redirectWithError("../view/registro.php", "El formato del correo electrónico no es válido.");
             return;
         }
 
         if ($password !== $confirm_password) {
-            $this->redirectWithError("registro.php", "Las contraseñas no coinciden.");
+            $this->redirectWithError("../view/registro.php", "Las contraseñas no coinciden.");
             return;
         }
 
         if (!in_array($tipo_usuario, ["cliente", "organizador"])) {
-            $this->redirectWithError("registro.php", "Tipo de usuario no válido.");
+            $this->redirectWithError("../view/registro.php", "Tipo de usuario no válido.");
             return;
         }
 
@@ -92,7 +92,7 @@ class UserController
         $stmt_check->execute([$email]);
 
         if ($stmt_check->rowCount() > 0) {
-            $this->redirectWithError("registro.php", "Este correo electrónico ya está registrado.");
+            $this->redirectWithError("../view/registro.php", "Este correo electrónico ya está registrado.");
             return;
         }
 
@@ -102,17 +102,17 @@ class UserController
         );
 
         if ($stmt_insert->execute([$nombre, $email, $password, $tipo_usuario])) {
-            header("Location: login.php?registered=1");
+            header("Location: ../view/login.php?registered=1");
             exit();
         } else {
-            $this->redirectWithError("registro.php", "Error al crear la cuenta. Inténtalo de nuevo.");
+            $this->redirectWithError("../view/registro.php", "Error al crear la cuenta. Inténtalo de nuevo.");
         }
     }
 
     public function updateInfo(): void
     {
         if (!isset($_SESSION["id_usuario"])) {
-            $this->redirectWithError("login.php", "Debes iniciar sesión.");
+            $this->redirectWithError("../view/login.php", "Debes iniciar sesión.");
             return;
         }
 
@@ -121,12 +121,12 @@ class UserController
         $email      = trim($_POST["email"]  ?? "");
 
         if (empty($nombre) || empty($email)) {
-            $this->redirectWithError("perfil.php", "Por favor, rellena todos los campos.");
+            $this->redirectWithError("../view/perfil.php", "Por favor, rellena todos los campos.");
             return;
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->redirectWithError("perfil.php", "El formato del correo electrónico no es válido.");
+            $this->redirectWithError("../view/perfil.php", "El formato del correo electrónico no es válido.");
             return;
         }
 
@@ -137,7 +137,7 @@ class UserController
         $stmt_check->execute([$email, $id_usuario]);
 
         if ($stmt_check->rowCount() > 0) {
-            $this->redirectWithError("perfil.php", "Ese correo ya está en uso por otra cuenta.");
+            $this->redirectWithError("../view/perfil.php", "Ese correo ya está en uso por otra cuenta.");
             return;
         }
 
@@ -148,23 +148,23 @@ class UserController
 
         if ($stmt_up->execute([$nombre, $email, $id_usuario])) {
             $_SESSION["nombre_completo"] = $nombre;
-            $this->redirectWithSuccess("perfil.php", "Información actualizada correctamente.");
+            $this->redirectWithSuccess("../view/perfil.php", "Información actualizada correctamente.");
         } else {
-            $this->redirectWithError("perfil.php", "Error al actualizar. Inténtalo de nuevo.");
+            $this->redirectWithError("../view/perfil.php", "Error al actualizar. Inténtalo de nuevo.");
         }
     }
 
     public function updatePhoto(): void
     {
         if (!isset($_SESSION["id_usuario"])) {
-            $this->redirectWithError("login.php", "Debes iniciar sesión.");
+            $this->redirectWithError("../view/login.php", "Debes iniciar sesión.");
             return;
         }
 
         $id_usuario = $_SESSION["id_usuario"];
 
         if (!isset($_FILES["foto_perfil"]) || $_FILES["foto_perfil"]["error"] !== UPLOAD_ERR_OK) {
-            $this->redirectWithError("perfil.php", "No se ha podido subir la imagen. Inténtalo de nuevo.");
+            $this->redirectWithError("../view/perfil.php", "No se ha podido subir la imagen. Inténtalo de nuevo.");
             return;
         }
 
@@ -181,12 +181,12 @@ class UserController
         finfo_close($finfo);
 
         if (!in_array($extension, $extensiones_permitidas) || !in_array($mime, $mimes_permitidos)) {
-            $this->redirectWithError("perfil.php", "Formato no permitido. Usa JPG, PNG, WEBP o GIF.");
+            $this->redirectWithError("../view/perfil.php", "Formato no permitido. Usa JPG, PNG, WEBP o GIF.");
             return;
         }
 
         if ($tamano > 2 * 1024 * 1024) {
-            $this->redirectWithError("perfil.php", "La imagen no puede superar los 2 MB.");
+            $this->redirectWithError("../view/perfil.php", "La imagen no puede superar los 2 MB.");
             return;
         }
 
@@ -203,19 +203,19 @@ class UserController
             $stmt = $this->conexion->prepare("UPDATE USUARIOS SET foto_perfil = ? WHERE id_usuario = ?");
             if ($stmt->execute([$ruta_bd, $id_usuario])) {
                 $_SESSION["foto_perfil"] = $ruta_bd;
-                $this->redirectWithSuccess("perfil.php", "Foto de perfil actualizada correctamente.");
+                $this->redirectWithSuccess("../view/perfil.php", "Foto de perfil actualizada correctamente.");
             } else {
-                $this->redirectWithError("perfil.php", "Error al guardar la foto en la base de datos.");
+                $this->redirectWithError("../view/perfil.php", "Error al guardar la foto en la base de datos.");
             }
         } else {
-            $this->redirectWithError("perfil.php", "Error al mover el archivo. Comprueba los permisos del directorio.");
+            $this->redirectWithError("../view/perfil.php", "Error al mover el archivo. Comprueba los permisos del directorio.");
         }
     }
 
     public function updatePassword(): void
     {
         if (!isset($_SESSION["id_usuario"])) {
-            $this->redirectWithError("login.php", "Debes iniciar sesión.");
+            $this->redirectWithError("../view/login.php", "Debes iniciar sesión.");
             return;
         }
 
@@ -225,17 +225,17 @@ class UserController
         $confirma   = $_POST["confirm-new-password"] ?? "";
 
         if (empty($current) || empty($nueva) || empty($confirma)) {
-            $this->redirectWithError("perfil.php", "Rellena todos los campos de contraseña.");
+            $this->redirectWithError("../view/perfil.php", "Rellena todos los campos de contraseña.");
             return;
         }
 
         if (strlen($nueva) < 8) {
-            $this->redirectWithError("perfil.php", "La nueva contraseña debe tener al menos 8 caracteres.");
+            $this->redirectWithError("../view/perfil.php", "La nueva contraseña debe tener al menos 8 caracteres.");
             return;
         }
 
         if ($nueva !== $confirma) {
-            $this->redirectWithError("perfil.php", "Las contraseñas nuevas no coinciden.");
+            $this->redirectWithError("../view/perfil.php", "Las contraseñas nuevas no coinciden.");
             return;
         }
 
@@ -244,22 +244,22 @@ class UserController
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($current !== ($row["contrasena"] ?? "")) {
-            $this->redirectWithError("perfil.php", "La contraseña actual no es correcta.");
+            $this->redirectWithError("../view/perfil.php", "La contraseña actual no es correcta.");
             return;
         }
 
         $stmt_up = $this->conexion->prepare("UPDATE USUARIOS SET contrasena = ? WHERE id_usuario = ?");
         if ($stmt_up->execute([$nueva, $id_usuario])) {
-            $this->redirectWithSuccess("perfil.php", "Contraseña actualizada correctamente.");
+            $this->redirectWithSuccess("../view/perfil.php", "Contraseña actualizada correctamente.");
         } else {
-            $this->redirectWithError("perfil.php", "Error al cambiar la contraseña.");
+            $this->redirectWithError("../view/perfil.php", "Error al cambiar la contraseña.");
         }
     }
 
     public function deleteAccount(): void
     {
         if (!isset($_SESSION["id_usuario"])) {
-            $this->redirectWithError("login.php", "Debes iniciar sesión.");
+            $this->redirectWithError("../view/login.php", "Debes iniciar sesión.");
             return;
         }
 
@@ -267,7 +267,7 @@ class UserController
         $password   = $_POST["password"] ?? "";
 
         if (empty($password)) {
-            $this->redirectWithError("perfil.php", "Por favor, introduce tu contraseña para confirmar.");
+            $this->redirectWithError("../view/perfil.php", "Por favor, introduce tu contraseña para confirmar.");
             return;
         }
 
@@ -277,7 +277,7 @@ class UserController
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($password !== ($row["contrasena"] ?? "")) {
-            $this->redirectWithError("perfil.php", "La contraseña es incorrecta.");
+            $this->redirectWithError("../view/perfil.php", "La contraseña es incorrecta.");
             return;
         }
 
@@ -286,17 +286,17 @@ class UserController
         if ($stmt_del->execute([$id_usuario])) {
             session_unset();
             session_destroy();
-            header("Location: index.php?deleted=1");
+            header("Location: ../index.php?deleted=1");
             exit();
         } else {
-            $this->redirectWithError("perfil.php", "Error al intentar eliminar la cuenta.");
+            $this->redirectWithError("../view/perfil.php", "Error al intentar eliminar la cuenta.");
         }
     }
 
     public function getProfileData(): array
     {
         if (!isset($_SESSION["id_usuario"])) {
-            header("Location: login.php");
+            header("Location: ../view/login.php");
             exit();
         }
 
@@ -311,7 +311,7 @@ class UserController
 
         if (!$usuario) {
             session_destroy();
-            header("Location: login.php");
+            header("Location: ../view/login.php");
             exit();
         }
 

@@ -13,8 +13,8 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Run & Eat - Eventos Gastronómicos</title>
-    <link rel="icon" type="image/png" href="../public/img/logo.png">
-    <link rel="stylesheet" href="../public/style/styles.css">
+    <link rel="icon" type="image/png" href="public/img/logo.png">
+    <link rel="stylesheet" href="public/style/styles.css">
     <style>
         .user-menu {
             position: relative;
@@ -89,26 +89,26 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
     <header>
         <div class="header-container">
             <div class="logo-section">
-                <img src="../public/img/logo.png" alt="Run & Eat" onclick="location.href='index.php'">
+                <img src="public/img/logo.png" alt="Run & Eat" onclick="location.href='index.php'">
                 <div class="nav-left">
                     <button onclick="location.href='index.php'">Eventos</button>
-                    <button onclick="location.href='../view/contacto.html'">Contacto</button>
+                    <button onclick="location.href='view/contacto.html'">Contacto</button>
                 </div>
             </div>
             <div class="nav-right">
                 <?php if ($logueado): ?>
 
                     <?php if ($_SESSION["tipo_usuario"] === "organizador"): ?>
-                        <a href="../controller/crear-evento.php" class="organizer-link">Crear evento</a>
+                        <a href="view/crear-evento.php" class="organizer-link">Crear evento</a>
                     <?php endif; ?>
 
-                    <button class="btn-login" onclick="location.href='perfil.php'">Mi perfil</button>
+                    <button class="btn-login" onclick="location.href='view/perfil.php'">Mi perfil</button>
 
                 <?php else: ?>
 
-                    <a href="crear-evento.php" class="organizer-link">¿Eres organizador?</a>
-                    <button class="btn-registro" onclick="location.href='registro.php'">REGISTRO</button>
-                    <button class="btn-login" onclick="location.href='login.php'">INICIAR SESIÓN</button>
+                    <a href="view/crear-evento.php" class="organizer-link">¿Eres organizador?</a>
+                    <button class="btn-registro" onclick="location.href='view/registro.php'">REGISTRO</button>
+                    <button class="btn-login" onclick="location.href='view/login.php'">INICIAR SESIÓN</button>
 
                 <?php endif; ?>
             </div>
@@ -120,7 +120,7 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
             <div class="search-container search-dropdown">
                 <div class="location-icon">Buscar</div>
                 <input type="text" class="search-input" placeholder="Barcelona" autocomplete="off">
-                <button class="filter-icon"><img src="../public/svg/busqueda-de-lupa.svg" alt="Buscar"></button>
+                <button class="filter-icon"><img src="public/svg/busqueda-de-lupa.svg" alt="Buscar"></button>
             </div>
         </section>
 
@@ -128,7 +128,7 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
             <div class="eventos-grid">
 
                 <?php
-                require_once "EventController.php";
+                require_once "controller/EventController.php";
                 $eventCtrl = new EventController();
                 $eventos = $eventCtrl->listarEventos();
 
@@ -140,7 +140,7 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
                         <div class="evento-card">
                             <div class="evento-image">
                                 <!-- Asumiendo que la imagen guardada en BD es algo como 'public/img/eventos-photos/user.png' -->
-                                <img src="../<?= htmlspecialchars($evento['imagen'] ?? 'public/img/eventos-photos/user.png') ?>" alt="<?= htmlspecialchars($evento['titulo']) ?>">
+                                <img src="<?= htmlspecialchars($evento['imagen'] ?? 'public/img/eventos-photos/user.png') ?>" alt="<?= htmlspecialchars($evento['titulo']) ?>">
                             </div>
                             <div class="evento-content">
                                 <h3 class="evento-title"><?= htmlspecialchars($evento['titulo']) ?></h3>
@@ -151,7 +151,7 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
                                         echo str_repeat("★", $estrellas) . str_repeat("☆", 5 - $estrellas);
                                     ?>
                                 </div>
-                                <button class="evento-button" onclick="location.href='../view/evento.php?id=<?= $evento['id_evento'] ?>'">Ver Detalles</button>
+                                <button class="evento-button" onclick="location.href='view/evento.php?id=<?= $evento['id_evento'] ?>'">Ver Detalles</button>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -172,7 +172,7 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
     <footer class="site-footer">
         <div class="site-footer__inner">
             <div class="site-footer__brand">
-                <img src="../public/img/logo.png" alt="Run & Eat" class="site-footer__logo">
+                <img src="public/img/logo.png" alt="Run & Eat" class="site-footer__logo">
                 <p class="site-footer__tagline">La plataforma de eventos gastronómicos.</p>
                 <p class="site-footer__copy">&copy; 2026 Run &amp; Eat. Todos los derechos reservados.</p>
             </div>
@@ -181,33 +181,33 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
                     <h4 class="site-footer__col-title">Plataforma</h4>
                     <ul>
                         <li><a href="index.php">Eventos</a></li>
-                        <li><a href="../controller/crear-evento.php">Crear evento</a></li>
+                        <li><a href="view/crear-evento.php">Crear evento</a></li>
                         <?php if (!$logueado): ?>
-                            <li><a href="../controller/registro.php">Registro</a></li>
-                            <li><a href="../controller/login.php">Iniciar sesión</a></li>
+                            <li><a href="view/registro.php">Registro</a></li>
+                            <li><a href="view/login.php">Iniciar sesión</a></li>
                         <?php endif; ?>
                     </ul>
                 </div>
                 <div class="site-footer__col">
                     <h4 class="site-footer__col-title">Soporte</h4>
                     <ul>
-                        <li><a href="../view/faq.html">Preguntas frecuentes</a></li>
-                        <li><a href="../view/contacto.html">Contacto</a></li>
+                        <li><a href="view/faq.html">Preguntas frecuentes</a></li>
+                        <li><a href="view/contacto.html">Contacto</a></li>
                     </ul>
                 </div>
                 <div class="site-footer__col">
                     <h4 class="site-footer__col-title">Empresa</h4>
                     <ul>
-                        <li><a href="../view/about-us.html">Sobre nosotros</a></li>
-                        <li><a href="../view/Ignacio.html">Ignacio Breñas</a></li>
-                        <li><a href="../view/Gorka.html">Gorka Ramírez</a></li>
+                        <li><a href="view/about-us.html">Sobre nosotros</a></li>
+                        <li><a href="view/Ignacio.html">Ignacio Breñas</a></li>
+                        <li><a href="view/Gorka.html">Gorka Ramírez</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script src="../public/scripts/script.js"></script>
+    <script src="public/scripts/script.js"></script>
 </body>
 
 </html>

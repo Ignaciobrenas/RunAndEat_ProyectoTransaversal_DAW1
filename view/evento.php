@@ -7,7 +7,7 @@ $eventController = new EventController();
 $evento = $eventController->verEvento($idEvento);
 
 if (!$evento) {
-    die("Evento no encontrado o inactivo. <a href='../controller/index.php'>Volver a eventos</a>");
+    die("Evento no encontrado o inactivo. <a href='../index.php'>Volver a eventos</a>");
 }
 
 ?>
@@ -24,9 +24,9 @@ if (!$evento) {
     <header>
         <div class="header-container">
             <div class="logo-section">
-                <img src="../public/img/logo.png" alt="Run & Eat" onclick="location.href='../controller/index.php'">
+                <img src="../public/img/logo.png" alt="Run & Eat" onclick="location.href='../index.php'">
                 <div class="nav-left">
-                    <button onclick="location.href='../controller/index.php'">Eventos</button>
+                    <button onclick="location.href='../index.php'">Eventos</button>
                     <button onclick="location.href='contacto.html'">Contacto</button>
                 </div>
             </div>
@@ -34,13 +34,13 @@ if (!$evento) {
                 <?php $logueado = isset($_SESSION["id_usuario"]); ?>
                 <?php if ($logueado): ?>
                     <?php if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] === "organizador"): ?>
-                        <a href="../controller/crear-evento.php" class="organizer-link">Crear evento</a>
+                        <a href="crear-evento.php" class="organizer-link">Crear evento</a>
                     <?php endif; ?>
-                    <button class="btn-login" onclick="location.href='../controller/perfil.php'">Mi perfil</button>
+                    <button class="btn-login" onclick="location.href='perfil.php'">Mi perfil</button>
                 <?php else: ?>
-                    <a href="../controller/crear-evento.php" class="organizer-link">¿Eres organizador?</a>
-                    <button class="btn-registro" onclick="location.href='../controller/registro.php'">REGISTRO</button>
-                    <button class="btn-login" onclick="location.href='../controller/login.php'">INICIAR SESIÓN</button>
+                    <a href="crear-evento.php" class="organizer-link">¿Eres organizador?</a>
+                    <button class="btn-registro" onclick="location.href='registro.php'">REGISTRO</button>
+                    <button class="btn-login" onclick="location.href='login.php'">INICIAR SESIÓN</button>
                 <?php endif; ?>
             </div>
         </div>
@@ -122,7 +122,7 @@ if (!$evento) {
                             (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'admin'));
                         if ($es_admin_o_organizador): 
                         ?>
-                            <button class="btn-primary" style="background-color: #333; color: #FFA208; border: 1px solid #FFA208;" onclick="location.href='../controller/edit-event.php?id=<?= $evento['id_evento'] ?>'">Editar Evento</button>
+                            <button class="btn-primary" style="background-color: #333; color: #FFA208; border: 1px solid #FFA208;" onclick="location.href='../view/edit-event.php?id=<?= $evento['id_evento'] ?>'">Editar Evento</button>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -203,11 +203,11 @@ if (!$evento) {
                 <div class="site-footer__col">
                     <h4 class="site-footer__col-title">Plataforma</h4>
                     <ul>
-                        <li><a href="../controller/index.php">Eventos</a></li>
-                        <li><a href="../controller/crear-evento.php">Crear evento</a></li>
+                        <li><a href="../index.php">Eventos</a></li>
+                        <li><a href="crear-evento.php">Crear evento</a></li>
                         <?php if (!$logueado): ?>
-                            <li><a href="../controller/registro.php">Registro</a></li>
-                            <li><a href="../controller/login.php">Iniciar sesión</a></li>
+                            <li><a href="registro.php">Registro</a></li>
+                            <li><a href="login.php">Iniciar sesión</a></li>
                         <?php endif; ?>
                     </ul>
                 </div>

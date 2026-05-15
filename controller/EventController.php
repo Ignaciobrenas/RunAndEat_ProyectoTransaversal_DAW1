@@ -67,7 +67,7 @@ class EventController
         $id_organizador = $_SESSION["id_usuario"] ?? null;
 
         if (!$id_organizador) {
-            $this->redirectWithError("login.php", "Debes iniciar sesión como organizador.");
+            $this->redirectWithError("../view/login.php", "Debes iniciar sesión como organizador.");
             return;
         }
 
@@ -110,10 +110,10 @@ class EventController
             ]);
 
             $_SESSION["success"] = "Evento : " . $titulo . " creado correctamente";
-            header("Location: crear-evento.php");
+            header("Location: ../view/crear-evento.php");
             exit();
         } catch (PDOException $e) {
-            $this->redirectWithError("crear-evento.php", "Error al crear el evento: " . $e->getMessage());
+            $this->redirectWithError("../view/crear-evento.php", "Error al crear el evento: " . $e->getMessage());
         }
     }
 
@@ -154,7 +154,7 @@ class EventController
         $id_organizador = $_SESSION["id_usuario"] ?? null;
 
         if (!$id_organizador) {
-            $this->redirectWithError("login.php", "Debes iniciar sesión como organizador.");
+            $this->redirectWithError("../view/login.php", "Debes iniciar sesión como organizador.");
             return;
         }
 
@@ -162,12 +162,12 @@ class EventController
 
         $eventoExistente = $this->verEvento($id_evento);
         if (!$eventoExistente) {
-            $this->redirectWithError("perfil.php", "Evento no encontrado.");
+            $this->redirectWithError("../view/perfil.php", "Evento no encontrado.");
             return;
         }
 
         if ($eventoExistente['id_organizador'] != $id_organizador && $_SESSION['tipo_usuario'] !== 'admin') {
-            $this->redirectWithError("perfil.php", "No tienes permiso para modificar este evento.");
+            $this->redirectWithError("../view/perfil.php", "No tienes permiso para modificar este evento.");
             return;
         }
 
@@ -211,10 +211,10 @@ class EventController
             ]);
 
             $_SESSION["success"] = "Evento : " . $titulo . " modificado correctamente";
-            header("Location: edit-event.php?id=" . $id_evento);
+            header("Location: ../view/edit-event.php?id=" . $id_evento);
             exit();
         } catch (PDOException $e) {
-            $this->redirectWithError("edit-event.php?id=" . $id_evento, "Error al modificar el evento: " . $e->getMessage());
+            $this->redirectWithError("../view/edit-event.php?id=" . $id_evento, "Error al modificar el evento: " . $e->getMessage());
         }
     }
 

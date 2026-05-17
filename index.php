@@ -83,6 +83,8 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
             margin: 4px 0;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="public/scripts/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="public/scripts/slick/slick-theme.css"/>
 </head>
 
 <body>
@@ -139,7 +141,7 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
         </section>
 
         <section class="eventos-container">
-            <div class="eventos-grid">
+            <div class="eventos-carousel">
 
                 <?php
                 require_once "controller/EventController.php";
@@ -151,21 +153,32 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
                     <p style="color:white;">No hay eventos disponibles en este momento.</p>
                 <?php else: ?>
                     <?php foreach ($eventos as $evento): ?>
-                        <div class="evento-card">
-                            <div class="evento-image">
-                                <!-- Asumiendo que la imagen guardada en BD es algo como 'public/img/eventos-photos/user.png' -->
-                                <img src="<?= htmlspecialchars($evento['imagen'] ?? 'public/img/eventos-photos/user.png') ?>" alt="<?= htmlspecialchars($evento['titulo']) ?>">
-                            </div>
-                            <div class="evento-content">
-                                <h3 class="evento-title"><?= htmlspecialchars($evento['titulo']) ?></h3>
-                                <p class="evento-description"><?= htmlspecialchars(mb_substr($evento['descripcion'], 0, 150)) ?>...</p>
-                                <div class="evento-stars">
-                                    <?php
-                                        $estrellas = (int)round($evento['valoracion_promedio'] ?? 0);
-                                        echo str_repeat("★", $estrellas) . str_repeat("☆", 5 - $estrellas);
-                                    ?>
+                        <div class="slick-item-wrapper">
+                            <div class="evento-card">
+                                <div class="evento-image">
+                                    <!-- Asumiendo que la imagen guardada en BD es algo como 'public/img/eventos-photos/user.png' -->
+                                    <img src="<?= htmlspecialchars($evento['imagen'] ?? 'public/img/eventos-photos/user.png') ?>" alt="<?= htmlspecialchars($evento['titulo']) ?>">
+                                    <div class="evento-price-badge">
+                                        <?= $evento['precio'] > 0 ? number_format($evento['precio'], 2) . '€' : 'Gratis' ?>
+                                    </div>
                                 </div>
-                                <button class="evento-button" onclick="location.href='view/evento.php?id=<?= $evento['id_evento'] ?>'">Ver Detalles</button>
+                                <div class="evento-content">
+                                    <h3 class="evento-title"><?= htmlspecialchars($evento['titulo']) ?></h3>
+                                    <p class="evento-description"><?= htmlspecialchars(mb_substr($evento['descripcion'], 0, 150)) ?>...</p>
+                                    
+                                    <div class="evento-author">
+                                        <img src="<?= htmlspecialchars(!empty($evento['organizador_foto']) ? $evento['organizador_foto'] : 'public/img/user.png') ?>" alt="<?= htmlspecialchars($evento['organizador_nombre'] ?? 'Organizador') ?>" class="evento-author-img">
+                                        <span class="evento-author-name">Por <span class="highlight"><?= htmlspecialchars($evento['organizador_nombre'] ?? 'Organizador') ?></span></span>
+                                    </div>
+
+                                    <div class="evento-stars">
+                                        <?php
+                                            $estrellas = (int)round($evento['valoracion_promedio'] ?? 0);
+                                            echo str_repeat("★", $estrellas) . str_repeat("☆", 5 - $estrellas);
+                                        ?>
+                                    </div>
+                                    <button class="evento-button" onclick="location.href='view/evento.php?id=<?= $evento['id_evento'] ?>'">Ver Detalles</button>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -173,13 +186,6 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
 
             </div>
 
-            <!-- Paginación -->
-            <div class="pagination">
-                <button disabled>&lt;</button>
-                <span class="page-number">1</span>
-                <span class="page-info">de 5</span>
-                <button>&gt;</button>
-            </div>
         </section>
     </main>
 
@@ -221,6 +227,8 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
         </div>
     </footer>
 
+    <script src="public/scripts/jquery-1.12.4.js"></script>
+    <script src="public/scripts/slick/slick.min.js"></script>
     <script src="public/scripts/script.js"></script>
 </body>
 

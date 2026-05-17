@@ -1,36 +1,70 @@
 // Manejo del desplegable de filtros
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Elementos del DOM
     const filterBtn = document.querySelector('.filter-icon');
     const searchContainer = document.querySelector('.search-container');
-    
+
     // Crear el dropdown de filtros si estamos en la página de eventos
     if (filterBtn && searchContainer) {
         createFilterDropdown();
-        
-        filterBtn.addEventListener('click', function(e) {
+
+        filterBtn.addEventListener('click', function (e) {
             e.stopPropagation();
             const dropdown = document.querySelector('.filter-dropdown');
             dropdown.classList.toggle('active');
         });
-        
+
         // Cerrar dropdown al hacer clic fuera
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             const dropdown = document.querySelector('.filter-dropdown');
             if (dropdown && !searchContainer.contains(e.target)) {
                 dropdown.classList.remove('active');
             }
         });
     }
-    
+
     // Inicializar sliders
     initializeRangeSliders();
+
+    // carrusel de eventos 
+    if ($('.eventos-carousel').length > 0) {
+        $('.eventos-carousel').slick({
+            dots: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            centerMode: false,
+            adaptiveHeight: true,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        arrows: false
+                    }
+                }
+            ]
+        });
+    }
 });
 
 // Crear el dropdown de filtros
 function createFilterDropdown() {
     const searchContainer = document.querySelector('.search-container');
-    
+
     const filterHTML = `
         <div class="filter-dropdown">
             <!-- Filtro por Ciudad -->
@@ -99,7 +133,7 @@ function createFilterDropdown() {
             </div>
         </div>
     `;
-    
+
     searchContainer.insertAdjacentHTML('beforeend', filterHTML);
 }
 
@@ -108,19 +142,19 @@ function initializeRangeSliders() {
     // Slider de precio
     const precioSlider = document.getElementById('filter-precio');
     const precioValue = document.getElementById('precio-value');
-    
+
     if (precioSlider && precioValue) {
-        precioSlider.addEventListener('input', function() {
+        precioSlider.addEventListener('input', function () {
             precioValue.textContent = this.value + '€';
         });
     }
-    
+
     // Slider de distancia
     const distanciaSlider = document.getElementById('filter-distancia');
     const distanciaValue = document.getElementById('distancia-value');
-    
+
     if (distanciaSlider && distanciaValue) {
-        distanciaSlider.addEventListener('input', function() {
+        distanciaSlider.addEventListener('input', function () {
             distanciaValue.textContent = this.value + ' km';
         });
     }
@@ -132,18 +166,18 @@ function applyFilters() {
     const precio = document.getElementById('filter-precio')?.value || '';
     const distancia = document.getElementById('filter-distancia')?.value || '';
     const tipo = document.getElementById('filter-tipo')?.value || '';
-    
+
     console.log('Filtros aplicados:', {
         ciudad: ciudad,
         precioMax: precio,
         distanciaMax: distancia,
         tipo: tipo
     });
-    
+
     // Aquí irá la lógica para filtrar los eventos
     // Por ahora solo mostramos un mensaje
     alert('Filtros aplicados correctamente. En la versión final con PHP, esto filtrará los eventos.');
-    
+
     // Cerrar el dropdown
     const dropdown = document.querySelector('.filter-dropdown');
     if (dropdown) {
@@ -157,7 +191,7 @@ function clearFilters() {
     const precioSlider = document.getElementById('filter-precio');
     const distanciaSlider = document.getElementById('filter-distancia');
     const tipoSelect = document.getElementById('filter-tipo');
-    
+
     if (ciudadSelect) ciudadSelect.value = '';
     if (precioSlider) {
         precioSlider.value = 50;
@@ -168,7 +202,7 @@ function clearFilters() {
         document.getElementById('distancia-value').textContent = '10 km';
     }
     if (tipoSelect) tipoSelect.value = '';
-    
+
     console.log('Filtros limpiados');
 }
 
@@ -191,14 +225,14 @@ function closeMobileMenu() {
 function previewImage(input) {
     if (input.files && input.files[0]) {
         const reader = new FileReader();
-        
-        reader.onload = function(e) {
+
+        reader.onload = function (e) {
             const uploadText = input.parentElement.querySelector('.upload-text');
             if (uploadText) {
                 uploadText.textContent = input.files[0].name;
             }
         };
-        
+
         reader.readAsDataURL(input.files[0]);
     }
 }
@@ -207,10 +241,10 @@ function previewImage(input) {
 function validateForm(formId) {
     const form = document.getElementById(formId);
     if (!form) return false;
-    
+
     const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
     let isValid = true;
-    
+
     inputs.forEach(input => {
         if (!input.value.trim()) {
             isValid = false;
@@ -219,7 +253,7 @@ function validateForm(formId) {
             input.style.borderColor = '#233554';
         }
     });
-    
+
     return isValid;
 }
 
@@ -234,37 +268,37 @@ function validatePassword(password) {
     return password.length >= 8;
 }
 document.querySelectorAll('.faq-question').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const item = btn.closest('.faq-item');
-                const isOpen = item.classList.contains('open');
+    btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
 
-                // Cerrar todos
-                document.querySelectorAll('.faq-item.open').forEach(openItem => {
-                    openItem.classList.remove('open');
-                    openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-                });
-
-                // Abrir el clickado si estaba cerrado
-                if (!isOpen) {
-                    item.classList.add('open');
-                    btn.setAttribute('aria-expanded', 'true');
-                }
-            });
+        // Cerrar todos
+        document.querySelectorAll('.faq-item.open').forEach(openItem => {
+            openItem.classList.remove('open');
+            openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
         });
 
-        // Filtro por categoría
-        document.querySelectorAll('.faq-cat-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.faq-cat-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+        // Abrir el clickado si estaba cerrado
+        if (!isOpen) {
+            item.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+        }
+    });
+});
 
-                const cat = btn.dataset.category;
-                document.querySelectorAll('.faq-section').forEach(section => {
-                    if (cat === 'all' || section.dataset.category === cat) {
-                        section.style.display = 'block';
-                    } else {
-                        section.style.display = 'none';
-                    }
-                });
-            });
+// Filtro por categoría
+document.querySelectorAll('.faq-cat-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.faq-cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const cat = btn.dataset.category;
+        document.querySelectorAll('.faq-section').forEach(section => {
+            if (cat === 'all' || section.dataset.category === cat) {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
         });
+    });
+});

@@ -117,3 +117,70 @@
 .slick-arrow.slick-hidden {
     display: none;
 }
+
+
+/* Contenedor principal con espacio para flechas */
+.eventos-container {
+    padding: 0 70px;
+    margin-bottom: 3rem;
+}
+
+/* SEPARACIÓN Y ALTURA UNIFORME: El truco definitivo */
+.slick-track {
+    display: flex !important; 
+}
+
+.slick-slide {
+    padding: 15px !important;
+    box-sizing: border-box;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column;
+}
+
+.slick-slide > div {
+    display: flex;
+    flex-grow: 1;
+}
+
+.slick-item-wrapper {
+    display: flex !important;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+}
+
+.evento-card {
+    margin: 0 !important;
+    background-color: #112240;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+    width: 100%;
+}
+
+/* Flechas con el color de nuestra marca */
+.slick-prev:before, .slick-next:before {
+    color: #FFA208 !important;
+    font-size: 30px !important;
+    opacity: 0.8;
+}
+
+.slick-prev { left: -45px !important; }
+.slick-next { right: -45px !important; }
+
+/* Puntos con el color de nuestra marca */
+.slick-dots li button:before {
+    color: #FFA208 !important;
+    font-size: 10px !important;
+    opacity: 0.3;
+}
+
+.slick-dots li.slick-active button:before {
+    opacity: 1 !important;
+}
+
+.slick-dots { bottom: -45px !important; }

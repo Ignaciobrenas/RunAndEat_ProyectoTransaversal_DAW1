@@ -277,7 +277,14 @@ class EventController
     public function listarEventos(): array
     {
         try {
-            $stmt = $this->conexion->query("SELECT id_evento, titulo, descripcion, imagen, valoracion_promedio FROM EVENTOS WHERE activo = 1 ORDER BY fecha DESC");
+            $stmt = $this->conexion->query("
+                SELECT e.id_evento, e.titulo, e.descripcion, e.imagen, e.valoracion_promedio, e.precio,
+                       u.nombre_completo AS organizador_nombre, u.foto_perfil AS organizador_foto 
+                FROM EVENTOS e
+                JOIN USUARIOS u ON e.id_organizador = u.id_usuario
+                WHERE e.activo = 1 
+                ORDER BY e.fecha DESC
+            ");
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             return [];

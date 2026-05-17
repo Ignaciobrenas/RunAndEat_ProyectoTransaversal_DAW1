@@ -392,11 +392,7 @@ main {
     color: #FFA208;
 }
 
-/* Grid de eventos */
-.eventos-container {
-    margin-bottom: 3rem;
-}
-
+/* Grid de eventos (Fallback o estilos base) */
 .eventos-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -409,6 +405,9 @@ main {
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .evento-card:hover {
@@ -417,6 +416,7 @@ main {
 }
 
 .evento-image {
+    position: relative;
     width: 100%;
     height: 200px;
     overflow: hidden;
@@ -429,8 +429,31 @@ main {
     object-fit: cover;
 }
 
+.evento-price-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #FFA208;
+    color: #0a192f;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.5px;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.evento-card:hover .evento-price-badge {
+    transform: scale(1.05);
+}
+
 .evento-content {
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .evento-title {
@@ -444,6 +467,34 @@ main {
     font-size: 0.9rem;
     margin-bottom: 1rem;
     line-height: 1.6;
+    flex-grow: 1; /* Absorbe el espacio sobrante para empujar estrellas y botón abajo */
+}
+
+.evento-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.2rem;
+    font-size: 0.85rem;
+    color: #a0aec0;
+}
+
+.evento-author-img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid #FFA208;
+    background-color: #112240;
+}
+
+.evento-author-name {
+    font-weight: 500;
+}
+
+.evento-author-name .highlight {
+    color: #FFA208;
+    font-weight: 600;
 }
 
 .evento-stars {

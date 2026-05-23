@@ -241,11 +241,11 @@ chmod 755 public/img/user-photos/
 | Escape de salida HTML | ✅ Implementado | `htmlspecialchars()` en todos los outputs de datos de usuario |
 | Control de sesión | ✅ Implementado | Middleware `auth_guard.php` con control por rol en cada ruta protegida |
 | Validación de subidas | ✅ Implementado | Verificación de MIME real con `finfo`, extensión y límite de 2 MB |
-| Hash de contraseñas | ❌ Pendiente | Las contraseñas se almacenan en **texto plano** — debe migrarse a `password_hash()` |
+| Hash de contraseñas | ✅ Implementado | Contraseñas protegidas mediante `password_hash()` con el algoritmo por defecto de PHP |
 | Protección CSRF | ⚠️ Parcial | No hay tokens CSRF en los formularios — recomendable añadirlos en producción |
 | HTTPS | ⚠️ Entorno local | No configurado — obligatorio antes de cualquier despliegue en producción |
 
-> **Aviso importante:** Las contraseñas se guardan actualmente en texto plano. Antes de cualquier despliegue en producción es imprescindible migrar a `password_hash()` / `password_verify()` de PHP.
+> **Nota de seguridad:** Las contraseñas se encriptan de forma segura utilizando `password_hash()` y se verifican mediante `password_verify()`, manteniendo compatibilidad retrospectiva con cuentas antiguas en texto plano para una transición fluida.
 
 ---
 

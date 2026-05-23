@@ -103,14 +103,15 @@ unset($_SESSION["success"], $_SESSION["error"]);
 
                         <div class="foto-form-wrap">
                             <div class="perfil-image-container">
-                                <img src="../<?= $foto_src ?>" alt="Foto de perfil" class="perfil-image">
+                                <img src="<?= $foto_src ?>" alt="Foto de perfil" class="perfil-image">
 
 
                                 <label for="foto_perfil_input" class="change-photo-btn">Cambiar</label>
                                 <input type="file" id="foto_perfil_input" name="foto_perfil"
-                                       accept="image/jpeg,image/png,image/webp,image/gif">
+                                       accept="image/jpeg,image/png,image/webp,image/gif"
+                                       onchange="this.form.submit()">
                             </div>
-                            <button type="submit" class="btn-subir-foto">Subir foto</button>
+                            <noscript><button type="submit" class="btn-subir-foto">Subir foto</button></noscript>
                         </div>
 
                     </form>

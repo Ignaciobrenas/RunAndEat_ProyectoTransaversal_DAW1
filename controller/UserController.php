@@ -37,7 +37,7 @@ class UserController
         $stmt->execute([$email]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($usuario && (password_verify($contrasena, $usuario["contrasena"]) || $contrasena === $usuario["contrasena"])) {
+        if ($usuario && password_verify($contrasena, $usuario["contrasena"])) {
             $_SESSION["id_usuario"]      = $usuario["id_usuario"];
             $_SESSION["nombre_completo"] = $usuario["nombre_completo"];
             $_SESSION["tipo_usuario"]    = $usuario["tipo_usuario"];
@@ -245,7 +245,7 @@ class UserController
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $db_password = $row["contrasena"] ?? "";
-        if (!password_verify($current, $db_password) && $current !== $db_password) {
+        if (!password_verify($current, $db_password)) {
             $this->redirectWithError("../view/perfil.php", "La contraseña actual no es correcta.");
             return;
         }
@@ -274,13 +274,13 @@ class UserController
             return;
         }
 
-        // Verificar contraseña (soporta tanto hashes con password_verify como contraseñas anteriores en texto plano)
+        // Verificar contraseña con password_verify de forma segura
         $stmt = $this->conexion->prepare("SELECT contrasena FROM USUARIOS WHERE id_usuario = ? LIMIT 1");
         $stmt->execute([$id_usuario]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $db_password = $row["contrasena"] ?? "";
-        if (!password_verify($password, $db_password) && $password !== $db_password) {
+        if (!password_verify($password, $db_password)) {
             $this->redirectWithError("../view/perfil.php", "La contraseña es incorrecta.");
             return;
         }

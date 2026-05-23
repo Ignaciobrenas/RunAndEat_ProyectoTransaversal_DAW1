@@ -291,6 +291,24 @@ class EventController
         }
     }
 
+    public function listarOrganizadoresDestacados(): array
+    {
+        try {
+            $stmt = $this->conexion->query("
+                SELECT u.id_usuario, u.nombre_completo, u.foto_perfil, COUNT(e.id_evento) AS total_eventos
+                FROM USUARIOS u
+                LEFT JOIN EVENTOS e ON u.id_usuario = e.id_organizador AND e.activo = 1
+                WHERE u.tipo_usuario = 'organizador'
+                GROUP BY u.id_usuario, u.nombre_completo, u.foto_perfil
+                ORDER BY total_eventos DESC, u.nombre_completo ASC
+                LIMIT 10
+            ");
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
+
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {

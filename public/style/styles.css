@@ -1951,11 +1951,11 @@ footer {
     align-items: center;
     justify-content: center;
     padding: 40px 20px;
-    background: #0f2742; /* azul oscuro fondo */
+    background: #0f2742; 
 }
 
 .forbidden-card {
-    background: #162f4d; /* azul más claro que el fondo */
+    background: #162f4d; 
     border: 1px solid #1f3b5c;
     border-radius: 16px;
     padding: 48px 40px;
@@ -1967,7 +1967,7 @@ footer {
 .forbidden-icon {
     font-size: 3rem;
     margin-bottom: 16px;
-    color: #FFA208; /* amarillo */
+    color: #FFA208;
 }
 
 .forbidden-card h2 {
@@ -1977,13 +1977,13 @@ footer {
 }
 
 .forbidden-card p {
-    color: #c7d0d9; /* gris claro */
+    color: #c7d0d9;
     line-height: 1.6;
     margin-bottom: 8px;
 }
 
 .forbidden-card p span {
-    color: #FFA208; /* amarillo */
+    color: #FFA208;
     font-weight: 600;
 }
 
@@ -2026,4 +2026,97 @@ footer {
 .btn-backo:hover {
     color: #ffffff;
     border-color: #4f6b8a;
+}
+
+
+/* Nuevos estilos para el carrusel */
+.section-title {
+    color: #fff;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-left: 15px;
+    font-family: "Futura", sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 80%;
+    background-color: #FFA208;
+    border-radius: 3px;
+}
+
+/*Organizador Destacado */
+.organizador-card {
+    background-color: #112240;
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    border: 1px solid rgba(255, 162, 8, 0.05);
+}
+
+.organizador-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(255, 162, 8, 0.15);
+    border-color: rgba(255, 162, 8, 0.3);
+}
+
+.organizador-avatar-wrapper {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    margin-bottom: 1.2rem;
+}
+
+.organizador-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #FFA208;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.4s ease;
+}
+
+.organizador-card:hover .organizador-avatar {
+    transform: scale(1.08);
+}
+
+.organizador-name {
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    font-family: "Futura", sans-serif;
+}
+
+.organizador-role {
+    color: #a0aec0;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.organizador-badge {
+    background-color: rgba(255, 162, 8, 0.12);
+    color: #FFA208;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    border: 1px solid rgba(255, 162, 8, 0.2);
 }

@@ -141,15 +141,40 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
         </section>
 
         <section class="eventos-container">
-            <div class="eventos-carousel">
+            <?php
+            require_once "controller/EventController.php";
+            $eventCtrl = new EventController();
+            $eventos = $eventCtrl->listarEventos();
+            ?>
 
+            <h2 class="section-title">Organizadores destacados</h2>
+            <div class="organizadores-carousel">
                 <?php
-                require_once "controller/EventController.php";
-                $eventCtrl = new EventController();
-                $eventos = $eventCtrl->listarEventos();
-
-                if (empty($eventos)):
+                $organizadores = $eventCtrl->listarOrganizadoresDestacados();
+                if (empty($organizadores)):
                 ?>
+                    <p style="color:white;">No hay organizadores disponibles en este momento.</p>
+                <?php else: ?>
+                    <?php foreach ($organizadores as $org): ?>
+                        <div class="slick-item-wrapper">
+                            <div class="organizador-card">
+                                <div class="organizador-avatar-wrapper">
+                                    <img src="<?= htmlspecialchars(!empty($org['foto_perfil']) ? $org['foto_perfil'] : 'public/img/user.png') ?>" alt="<?= htmlspecialchars($org['nombre_completo']) ?>" class="organizador-avatar">
+                                </div>
+                                <h3 class="organizador-name"><?= htmlspecialchars($org['nombre_completo']) ?></h3>
+                                <p class="organizador-role">Organizador Profesional</p>
+                                <div class="organizador-badge">
+                                    <?= htmlspecialchars($org['total_eventos']) ?> <?= $org['total_eventos'] == 1 ? 'evento creado' : 'eventos creados' ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 4rem;">Eventos destacados</h2>
+            <div class="eventos-carousel">
+                <?php if (empty($eventos)): ?>
                     <p style="color:white;">No hay eventos disponibles en este momento.</p>
                 <?php else: ?>
                     <?php foreach ($eventos as $evento): ?>
@@ -183,9 +208,7 @@ $foto     = $logueado ? htmlspecialchars($_SESSION["foto_perfil"]) : "";
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
-
             </div>
-
         </section>
     </main>
 

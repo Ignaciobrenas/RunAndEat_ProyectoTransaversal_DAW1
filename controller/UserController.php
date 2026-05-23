@@ -37,7 +37,7 @@ class UserController
         $stmt->execute([$email]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($usuario && $contrasena === $usuario["contrasena"]) {
+        if ($usuario && (password_verify($contrasena, $usuario["contrasena"]) || $contrasena === $usuario["contrasena"])) {
             $_SESSION["id_usuario"]      = $usuario["id_usuario"];
             $_SESSION["nombre_completo"] = $usuario["nombre_completo"];
             $_SESSION["tipo_usuario"]    = $usuario["tipo_usuario"];
@@ -96,12 +96,13 @@ class UserController
             return;
         }
 
-        // Insertar usuario con contraseña en texto plano
+        // Insertar usuario con contraseña encriptada (password_hash)
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $stmt_insert = $this->conexion->prepare(
             "INSERT INTO USUARIOS (nombre_completo, email, contrasena, tipo_usuario) VALUES (?, ?, ?, ?)"
         );
 
-        if ($stmt_insert->execute([$nombre, $email, $password, $tipo_usuario])) {
+        if ($stmt_insert->execute([$nombre, $email, $hashed_password, $tipo_usuario])) {
             header("Location: ../view/login.php?registered=1");
             exit();
         } else {
@@ -243,13 +244,15 @@ class UserController
         $stmt->execute([$id_usuario]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($current !== ($row["contrasena"] ?? "")) {
+        $db_password = $row["contrasena"] ?? "";
+        if (!password_verify($current, $db_password) && $current !== $db_password) {
             $this->redirectWithError("../view/perfil.php", "La contraseña actual no es correcta.");
             return;
         }
 
+        $hashed_new_password = password_hash($nueva, PASSWORD_DEFAULT);
         $stmt_up = $this->conexion->prepare("UPDATE USUARIOS SET contrasena = ? WHERE id_usuario = ?");
-        if ($stmt_up->execute([$nueva, $id_usuario])) {
+        if ($stmt_up->execute([$hashed_new_password, $id_usuario])) {
             $this->redirectWithSuccess("../view/perfil.php", "Contraseña actualizada correctamente.");
         } else {
             $this->redirectWithError("../view/perfil.php", "Error al cambiar la contraseña.");
@@ -271,12 +274,13 @@ class UserController
             return;
         }
 
-        // Verificar contraseña (en este proyecto se comparan en texto plano según login/registro)
+        // Verificar contraseña (soporta tanto hashes con password_verify como contraseñas anteriores en texto plano)
         $stmt = $this->conexion->prepare("SELECT contrasena FROM USUARIOS WHERE id_usuario = ? LIMIT 1");
         $stmt->execute([$id_usuario]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($password !== ($row["contrasena"] ?? "")) {
+        $db_password = $row["contrasena"] ?? "";
+        if (!password_verify($password, $db_password) && $password !== $db_password) {
             $this->redirectWithError("../view/perfil.php", "La contraseña es incorrecta.");
             return;
         }

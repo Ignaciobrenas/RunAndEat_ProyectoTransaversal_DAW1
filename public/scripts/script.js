@@ -93,6 +93,41 @@ document.addEventListener('DOMContentLoaded', function () {
             ]
         });
     }
+
+    // Interactivitat dels botons del detall de l'event (Apuntarse i Compartir)
+    if (typeof jQuery !== 'undefined') {
+        // Botó "Apuntarse al Evento"
+        jQuery('.evento-detail-actions .btn-primary').not('[onclick]').on('click', function (e) {
+            e.preventDefault();
+            showCustomModal(
+                '¡Inscripción Completada!',
+                'Te has apuntado correctamente a este evento gastronómico. Recibirás un email con todos los detalles pronto. ¡Que aproveche!',
+                'success'
+            );
+        });
+
+        // Botó "Compartir"
+        jQuery('.evento-detail-actions .btn-share').on('click', function (e) {
+            e.preventDefault();
+            var currentUrl = window.location.href;
+            showCustomModal(
+                'Compartir Evento',
+                'Copia este enlace para compartirlo con tus amigos:<br><br><strong style="color:#FFA208;word-break:break-all;">' + currentUrl + '</strong>',
+                'share'
+            );
+        });
+
+        // Formulario de contacto
+        jQuery('.contact-form form').on('submit', function (e) {
+            e.preventDefault();
+            showCustomModal(
+                '¡Mensaje Enviado!',
+                'Gracias por contactar con Run & Eat. Hemos recibido tu mensaje y te responderemos lo antes posible.',
+                'success'
+            );
+            this.reset();
+        });
+    }
 });
 
 // Crear el dropdown de filtros
@@ -210,7 +245,11 @@ function applyFilters() {
 
     // Aquí irá la lógica para filtrar los eventos
     // Por ahora solo mostramos un mensaje
-    alert('Filtros aplicados correctamente. En la versión final con PHP, esto filtrará los eventos.');
+    showCustomModal(
+        '¡Filtros Aplicados!',
+        'Los filtros se han aplicado correctamente. En la versión final con PHP, esto filtrará la lista de eventos.',
+        'success'
+    );
 
     // Cerrar el dropdown
     const dropdown = document.querySelector('.filter-dropdown');
@@ -336,3 +375,66 @@ document.querySelectorAll('.faq-cat-btn').forEach(btn => {
         });
     });
 });
+
+// ============================================================
+// MODAL PERSONALITZAT AMB JQUERY
+// Mostra un missatge modal sobre un fons transparent.
+// Al clicar el fons, el missatge s'oculta.
+// ============================================================
+function showCustomModal(title, message, iconType) {
+    if (iconType === undefined) { iconType = 'info'; }
+
+    // Fallback si jQuery no està disponible
+    if (typeof jQuery === 'undefined') {
+        alert(title + '\n\n' + message.replace(/<br>/g, '\n').replace(/<[^>]*>/g, ''));
+        return;
+    }
+
+    var icons = { success: '✅', error: '❌', share: '🔗', info: 'ℹ️' };
+    var iconHtml = icons[iconType] || icons['info'];
+
+    // Construir el modal amb jQuery
+    var $backdrop = jQuery('<div class="custom-modal-backdrop"></div>');
+    var $content  = jQuery('<div class="custom-modal-content"></div>');
+    var $closeBtn = jQuery('<button class="custom-modal-close">&times;</button>');
+    var $body     = jQuery('<div class="custom-modal-body"></div>');
+    var $actionBtn = jQuery('<button class="custom-modal-btn">Acceptar</button>');
+
+    $body
+        .append('<span class="custom-modal-icon">' + iconHtml + '</span>')
+        .append('<h2 class="custom-modal-title">' + title + '</h2>')
+        .append('<p class="custom-modal-text">' + message + '</p>')
+        .append($actionBtn);
+
+    $content.append($closeBtn).append($body);
+    $backdrop.append($content);
+    jQuery('body').append($backdrop);
+
+    // Activar animació d'entrada
+    setTimeout(function () { $backdrop.addClass('active'); }, 10);
+
+    // Funció de tancament amb animació
+    function closeModal() {
+        $backdrop.removeClass('active');
+        setTimeout(function () { $backdrop.remove(); }, 300);
+    }
+
+    // Tancar en clicar el botó X
+    $closeBtn.on('click', function (e) {
+        e.stopPropagation();
+        closeModal();
+    });
+
+    // Tancar en clicar el botó Acceptar
+    $actionBtn.on('click', function (e) {
+        e.stopPropagation();
+        closeModal();
+    });
+
+    // Tancar en clicar el fons transparent (backdrop)
+    $backdrop.on('click', function (e) {
+        if (jQuery(e.target).is('.custom-modal-backdrop')) {
+            closeModal();
+        }
+    });
+}

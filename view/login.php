@@ -114,6 +114,7 @@ unset($_SESSION["error"]);
         </div>
     </footer>
 
+    <script src="../public/scripts/jquery-1.12.4.js"></script>
     <script src="../public/scripts/script.js"></script>
 </body>
 </html>

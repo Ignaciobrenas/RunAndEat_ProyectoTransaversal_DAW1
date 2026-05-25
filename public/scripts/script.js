@@ -151,20 +151,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
             
-            var msgText = "¡Clica per a conèixer tots els detalls!";
+            var msgText = "¡Haz clic para conocer todos los detalles!";
             var icon = "✨";
             var title = "Run & Eat";
             
             if ($img.closest('.evento-card').length > 0) {
-                msgText = "¡Descobreix tots els detalls d'aquest esdeveniment gastronòmic!";
+                var eventName = $img.closest('.evento-card').find('.evento-title').text();
+                msgText = "¡Descubre todos los detalles de este evento gastronómico!";
                 icon = "🍽️";
-                title = "Esdeveniment";
+                title = eventName ? eventName : "Evento";
             } else if ($img.closest('.evento-detail-image').length > 0) {
-                msgText = "¡Revisa la ubicació, preu i reserva la teva plaça!";
+                msgText = "¡Revisa la ubicación, precio y reserva tu plaza!";
                 icon = "📍";
-                title = "Detalls";
+                title = "Detalles";
             } else if ($img.hasClass('aboutus-member__photo') || $img.closest('.aboutus-member').length > 0) {
-                msgText = "¡Clica per a veure el perfil complet d'aquest cofundador!";
+                msgText = "¡Haz clic para ver el perfil completo de este cofundador!";
                 icon = "👨‍🍳";
                 title = "Cofundador";
             }
@@ -271,10 +272,16 @@ document.addEventListener('DOMContentLoaded', function () {
                             '<div class="cookie-text-section">' +
                                 '<h4>Uso de Cookies</h4>' +
                                 '<p>Utilizamos cookies para garantizar la mejor experiencia en Run & Eat. Para poder iniciar sesión y disfrutar de todas las funcionalidades, debes aceptar nuestro uso de cookies.</p>' +
+                                '<div class="cookie-options" style="display:none; margin-top:15px; text-align:left; font-size:0.9rem;">' +
+                                    '<label style="display:block; margin-bottom:5px;"><input type="checkbox" checked disabled> Cookies Esenciales (Requeridas)</label>' +
+                                    '<label style="display:block; margin-bottom:5px;"><input type="checkbox" id="cookie-analytics" checked> Cookies Analíticas</label>' +
+                                    '<label style="display:block; margin-bottom:10px;"><input type="checkbox" id="cookie-marketing"> Cookies de Marketing</label>' +
+                                    '<button type="button" class="cookie-btn-save-custom" style="background:#FFA208; color:#0a192f; border:none; padding:8px 12px; border-radius:5px; cursor:pointer; font-weight:bold;">Guardar Preferencias</button>' +
+                                '</div>' +
                             '</div>' +
                             '<div class="cookie-buttons">' +
-                                '<button type="button" class="cookie-btn-decline">Rechazar</button>' +
-                                '<button type="button" class="cookie-btn-accept">Aceptar</button>' +
+                                '<button type="button" class="cookie-btn-customize" style="background:transparent; border:1px solid #fff; color:#fff; margin-right:10px;">Personalizar Cookies</button>' +
+                                '<button type="button" class="cookie-btn-accept">Aceptar Todas</button>' +
                             '</div>' +
                         '</div>' +
                     '</div>';
@@ -283,16 +290,24 @@ document.addEventListener('DOMContentLoaded', function () {
             
             jQuery(document).on('click', '.cookie-btn-accept', function() {
                 localStorage.setItem('cookies_accepted', 'true');
+                localStorage.setItem('cookies_analytics', 'true');
+                localStorage.setItem('cookies_marketing', 'true');
                 hideCookieBanner();
                 updateLoginStatus();
-                showCustomModal('¡Cookies Aceptadas!', 'Gracias por aceptar nuestras cookies. Ya puedes iniciar sesión y acceder a todas las funcionalidades.', 'success');
+                showCustomModal('¡Cookies Aceptadas!', 'Gracias por aceptar todas nuestras cookies. Ya puedes iniciar sesión y acceder a todas las funcionalidades.', 'success');
             });
             
-            jQuery(document).on('click', '.cookie-btn-decline', function() {
-                localStorage.setItem('cookies_accepted', 'false');
+            jQuery(document).on('click', '.cookie-btn-customize', function() {
+                jQuery('.cookie-options').slideToggle();
+            });
+
+            jQuery(document).on('click', '.cookie-btn-save-custom', function() {
+                localStorage.setItem('cookies_accepted', 'true'); // Required for login
+                localStorage.setItem('cookies_analytics', jQuery('#cookie-analytics').is(':checked') ? 'true' : 'false');
+                localStorage.setItem('cookies_marketing', jQuery('#cookie-marketing').is(':checked') ? 'true' : 'false');
                 hideCookieBanner();
                 updateLoginStatus();
-                showCustomModal('Cookies Rechazadas', 'Has rechazado el uso de cookies. No podrás iniciar sesión hasta que las aceptes.', 'info');
+                showCustomModal('Preferencias Guardadas', 'Tus preferencias de cookies han sido guardadas. Ya puedes iniciar sesión.', 'success');
             });
             
             jQuery(document).on('click', '.btn-cookie-trigger', function(e) {
@@ -605,7 +620,7 @@ function showCustomModal(title, message, iconType) {
     var $content  = jQuery('<div class="custom-modal-content"></div>');
     var $closeBtn = jQuery('<button class="custom-modal-close">&times;</button>');
     var $body     = jQuery('<div class="custom-modal-body"></div>');
-    var $actionBtn = jQuery('<button class="custom-modal-btn">Acceptar</button>');
+    var $actionBtn = jQuery('<button class="custom-modal-btn">Aceptar</button>');
 
     $body
         .append('<span class="custom-modal-icon">' + iconHtml + '</span>')

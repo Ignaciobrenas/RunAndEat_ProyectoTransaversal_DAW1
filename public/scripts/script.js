@@ -127,6 +127,132 @@ document.addEventListener('DOMContentLoaded', function () {
             );
             this.reset();
         });
+
+        // ============================================================
+        // MISSATGE DESPLEGABLE SOBRE IMATGES (HOVER EFFECT) WITH JQUERY
+        // ============================================================
+        
+        // Assegurem que els contenidors de les imatges tinguin position: relative i overflow: hidden
+        var $hoverTargets = jQuery('.evento-image img, .evento-detail-image img, .aboutus-member__photo, img.hover-msg-trigger');
+        
+        $hoverTargets.each(function() {
+            var $img = jQuery(this);
+            var $container = $img.parent();
+            
+            // Si el contenidor és un enllaç o un div simple, ens assegurem que estigui preparat
+            $container.css({
+                'position': 'relative',
+                'overflow': 'hidden',
+                'display': $container.css('display') === 'inline' ? 'inline-block' : $container.css('display')
+            });
+            
+            // Afegim una classe per si cal algun estil addicional
+            $container.addClass('hover-msg-container');
+        });
+
+        // Event quan el ratolí es situa a sobre de la imatge
+        jQuery(document).on('mouseenter', '.evento-image img, .evento-detail-image img, .aboutus-member__photo, img.hover-msg-trigger', function() {
+            var $img = jQuery(this);
+            var $container = $img.parent();
+            
+            // Evitar duplicats
+            if ($container.find('.image-hover-msg').length > 0) {
+                return;
+            }
+            
+            // Determinar el missatge i icona segons el context
+            var msgText = "¡Clica per a conèixer tots els detalls!";
+            var icon = "✨";
+            var title = "Run & Eat";
+            
+            if ($img.closest('.evento-card').length > 0) {
+                msgText = "¡Descobreix tots els detalls d'aquest esdeveniment gastronòmic!";
+                icon = "🍽️";
+                title = "Esdeveniment";
+            } else if ($img.closest('.evento-detail-image').length > 0) {
+                msgText = "¡Revisa la ubicació, preu i reserva la teva plaça!";
+                icon = "📍";
+                title = "Detalls";
+            } else if ($img.hasClass('aboutus-member__photo') || $img.closest('.aboutus-member').length > 0) {
+                msgText = "¡Clica per a veure el perfil complet d'aquest cofundador!";
+                icon = "👨‍🍳";
+                title = "Cofundador";
+            }
+            
+            // Permetre personalitzar via atributs de dades de la imatge
+            if ($img.data('hover-msg')) { msgText = $img.data('hover-msg'); }
+            if ($img.data('hover-icon')) { icon = $img.data('hover-icon'); }
+            if ($img.data('hover-title')) { title = $img.data('hover-title'); }
+            
+            // Crear l'overlay del missatge amb jQuery
+            var $overlay = jQuery(
+                '<div class="image-hover-msg">' +
+                    '<div class="hover-msg-inner">' +
+                        '<span class="hover-msg-icon">' + icon + '</span>' +
+                        '<h4 class="hover-msg-title">' + title + '</h4>' +
+                        '<p class="hover-msg-text">' + msgText + '</p>' +
+                    '</div>' +
+                '</div>'
+            );
+            
+            $container.append($overlay);
+            
+            // Desplegar (slide down) amb jQuery animate
+            $overlay.stop().animate({ 'top': '0%' }, 450, 'swing', function() {
+                // Activar l'animació de text/icona una vegada desplegat
+                $overlay.find('.hover-msg-inner').css({
+                    'transform': 'translateY(0)',
+                    'opacity': '1'
+                });
+            });
+            
+            // Event quan el ratolí marxi de sobre el missatge
+            $overlay.on('mouseleave', function() {
+                var $activeOverlay = jQuery(this);
+                // Ocultar text primer
+                $activeOverlay.find('.hover-msg-inner').css({
+                    'transform': 'translateY(-20px)',
+                    'opacity': '0'
+                });
+                // Plegar cap a dalt amb jQuery animate i eliminar del DOM
+                $activeOverlay.stop().animate({ 'top': '-100%' }, 400, 'swing', function() {
+                    $activeOverlay.remove();
+                });
+            });
+            
+            // Si es fa clic a sobre de l'overlay, redirigir correctament
+            $overlay.on('click', function(e) {
+                // Si és una targeta d'esdeveniment, redirigir cap a la pàgina de l'esdeveniment
+                var $evCard = $img.closest('.evento-card');
+                if ($evCard.length > 0) {
+                    var btnUrl = $evCard.find('.evento-button').attr('onclick');
+                    if (btnUrl) {
+                        var match = btnUrl.match(/location\.href\s*=\s*['"]([^'"]+)['"]/);
+                        if (match && match[1]) {
+                            window.location.href = match[1];
+                            return;
+                        }
+                    }
+                }
+                
+                // Si és un membre d'about-us, redirigir
+                var $memberCard = $img.closest('.aboutus-member');
+                if ($memberCard.length > 0) {
+                    var $btn = $memberCard.find('.aboutus-member__btn, .aboutus-member__btn--outline');
+                    var btnUrl = $btn.attr('onclick');
+                    if (btnUrl) {
+                        var match = btnUrl.match(/location\.href\s*=\s*['"]([^'"]+)['"]/);
+                        if (match && match[1]) {
+                            window.location.href = match[1];
+                            return;
+                        }
+                    }
+                }
+
+                // Propagar clic general a la imatge original
+                $img.trigger('click');
+            });
+        });
     }
 });
 

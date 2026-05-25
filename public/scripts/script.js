@@ -128,39 +128,29 @@ document.addEventListener('DOMContentLoaded', function () {
             this.reset();
         });
 
-        // ============================================================
-        // MISSATGE DESPLEGABLE SOBRE IMATGES (HOVER EFFECT) WITH JQUERY
-        // ============================================================
-        
-        // Assegurem que els contenidors de les imatges tinguin position: relative i overflow: hidden
         var $hoverTargets = jQuery('.evento-image img, .evento-detail-image img, .aboutus-member__photo, img.hover-msg-trigger');
         
         $hoverTargets.each(function() {
             var $img = jQuery(this);
             var $container = $img.parent();
             
-            // Si el contenidor és un enllaç o un div simple, ens assegurem que estigui preparat
             $container.css({
                 'position': 'relative',
                 'overflow': 'hidden',
                 'display': $container.css('display') === 'inline' ? 'inline-block' : $container.css('display')
             });
             
-            // Afegim una classe per si cal algun estil addicional
             $container.addClass('hover-msg-container');
         });
 
-        // Event quan el ratolí es situa a sobre de la imatge
         jQuery(document).on('mouseenter', '.evento-image img, .evento-detail-image img, .aboutus-member__photo, img.hover-msg-trigger', function() {
             var $img = jQuery(this);
             var $container = $img.parent();
             
-            // Evitar duplicats
             if ($container.find('.image-hover-msg').length > 0) {
                 return;
             }
             
-            // Determinar el missatge i icona segons el context
             var msgText = "¡Clica per a conèixer tots els detalls!";
             var icon = "✨";
             var title = "Run & Eat";
@@ -179,12 +169,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 title = "Cofundador";
             }
             
-            // Permetre personalitzar via atributs de dades de la imatge
             if ($img.data('hover-msg')) { msgText = $img.data('hover-msg'); }
             if ($img.data('hover-icon')) { icon = $img.data('hover-icon'); }
             if ($img.data('hover-title')) { title = $img.data('hover-title'); }
             
-            // Crear l'overlay del missatge amb jQuery
             var $overlay = jQuery(
                 '<div class="image-hover-msg">' +
                     '<div class="hover-msg-inner">' +
@@ -197,32 +185,25 @@ document.addEventListener('DOMContentLoaded', function () {
             
             $container.append($overlay);
             
-            // Desplegar (slide down) amb jQuery animate
             $overlay.stop().animate({ 'top': '0%' }, 450, 'swing', function() {
-                // Activar l'animació de text/icona una vegada desplegat
                 $overlay.find('.hover-msg-inner').css({
                     'transform': 'translateY(0)',
                     'opacity': '1'
                 });
             });
             
-            // Event quan el ratolí marxi de sobre el missatge
             $overlay.on('mouseleave', function() {
                 var $activeOverlay = jQuery(this);
-                // Ocultar text primer
                 $activeOverlay.find('.hover-msg-inner').css({
                     'transform': 'translateY(-20px)',
                     'opacity': '0'
                 });
-                // Plegar cap a dalt amb jQuery animate i eliminar del DOM
                 $activeOverlay.stop().animate({ 'top': '-100%' }, 400, 'swing', function() {
                     $activeOverlay.remove();
                 });
             });
             
-            // Si es fa clic a sobre de l'overlay, redirigir correctament
             $overlay.on('click', function(e) {
-                // Si és una targeta d'esdeveniment, redirigir cap a la pàgina de l'esdeveniment
                 var $evCard = $img.closest('.evento-card');
                 if ($evCard.length > 0) {
                     var btnUrl = $evCard.find('.evento-button').attr('onclick');
@@ -235,7 +216,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
                 
-                // Si és un membre d'about-us, redirigir
                 var $memberCard = $img.closest('.aboutus-member');
                 if ($memberCard.length > 0) {
                     var $btn = $memberCard.find('.aboutus-member__btn, .aboutus-member__btn--outline');
@@ -249,9 +229,110 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
 
-                // Propagar clic general a la imatge original
                 $img.trigger('click');
             });
+        });
+
+        var $loginButtons = jQuery('.btn-login').filter(function() {
+            var btnText = jQuery(this).text().toUpperCase();
+            var btnOnclick = jQuery(this).attr('onclick') || '';
+            if (btnOnclick.indexOf('perfil.php') !== -1 || btnText.indexOf('PERFIL') !== -1 || btnText.indexOf('TANCAR') !== -1 || btnText.indexOf('CERRAR') !== -1) {
+                return false;
+            }
+            return btnText.indexOf('INICIAR SESIÓN') !== -1 || btnText.indexOf('INICIAR') !== -1 || btnOnclick.indexOf('login.php') !== -1;
+        });
+
+        function updateLoginStatus() {
+            var accepted = localStorage.getItem('cookies_accepted') === 'true';
+            
+            if (accepted) {
+                jQuery('.btn-cookie-trigger').remove();
+                $loginButtons.show();
+            } else {
+                $loginButtons.hide();
+                $loginButtons.each(function() {
+                    var $loginBtn = jQuery(this);
+                    var $parent = $loginBtn.parent();
+                    
+                    if ($parent.find('.btn-cookie-trigger').length === 0) {
+                        var $trigger = jQuery('<button type="button" class="btn-cookie-trigger">🍪 Cookies</button>');
+                        $loginBtn.after($trigger);
+                    }
+                });
+            }
+        }
+
+        function setupCookieBanner() {
+            if (jQuery('.cookie-banner').length === 0) {
+                var bannerHtml = 
+                    '<div class="cookie-banner">' +
+                        '<div class="cookie-banner-content">' +
+                            '<span class="cookie-icon">🍪</span>' +
+                            '<div class="cookie-text-section">' +
+                                '<h4>Uso de Cookies</h4>' +
+                                '<p>Utilizamos cookies para garantizar la mejor experiencia en Run & Eat. Para poder iniciar sesión y disfrutar de todas las funcionalidades, debes aceptar nuestro uso de cookies.</p>' +
+                            '</div>' +
+                            '<div class="cookie-buttons">' +
+                                '<button type="button" class="cookie-btn-decline">Rechazar</button>' +
+                                '<button type="button" class="cookie-btn-accept">Aceptar</button>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+                jQuery('body').append(bannerHtml);
+            }
+            
+            jQuery(document).on('click', '.cookie-btn-accept', function() {
+                localStorage.setItem('cookies_accepted', 'true');
+                hideCookieBanner();
+                updateLoginStatus();
+                showCustomModal('¡Cookies Aceptadas!', 'Gracias por aceptar nuestras cookies. Ya puedes iniciar sesión y acceder a todas las funcionalidades.', 'success');
+            });
+            
+            jQuery(document).on('click', '.cookie-btn-decline', function() {
+                localStorage.setItem('cookies_accepted', 'false');
+                hideCookieBanner();
+                updateLoginStatus();
+                showCustomModal('Cookies Rechazadas', 'Has rechazado el uso de cookies. No podrás iniciar sesión hasta que las aceptes.', 'info');
+            });
+            
+            jQuery(document).on('click', '.btn-cookie-trigger', function(e) {
+                e.preventDefault();
+                showCookieBanner();
+            });
+        }
+
+        function showCookieBanner() {
+            jQuery('.cookie-banner').stop().animate({ 'bottom': '25px' }, 500, 'swing');
+        }
+
+        function hideCookieBanner() {
+            jQuery('.cookie-banner').stop().animate({ 'bottom': '-200px' }, 400, 'swing');
+        }
+
+        setupCookieBanner();
+        updateLoginStatus();
+
+        if (localStorage.getItem('cookies_accepted') !== 'true') {
+            setTimeout(showCookieBanner, 1000);
+        }
+
+        jQuery('form').on('submit', function(e) {
+            var $form = jQuery(this);
+            var isLoginForm = $form.find('button[type="submit"], input[type="submit"]').filter(function() {
+                var txt = jQuery(this).text().toUpperCase();
+                var name = jQuery(this).attr('name') || '';
+                return txt.indexOf('INICIAR SESIÓN') !== -1 || name === 'login' || $form.attr('action') === '../controller/UserController.php';
+            }).length > 0;
+
+            if (isLoginForm && localStorage.getItem('cookies_accepted') !== 'true') {
+                e.preventDefault();
+                showCookieBanner();
+                showCustomModal(
+                    'Aviso de Cookies',
+                    'Debes aceptar el uso de cookies para poder iniciar sesión en la plataforma.',
+                    'info'
+                );
+            }
         });
     }
 });
